@@ -1,0 +1,466 @@
+<!-- Menu Categorias -->
+<div class="container-fluid">
+  <div class="row menuEspe">
+   <div class="col-xs-12">
+
+
+     <ul class="nav nav-pills nav-justified submenu">
+       
+  
+
+      <% @todas_las_categorias.each do |catego| 
+          next if catego.codigo == "ACE"
+      %>
+
+        <li role="presentation"><a  id="<%= catego.codigo == "ACD" ? "botonocultamuestra" : "" %>" class="categoria" data-codigo="<%= catego.codigo%>" href="#"><%=catego.nombre%></a></li>  
+      <% end %>
+
+   
+      </ul>
+   
+
+   </div>
+  </div>
+</div>
+<!-- FIN Menu Categorias -->
+
+<div class="container-fluid">
+<h2>Archivos del evaluado</h2>	
+
+  <div class="row menuEspe">
+   <div class="col-xs-12">
+	<ul class="nav nav-pills nav-justified submenu">
+			 <li><div class="dropdown">
+				    <a href="#" data-toggle="dropdown" class="dropdown-toggle">Planeación de clase<b class="caret"></b></a>
+				    <ul class="dropdown-menu">
+				  <% @archivopersonas.each { |n| %>
+					  <%if n.tipo==1 %>		  
+					   <li><a href="<%= n.archivo.expiring_url(5400) %>" class="categoria" target= _blank> <%= n.archivo_file_name %></a></li>  		  		  
+					  <% end %>
+				   
+				  <% }  %>
+				
+			
+				   </ul>
+			</div> </li>
+			
+			
+			 <li><div class="dropdown">
+				    <a href="#" data-toggle="dropdown" class="dropdown-toggle">Evidencia de evaluación a estudiantes<b class="caret"></b></a>
+				    <ul class="dropdown-menu">
+				  <% @archivopersonas.each { |n| %>
+					  <%if n.tipo==2 %>		  
+					   <li><a href="<%= n.archivo.expiring_url(5400) %>" class="categoria" target= _blank> <%= n.archivo_file_name %></a></li>	 		  
+					  <% end %>
+				   
+				  <% }  %>
+				
+			
+				   </ul>
+			</div></li>
+			<li><a data-toggle="modal"  data-target="#modalFromevaluacion" type="button" href="#">Formulario de práctica educativa</a></li>
+	
+	</ul>
+   </div>
+  </div>	
+</div>
+
+<div class="row">
+<h2>Evaluar</h2>
+<h4>Evaluacion_id: <strong id='evaluacion_actividad'><%= @evaluacion.id %></strong></h4>
+<% if @video.get_extension  != ".flv" %>
+   <p style=" border: 1px solid red;"> <% %></p>
+<% else %>
+    <p style=" border: 1px solid red;"> <% %> </p>
+<% end %>
+  <div>
+    <i>Este video es el primero en la cola de evaluación. Para continuar con el siguiente video debe finalizar la evaluación del video actual.</i>
+  </div>
+  <% if Rails.env.development? %>
+  
+      Evaluacion_id: <%= @evaluacion.id %>
+ <% end %>
+
+<div class="row">
+
+  <!-- VIDEO -->
+  <div class="col-md-6">
+    <div class="panel panel-primary videoEvaluar" style="z-index: 1000;">
+      <div class="panel-heading paneles">Video a Evaluar</div>
+      <div class="panel-body">
+        <div class="embed-responsive embed-responsive-16by9">
+          <%= video_tag(download_video_path(@video), controls: true, autobuffer: true, class: "embed-responsive-item") 
+          %>
+      
+       <% if @video.get_extension  != ".flv" %>
+            <%= video_tag(download_video_path(@video), controls: true, preload: "auto", class: "embed-responsive-item") %>
+          <% else %>
+            <div id="myElement" class="container" align="center">Loading the player...</div>
+              <script type="text/javascript">
+              var playerInstance = jwplayer("myElement");
+              playerInstance.setup({
+                  playlist: [{
+                  sources: [{ 
+                  //file: "rtmp://s1qyt7ke7nzx83.cloudfront.net/cfx/st/flv:videos/attaches/000/022/227/original/video.flv"
+                  file: "<%= @video.cloudfront_path %>"
+                      }]
+                  }],
+              primary: "flash",
+              width: "100%"
+              }); 
+              </script>
+          <% end %>
+              <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/1QG2RMApZN4" frameborder="0" allowfullscreen=""></iframe> -->
+            </div>
+           <!--  <button style="margin-top: 6px; float: right;" data-toggle="modal" data-target="#modalConfirmacionPar" type="button" class="btn btn-success btn-xs">Reportar Video
+            </button> -->
+            <%= link_to "Reportar video", reportar_video_path(@video), html_options = {class: "btn btn-danger btn-xs", role: "button"} %>
+            <table>               
+        </table>              
+      </div>
+    </div>
+  </div>
+  <!-- FIN VIDEO -->
+
+  <!-- Preguntas -->
+  <div class="col-md-6">
+    <div id="divocultamuestra" style="display: block;">
+      <div class="panel panel-primary">
+        <div class="panel-heading paneles">Tabla de Correción</div>
+        <div id="main">              
+          <input type="button" class="btn btn-success btn-xs " id="btAdd" value="Agregar Actividad">
+        <input type="button" class="btn btn-danger btn-xs" id="btRemove" value="Quitar Actividad"><br>
+        </div>   
+
+
+      <% codigos_categorias_sinona = ["PAT", "CDE", "EVF", "URM", "MDC", "CLA", "CNV","MDC_TC","MDC_TI","PLA"] %>
+
+      <% @todas_las_categorias.each do |catego| 
+          next if catego.codigo == "ACD"
+
+      %>
+      
+        <div class="ocultable <%= catego.codigo %>">
+          <div class="panel-body contenidosPregun">
+            <table class="table table-condensed table-bordered preguntasEval">
+              <thead>
+                <th>#</th>
+                <th>Pregunta</th>
+                <th>Respuesta</th>
+              </thead>
+              <tbody>
+                <% @respuestas_sinona[catego.codigo].each do |respuesta| %>
+                  <tr>
+                    <td>
+                      <%= respuesta.grilla_item.orden_item %>
+                    </td>
+                    <td>
+                      <%= respuesta.grilla_item.item %>
+                    </td>
+                    <td>
+                      <div class="alternativas_sinona">
+                        <%= form_for respuesta, remote: true, format: :json do |f| %>
+                        <% if(respuesta.grilla_item.escala=='sino' || respuesta.grilla_item.escala=='sinona' ) %>
+                        <div>
+                          <%= f.radio_button :valor, "A", :checked => (respuesta.valor == "A") %> Si
+                        </div>
+                        <div>
+                          <%= f.radio_button :valor, "B", :checked => (respuesta.valor == "B") %> No
+                        </div>
+                        <% end %>
+                        <% if(respuesta.grilla_item.escala=='sinona') %>
+                        <div>
+                          <%= f.radio_button :valor, "C", :checked => (respuesta.valor == "C") %> N/A
+                        </div>
+                        <% end %>
+                        <% end %>
+                      </div>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+  
+      <% end %>
+
+
+    <div class="panel-body contenidosPregun">
+
+    <div class="panel-group accordion" id="accordion" role="tablist" aria-multiselectable="true">
+    <% (0..9).each do |actividad_n| %>
+      <% count = 0 %>
+      <% if (actividad_n) < 4 %><!-- Se crea este blucle para manejar las 4 actividades obligatorias -->
+      <div class="panel panel-default accordion-group  ocultable actividad_<%= actividad_n +1 %>">
+      <% else %>
+      <div class="panel panel-default accordion-group ocultable actividad_<%= actividad_n +1 %>">
+      <% end %><!-- Fin Se crea este blucle para manejar las 4 actividades obligatorias -->
+      <!-- <div class="panel panel-default ocultable actividad_<%= actividad_n+1 %>"> -->
+        <div class="panel-heading accordion-heading" role="tab" id="headingOne">
+          <h4 class="panel-title accordion-toggle" style="color: #fff;">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_<%= actividad_n+1 %>" aria-expanded="false" aria-controls="collapse_<%= actividad_n+1 %>" class="collapsed accordion-toggle">
+              Actividad #<%= actividad_n+1 %>
+            </a>
+          </h4>
+        </div> 
+        <div id="collapse_<%= actividad_n+1 %>" class="accordion-body collapse in">
+        <!-- COMIENZO ACD -->
+        <% @actividades["ACD"][actividad_n].each do |respuesta| %>
+            <% if count == 0 %>
+              <h4>ACTIVIDADES DEL DOCENTE</h4>
+              <p>
+                Indique si el docente realizó las siguientes actividades durante este periodo de tiempo 
+                (Por favor, seleccione una opción por cada fila.)
+              </p>
+              <% if (actividad_n) < 4 %><!-- Se crea este blucle para manejar las 4 actividades obligatorias -->
+              <table class="table table-condensed table-bordered preguntasEval ocultable actividad_<%= respuesta.numero_actividad %>">
+               <% else %>
+               <table class="table table-condensed table-bordered preguntasEval ocultable actividad_<%= respuesta.numero_actividad %>">
+               <% end %><!-- Fin Se crea este blucle para manejar las 4 actividades obligatorias -->
+                <thead>
+                  <tr>
+                      <th>#</th>
+                      <th>Preguntas <% (actividad_n * 5) %><% ((actividad_n+1) * 5) %> : Docente</th>            
+                      <th>Respuestas</th>
+                  </tr>
+                </thead>
+                <tbody>
+            <% end %>
+                  <tr>
+                    <td><%= respuesta.grilla_item.orden_item %></td>
+                    <td class="preguntaCorre"><%= respuesta.grilla_item.item %></td>
+                    <td>
+                      <%= form_for respuesta, remote: true, format: :json do |f| %>
+                      <%= f.radio_button :valor, "A", :checked => (respuesta.valor == "A") %> Sí
+                      <%= f.radio_button :valor, "B", :checked => (respuesta.valor == "B") %> No
+                      <% end %>
+                    </td>
+                  </tr>
+            <% if count == (@actividades["ACD"][actividad_n].size - 1) %>
+                </tbody>
+              </table>
+            <% end %>
+            <% count = (count + 1) %>
+        <% end %>
+        
+      
+      <!-- FINAL ACD -->
+      <% count = 0 %>
+      <!-- COMIENZO ACE -->
+      <% @actividades["ACE"][actividad_n].each do |respuesta| %>
+      <div class="ocultable actividad_<%= respuesta.numero_actividad %>">  
+        <% if count == 0 %>
+          <h4>ACTIVIDADES DE LOS ESTUDIANTES</h4>
+              <p>
+                Indique la cantidad de estudiantes que observó realizando las siguientes actividades durante este periodo de tiempo. (Por favor, seleccione una opción por cada fila.)
+              </p>
+          <table class="table table-condensed table-bordered preguntasEval ocultable actividad_<%= respuesta.numero_actividad %>">
+            <thead>
+              <tr>
+                  <th>#</th>
+                  <th>Preguntas Tiempo <%= (actividad_n * 5) %>-<%= ((actividad_n+1) * 5)%> : Estudiantes</th>
+              </tr>
+            </thead>
+            <tbody>
+        <% end %>
+
+            
+              <tr>
+                <td><%= respuesta.grilla_item.orden_item %></td>
+                <td class="preguntaCorre"><%= respuesta.grilla_item.item %><br>
+                <%= form_for respuesta, remote: true, format: :json do |f| %>
+                <% if respuesta.grilla_item.escala == 'est1' %>
+                  <div class="row">
+                    <div class="col-xs-6 estudiante"> 
+                      <div class="row">
+                      <%= f.radio_button :valor, "A", :checked => (respuesta.valor == "A"), :class => "radio-inline SiNo" %>Ninguno
+                      </div>
+                      <div class="row">
+                      <%= f.radio_button :valor, "B", :checked => (respuesta.valor == "B"), :class => "radio-inline SiNo" %>1 estudiante
+                      </div>
+                    </div>
+                    <div class="col-xs-6 ">
+                      <div class="row">
+                      <%= f.radio_button :valor, "C", :checked => (respuesta.valor == "C") %>2 a 6 estudiantes
+                      </div>
+                      <div class="row">
+                      <%= f.radio_button :valor, "D", :checked => (respuesta.valor == "D") %>Más de 6 estudiantes
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+                <% if respuesta.grilla_item.escala == 'est2' %>
+                  <div class="row">
+                    <div class="col-xs-6 estudiante"> 
+                      <div class="row">
+                      <%= f.radio_button :valor, "A", :checked => (respuesta.valor == "A"), :class => "radio-inline SiNo" %>Ninguno
+                      </div>
+                      <div class="row">
+                      <%= f.radio_button :valor, "B", :checked => (respuesta.valor == "B"), :class => "radio-inline SiNo" %>1 a 6 estudiantes
+                      </div>
+                    </div>
+                    <div class="col-xs-6 ">
+                      <div class="row">
+                      <%= f.radio_button :valor, "C", :checked => (respuesta.valor == "C") %>Más de 6 estudiantes
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+                <% if respuesta.grilla_item.escala == 'est3' %>
+                  <div class="row">
+                    <div class="col-xs-6 estudiante"> 
+                      <div class="row">
+                      <%= f.radio_button :valor, "A", :checked => (respuesta.valor == "A"), :class => "radio-inline SiNo" %>Ninguno
+                      </div>
+                      <div class="row">
+                      <%= f.radio_button :valor, "B", :checked => (respuesta.valor == "B"), :class => "radio-inline SiNo" %>1 estudiante
+                      </div>
+                    </div>
+                    <div class="col-xs-6 ">
+                      <div class="row">
+                      <%= f.radio_button :valor, "C", :checked => (respuesta.valor == "C") %>2 a 6 estudiantes
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+                <% end %>  
+                </td>
+              </tr>
+        <% if count == (@actividades["ACE"][actividad_n].size - 1) %>
+            </tbody>
+          </table>
+        <% end %>
+        <% count = (count + 1) %>
+      </div>
+      <% end %>
+      </div>
+      </div>
+    <!-- FINAL ACE -->
+    <% end %>
+    </div>
+    </div>
+
+
+
+<!--  MODAL ENTREAGAR EVALUACION -->
+
+      <div class="modal fade" id="myModalEntregarEvalu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 style="color: #fff;" class="modal-title text-align:left;" id="myModalLabel">Enviar Evaluación</h4>
+            </div>
+            <div class="modal-body evaluacion">
+             <h4>Está seguro que quiere entregar la evaluación</h4>
+             <p>Este Resultado será el final. Usted no podrá volver a evaluar este video</p>
+            </div>
+           <div class="modal-footer">
+              <div class="row">
+        <div class="col-xs-12 ">
+          <%= form_for @evaluacion, url: evaluador_guardar_evaluacion_path do |f| %>
+          <% if @evaluacion.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@evaluacion.errors.count, "error") %> evitaron que esta evaluacion se guardara:</h2>
+              <ul>
+                <% @evaluacion.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+              <%= f.hidden_field :profesor_id, { :value => @evaluacion.profesor_id } %>
+              <%= f.hidden_field :evaluador_id, { :value => @evaluacion.evaluador_id } %>
+              <%= f.hidden_field :video_id, { :value => @video.id } %>
+              <%= f.hidden_field :evaluacion_id, { :value => @evaluacion.id } %>
+              <%= f.select "valor", [[1,1], [2,2], [3,3], [4,4], [5,5], [6,6], [7,7]], {}, {:class => "ocultable"} %>
+              <%= f.submit :submit, class: "btn btn-success", value: "Confirmar Entrega" %>
+              <button style="margin-right: 30px;" type="button" class="btn btn-success" data-dismiss="modal">Volver a Evaluación</button>
+          <% end %>  
+        </div>
+      </div>  
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL MODAL ENTREGAR EVALUACION -->
+
+<!--Modal de presentacion del formulario de evaluación -->
+<div class="modal fade" id="modalFromevaluacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Formulario de evaluación</h4>
+      </div>
+      <div class="modal-body" style="color: black;text-align: left;">
+				<div class="form-group">		  
+					   <label style='font-size: 150%;'>Grado:</label>	 <br />
+					   <p style='font-size: 80%; text-align : justify;'><%= @evidenciaformes[0]["grado"] %></p><br />
+					   <label style='font-size: 150%;'>Modelo educativo de la Institución: </label><br />
+					   <p style='font-size: 80%; text-align : justify;'><%= @evidenciaformes[0]["modelo_educativo"] %></p><br />
+					   <label style='font-size: 150%;'>Tiempo elaborado en la institución:</label><br />
+					   <p style='font-size: 80%; text-align : justify;'><%= @evidenciaformes[0]["tiempo_laborado_institucion"] %></p><br />
+					   <label style='font-size: 150%;'>Desarrollo temático de la clase: </label><br />
+					    <p style='font-size: 80%; text-align : justify;'><%= @evidenciaformes[0]["desarrollo_tematico"] %></p><br />
+					   <label style='font-size: 150%;'>Plantee los propósitos, objetivos o fines de la clase:</label><br />
+					    <p style='font-size: 80%; text-align : justify;'><%= @evidenciaformes[0]["propositos_objetivos"] %></p><br />
+					   <label style='font-size: 150%;'>Relacione la planeación de esta clase con el plan de estudios de su institución y el plan de área: </label><br />
+					   <p style='font-size: 80%; text-align : justify;'><%= @evidenciaformes[0]["relacion_planes"] %></p><br />
+					   <label style='font-size: 150%;'>Describa cómo su planeación se relaciona con el PEI de su institución: </label><br />
+					   <p style='font-size: 80%; text-align : justify;'><%= @evidenciaformes[0]["planeacion_pei"] %></p><br />
+					   <label style='font-size: 150%;'>Describa cómo organiza los contenidos de su clase a partir del nivel y particularidades de sus estudiantes:</label><br />
+					   <p style='font-size: 80%; text-align : justify;'><%= @evidenciaformes[0]["organizacion_contenidos"] %></p><br />
+					   <label style='font-size: 150%;'>Mencione todos los aspectos y criterios que tiene en cuenta para la planeación de la clase (por ejemplo conocimiento disciplinar, experiencia, contexto, PEI, lineamientos, etc.):</label><br />
+					   <p style='font-size: 80%; text-align : justify;'><%= @evidenciaformes[0]["planeacion_aspectos_criterios"] %></p><br />
+					   <label style='font-size: 150%;'>Mencione los materiales y recursos que va a utilizar durante la clase:</label><br />
+					    <p style='font-size: 80%; text-align : justify;'><%= @evidenciaformes[0]["materiales_recursos"] %></p><br />	  
+					   <label style='font-size: 150%;'>Describa cómo va a realizar el proceso de evaluación y retroalimentación de la clase:</label><br />
+					    <p style='font-size: 80%; text-align : justify;'><%= @evidenciaformes[0]["evaluacion_retroalimentacion_clase"] %></p><br />
+					   <label style='font-size: 150%;'>Describa las metodologías y/o estrategias empleadas para el desarrollo de la clase (cómo desarrollará las actividades durante la clase):</label><br />
+					    <p style='font-size: 80%; text-align : justify;'><%= @evidenciaformes[0]["metodologias_estrategias_empleadas"] %></p><br />
+	
+                   </div>
+      </div>
+      <div class="modal-footer" style="background-color: #D8D8D8">
+        <div class="row">
+          <div class="col-xs-12 cerrarVentana">
+          <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar Ventana</button>
+        </div>
+      </div>
+      </div>
+        
+        
+      </div>
+    </div>
+  </div>
+
+
+
+      <table class="table table-bordered table-hover">  
+
+     <tbody>       
+        <tr>
+            <td>
+              <button style="margin-top: 6px; float: center;" 
+                      data-toggle="modal" 
+                      data-target="#myModalEntregarEvalu" 
+                      type="button" 
+                      class="btn btn-success btn-xs">Entregar Evaluación
+              </button>
+            </td>
+            </tr>        
+          </tbody>
+      </table>
+    </div>
+  </div>
+  </div>  
+
+   </div>
+
+</div>
+
+ 

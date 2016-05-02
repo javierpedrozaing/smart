@@ -1,0 +1,18 @@
+<%= render "layouts/menu/admin" %>
+
+<li role="presentation" class="dropdown">
+  <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+    Evaluaciones <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <% if check_perfiles ['listar_evaluaciones', 'listar_evaluaciones_asignadas'] %>
+      <li><%= link_to "Todas", evaluaciones_path %></li>
+    <% end %>
+    <% if check_perfiles ['listar_evaluaciones', 'llistar_evaluaciones_asignadas'] %>
+      <li><%= link_to "Pendientes", evaluaciones_pendientes_path %></li>
+    <% end %>
+    <% if check_perfiles ['listar_evaluaciones', 'listar_evaluaciones_asignadas'] %>
+      <li><%= link_to "Terminadas", evaluaciones_realizadas_path %></li>
+    <% end %>
+  </ul>
+</li>

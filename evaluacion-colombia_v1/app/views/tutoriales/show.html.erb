@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Pagina:</strong>
+  <%= @tutorial.pagina.pagina_completa %>
+</p>
+<p>
+  <strong>Perfil:</strong>
+  <%= @tutorial.perfil.perfil %>
+</p>
+<p>
+  <strong>Tutorial:</strong>
+  <%= @tutorial.tutorial %>
+</p>
+
+<p>
+  <strong>Youtube:</strong>
+  <%= @tutorial.youtube_id %>
+</p>
+
+<%= link_to 'Editar', edit_tutorial_path(@tutorial) %> |
+<%= link_to 'Regresar', tutoriales_path %>

@@ -1,0 +1,60 @@
+<table class="table table-bordered">
+  <tr>
+    <th>Evaluador</th>
+    <th>Cédula Profesor</th>
+    <th>Inicio de Evaluación</th>
+    <th>Estado</th>
+    <th>Acciones</th>
+  </tr>
+  <% @evaluaciones.each do |evaluacion| %>
+    <tr data-evaluacion-id="<%= evaluacion.id %>">
+      <td><%= evaluacion.evaluador.nombre_completo %></td>
+      <td><%= evaluacion.profesor.documento %></td>
+      <td><%= evaluacion.created_at %></td>
+      <td><%= evaluacion.estado_evaluacion.estado %></td>
+      <td>
+        <% if check_perfiles ["realizar_evaluacion", "asignar_evaluador"] %>
+          <div class="btn-group">
+            <% if check_perfiles ["realizar_evaluacion"] %>
+              <%= link_to "Realizar evaluación", evaluaciones_realizar_path(evaluacion), :class => "btn btn-xs btn-default" %>
+            <% end %>
+            <% if check_perfiles ["asignar_evaluador"] %>
+              <button class="btn btn-xs asignar-evaluacion-modal btn-default" data-evaluacion-id="<%= evaluacion.id %>" data-url="<%= evaluaciones_asignar_evaluador_path(evaluacion.id) %>">Asignar evaluador</button>
+            <% end %>
+          </div>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<!-- Modal de asigncion de perfiles -->
+<% if check_perfiles ["asignar_evaluador"] %>
+  <!-- Template de seleccion de evaluador -->
+  <div class="modal fade" id="modal-asignacion-evaluacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Asignar Evaluador</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <select id="select-evaluador-id" class="form-control" name="persona[tipo_documento_id]">
+              <% if check_perfiles ["listar_evaluaciones", "listar_evaluadores"] %>
+                <%= options_from_collection_for_select(Persona.evaluadores, :id, :nombre_completo) %>
+              <% else %>
+                <%= options_from_collection_for_select(current_persona.evaluadores, :id, :nombre_completo) %>
+              <% end %>
+            </select>
+          </div>
+          <input id="evaluacion-id" type="hidden" name="id" value=""/>
+        </div>
+        <div class="modal-footer">
+          <button id="guardar-guardar-evaluacion" type="button" class="btn btn-primary">Guardar</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

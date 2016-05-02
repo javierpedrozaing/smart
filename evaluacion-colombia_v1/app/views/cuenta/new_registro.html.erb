@@ -1,0 +1,24 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">    
+    Ingrese la siguiente información para activar su usuario.  
+  </div>
+  <div class="panel-body">
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_tag cuenta_activar_persona_path, method: "post" do %>
+        <div class="form-group">
+          <%= label_tag :tipo_documento_id, "Tipo de documento" %>
+          <select name="tipo_documento_id" class="form-group">
+            <%= options_from_collection_for_select(TipoDocumento.where('id NOT IN (?)', [1,4]), :id, :documento, '2') %>
+          </select>
+        </div>
+        <div class="form-group">
+          <%= label_tag :documento, "Ingresa el número de documento" %>
+          <%= text_field_tag :documento, nil, :autofocus => true, :class => "form-control", :placeholder => "Número de documento" %>
+        </div>
+        <%= hidden_field_tag :tipo_persona, :value => "profesor" %>
+
+        <%= submit_tag "Siguiente", :class => "btn btn-success" %>
+      <% end %>
+    </div>
+  </div>
+</div>

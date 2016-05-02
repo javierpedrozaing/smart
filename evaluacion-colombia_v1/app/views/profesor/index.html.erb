@@ -1,0 +1,102 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+<div class="row">
+<div id="dialog-message" title="ACTUALIZACIÓN DE DATOS" style="display: none">
+  <p>Apreciado docente.</p>
+  <p>
+    Por favor, seleccione <b>EDITAR PERFIL</b> y revise cada uno de los datos en su formulario de inscripción.  Podrá corregir o actualizar los datos que se encuentren incorrectos.
+  </p>
+  <p>Recuerde que esta información es <b>INSDISPENSABLE</b> para la Evaluación de Carácter Diagnostico Formativo (ECDF).</p>
+</div>
+    <% if @identidad == false %>
+      <div class="alert fade in alert-danger "><button type="button" class="close" data-dismiss="alert">×</button>Su video fue reportado exitosamente, el caso está siendo procesado.</div>
+    <% end %>
+	<h4 style="margin-left:16px; text-align:center; margin-bottom: 30px; font-size: 27px; margin-top: 16px; color:#043956;">
+	  Plataforma para la Evaluación Docente de Carácter Diagnóstico Formativa (ECDF).
+    </h4>
+	<div class="col-sm-6">
+		<div class="thumbnail" style="padding: 21px;">
+			<%= image_tag("practica2.png") %>
+				<div class="caption">
+					<h3 style="text-align:center;">PRÁCTICA EDUCATIVA</h3>
+					<p>En esta sección podrá cargar y registrar toda la información que permitirá valorar su práctica educativa. 
+				       Próximamente, estaremos informándole, vía correo electrónico, la fecha asignada para iniciar el cargue de su video o el periodo de visita del camarógrafo profesional.</p>
+					       <div class="row">
+        <div class=".col-md-6 .col-md-offset-3">        	
+        <% #if @pico_placa[0] == true  
+        %>	
+          <div class="prof">       
+            <a href="<%= profesor_panel_path %>" class="btn btn-success" role="button">Ir</a>
+          </div> 
+         <% #else 
+         %>  
+          <!--div class="prof">       
+              <a href="#" style="background-color: #A7A29F;" class="btn btn-success" role="button">Ir</a>          
+            </div -->         
+         <% #end 
+         %>  
+        </div>
+      </div>
+					
+		        </div>
+		    <!--
+			<div class="progress">
+				<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+						0%
+				</div>
+			</div>
+			-->
+		</div>  
+	</div>
+	<div class="col-sm-6">
+		<div class="thumbnail" style="padding: 21px;">
+			<%= image_tag("multidimensional2.png") %>
+			<div class="caption">
+		        <h3 style="text-align:center;">AUTOEVALUACIÓN</h3>
+		        <p>
+		        En esta sección, usted podrá diligenciar su autoevaluación
+		        </p>
+		        <!--p>
+				  En esta sección, podrá ingresar la información que permite realizar la aplicación de otros instrumentos de la ECDF adicionales al video de su práctica educativa.  Es decir, encuestas a estudiantes, docentes, directivos docentes, padres de familia, etc.
+		        </p>
+				<p> 
+		          Así mismo, podrá diligenciar su Autoevaluación y ver el avance en el diligenciamiento de sus encuestas por parte de otros miembros de su comunidad educativa. </p>
+		        <p -->
+		      
+		<div class="row">
+          <div class=".col-md-6 .col-md-offset-3">
+            <div class="prof">       
+              <a href="<%= autoevaluacion_index_path %>"  class="btn btn-success" role="button">Ir</a> <!-- desactivar este boton -->          
+            </div>
+          </div>
+        </div>
+		    </div>
+		    <!--
+			<div class="progress">
+				<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+						0%
+				</div>
+			</div>
+			-->
+		</div>  
+	</div>
+</div>
+<script>
+/*
+$(document).ready(function() {
+  $(function() {
+    $( "#dialog-message" ).dialog({
+      modal: true,
+      width: 600,
+      height: 400,
+      buttons: {
+        "EDITAR PERFIL": function(){
+        	//alert("hola");
+        	window.location.replace("<%= cuenta_editar_cuenta_path %>");
+        }
+      }
+    });
+  });
+});
+*/
+  </script>

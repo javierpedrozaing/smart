@@ -1,0 +1,98 @@
+<%= form_for(@persona) do |f| %>
+  <% if @persona.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@persona.errors.count, "error") %> prohibido que este usuario se guarden:</h2>
+
+      <ul>
+      <% @persona.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ <div class="row">
+    <div class="panel panel-primary">
+       <div class="panel-heading">
+          <h3 class="panel-title">Actualizar Persona</h3>
+        </div>
+        <div class="panel-body">
+        <ul class="list-group" style="text-align:center;">
+        	<li class="list-group-item" >
+                <ul class="list-inline" style="text-align: -webkit-center;">
+                <li>
+                <strong><%= f.label :nombre %> </strong></li>
+                 <li style="width: 51%; margin-left: 130px;"><%= f.text_field :nombre, :class=>"form-control" %></li>
+                </ul>
+             </li>
+             <li class="list-group-item" >
+                <ul class="list-inline" style="text-align: -webkit-center;">
+                <li>
+                <strong><%= f.label :apellido_paterno %> </strong></li>
+                 <li style="width: 51%; margin-left: 67px;"><%= f.text_field :apellido_paterno, :class=>"form-control" %></li>
+                </ul>
+             </li>
+		     <li class="list-group-item" >
+                <ul class="list-inline" style="text-align: -webkit-center;">
+                <li>
+                <strong><%= f.label :apellido_materno %> </strong></li>
+                 <li style="width: 51%; margin-left: 67px;"><%= f.text_field :apellido_materno, :class=>"form-control" %></li>
+                </ul>
+             </li> 
+             <li class="list-group-item" >
+                <ul class="list-inline" style="text-align: -webkit-center;">
+                <li>
+                <strong><%= f.label :tipo_documento_id %> </strong></li>
+                 <li style="width: 51%; margin-left: 74px;"><%= f.collection_select :tipo_documento_id, @tipo_documento, :id, :documento, {style: "width: 100%;"} %></li>
+                </ul>
+             </li> 
+	         <li class="list-group-item" >
+                <ul class="list-inline" style="text-align: -webkit-center;">
+                <li>
+                <strong><%= f.label :documento %> </strong></li>
+                 <li style="width: 51%; margin-left: 103px;"><%= f.text_field :documento , :class=>"form-control" %></li>
+                </ul>
+             </li> 
+           	 <li class="list-group-item" >
+                <ul class="list-inline" style="text-align: -webkit-center;">
+                <li>
+                <strong><%= f.label :direccion %> </strong></li>
+                 <li style="width: 51%; margin-left: 121px;"><%= f.text_field :direccion  , :class=>"form-control" %></li>
+                </ul>
+             </li> 
+             <li class="list-group-item" style="">
+                <ul class="list-inline" style="text-align: -webkit-center;">
+                <li>
+                <strong><%= f.label :telefono %> </strong></li>
+                 <li style="width: 51%; margin-left: 130px;"><%= f.text_field :telefono , :class=>"form-control" %></li>
+                </ul>
+             </li> 
+             <li class="list-group-item" >
+                <ul class="list-inline" style="text-align: -webkit-center;">
+                <li>
+                <strong><%= f.label :celular %> </strong></li>
+                 <li style="width: 51%; margin-left: 130px;"><%= f.text_field :celular , :class=>"form-control" %></li>
+                </ul>
+             </li> 
+             <li class="list-group-item" >
+                <ul class="list-inline" style="text-align: -webkit-center;">
+                <li>
+                <strong><%= f.label :email %> </strong></li>
+                 <li style="width: 51%; margin-left: 143px;"><%= f.text_field :email, :class=>"form-control" %></li>
+                </ul>
+             </li> 
+             <li class="list-group-item" >
+                <ul class="list-inline" style="text-align: -webkit-center;">
+                <li>
+                <strong><%= f.label :estado_id  %> </strong></li>
+                 <li style="width: 51%; margin-left: 130px;"><%= f.collection_select(:estado_id, @estados, :id, :estado) %></li>
+                </ul>
+             </li> 
+          </div>   
+		  <div class="row">
+		   <div class="col-md-6 col-md-offset-3" style="text-align:center; padding: 0px 0px 15px;">
+		     <%= f.submit 'Actualizar',:name => 'Actualizar', :class=>'btn btn-primary btn-sm' %>	<%= link_to 'Regresar', :authenticated_root , :class=>'btn btn-success btn-sm' %>
+          </div>
+</div>		
+		
+		<% end %>

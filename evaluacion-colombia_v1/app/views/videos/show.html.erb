@@ -1,0 +1,23 @@
+<!--
+<p id="notice"><%# notice %></p>
+-->
+<div class="row col-md-12" >
+<table class="table">
+  <tr>
+    <td>Video</td>
+    <td>
+    <% if @video.attach_file_name.blank? %>
+    No existe video asociado.
+    <% else %>
+    <div class="col-md-6">
+      <div class="embed-responsive embed-responsive-16by9">
+        <%= video_tag(download_video_path(@video), controls: true, preload: "auto", class: "embed-responsive-item") %>
+      </div>
+    </div>
+    <% end %>
+    </td>
+  </tr>
+</table>
+</div>
+
+<%# link_to 'Editar Video', edit_video_path(@video), html_options = {class: "btn btn-warning btn-xs", role: "button"} %>

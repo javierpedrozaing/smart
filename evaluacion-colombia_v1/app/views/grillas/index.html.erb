@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+
+<%= link_to 'Nueva Pauta', new_grilla_path,class: "btn btn-info" %>
+<br>
+
+<h1>Listado de Pautas</h1>
+
+<table class="table table-bordered" data-pagination="true  ">
+  <thead>
+    <tr>
+      <th>Cargo id</th>
+      <th>Tipo de Grilla</th>
+      <th>Pauta</th>
+      <th colspan="2">Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @grillas.each do |grilla| %>
+      <tr>
+        <td><%= grilla.cargo_id %></td>
+        <td><%= grilla.tipo_grilla %></td>
+        <td><%= grilla.grilla %></td>
+        <td><%= link_to 'Ver',  grilla_path(grilla) %></td>
+        <td><%= link_to 'Editar', edit_grilla_path(grilla) %></td>
+        <!--<td><%= link_to 'Eliminar', grilla_path(grilla), method: :delete, data: { confirm: '¿Estás seguro?' } %></td>-->
+      </tr>
+	
+    <% end %>
+       <tr>
+			<td colspan=2> Total: <%= @grillas.count %> </td>
+			<td colspan=4 align="rigth">
+				<nav>
+				  <ul class="pagination">				   
+				        <%#= will_paginate(@grillas) %>	     
+				  </ul>
+				</nav> 
+			</td>
+	 </tr>	
+  </tbody>
+</table>
+<div class="col-md-12 text-center">
+    <ul class="pagination pagination-sm pager" id="myPager"></ul>
+  </div>
+
+

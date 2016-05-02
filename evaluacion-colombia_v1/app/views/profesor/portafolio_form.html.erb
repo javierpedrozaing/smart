@@ -1,0 +1,28 @@
+
+<h1>Formulario Portafolio</h1>
+<%= form_for @portafolio, url:portafolio_create_path do |f| %>
+  <% if @portafolio.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@portafolio.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @portafolio.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :texto %><br>
+    <%= f.text_area :texto %>
+  </div>
+  <div class="field">
+    <%= f.label :seleccionar_video %>
+    <%= f.file_field :archivo, class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

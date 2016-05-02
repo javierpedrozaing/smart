@@ -1,0 +1,185 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<!--<script src="datepicker-fr.js"></script>-->
+<script src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/i18n/jquery.ui.datepicker-es.js"></script>
+
+<div>
+<h4 style="font-size: 19px; text-align: center; margin-bottom: 49px;">
+A continuación encontrará una serie de preguntas relacionadas con su práctica educativa y pedagógica así como de la clase que será grabada. Por favor complételas en su totalidad.
+</h4>
+<hr style="border: 1px solid #337AB7;">
+<h2 style="margin-bottom: 49px; color: #337AB7; margin-left: 15px;">Información general de la clase</h2>
+<%= form_for @evidencia_form, url: {action: "guardar_formulario_planeacion"}, html: {class: "nifty_form", :onsubmit=>"return validateForm();"} do |f| %>
+    <% if @evidencia_form.errors.any? %>
+    <div id="error_explanation" class="bg-danger errorForm">
+      <h3><%= pluralize(@evidencia_form.errors.count, "error") %> han impedido guardar la información del formulario:</h3>
+      <ul style="list-style-type: disc;">
+      <% @evidencia_form.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.hidden_field :id %>
+  <div class="form-group">
+    <%= f.label :departamento, "Departamento de la Institución Educativa en el que labora *(Campo Obligatorio)" %>
+    <% if current_persona.profesor.departamento %>
+      <%= select_tag(:departamento, options_for_select([[current_persona.profesor.departamento.nombre, current_persona.profesor.departamento.id]], 1), {:class => 'form-control', :readonly =>'readonly', :name =>'evidencia_form[departamento]'}) %>
+  <% else %>
+    <%= select_tag(:departamento, options_for_select([['La información de su departamento está incompleta o no existe, puede actualizarla dando clic en editar información','']], 1), {:class => 'form-control', :readonly =>'readonly', :name =>'evidencia_form[departamento]'}) %>
+  
+  <% end %>
+  </div>
+  <div class="form-group">
+    <%= f.label :municipio, "Municipio de la Institución Educativa en el que labora *(Campo Obligatorio)" %>
+    <% if current_persona.profesor.municipio %>
+      <%= select_tag(:municipio, options_for_select([[current_persona.profesor.municipio.nombre, current_persona.profesor.municipio.id]], 1), {:class => 'form-control', :readonly =>'readonly', :name =>'evidencia_form[municipio]'}) %>
+  <% else %>
+    <%= select_tag(:municipio, options_for_select([['La información de su municipio está incompleta o no existe, puede actualizarla dando clic en editar información', '']], 1), {:class => 'form-control', :readonly =>'readonly', :name =>'evidencia_form[municipio]'}) %>
+  <% end %> 
+  </div>
+  <% if !current_persona.profesor.departamento || !current_persona.profesor.municipio%>
+  <div>
+    <%= link_to("Editar información faltante",get_editar_dep_muni_path, class: "btn btn-success", style: "margin-bottom: 20px;")%>
+  </div>
+  <% end %> 
+  <!--
+  <div class="form-group">
+  	<%= f.label :entidad_territorial, "Entidad Territorial Certificada en la que labora *(Campo Obligatorio)" %>
+    <%= select_tag(:entidad_territorial, options_for_select([['Lisbon', 1], ['Madrid', 2]], 2), {:class => 'form-control', :name =>'evidencia_form[entidad_territorial]'}) %>
+  </div>
+  -->
+  <div class="form-group">
+  	<%= f.label :cargo, "Cargo *(Campo Obligatorio)" %>
+    <%= select_tag(:cargo, options_for_select([['Seleccione el cargo',''],[' Docente de aula', 'Docente de aula'], ['Docente orientador', 'Docente orientador'],['Rector, Directivo rural','Rector, Directivo rural'],['Coordinador','Coordinador'],['Docente en comisión para el programa PTA ','Docente en comisión para el programa PTA '],['Sindicalista','Sindicalista']], (@evidencia_form.cargo.blank? ? 1 : @evidencia_form.cargo )), {:class => 'form-control', :name =>'evidencia_form[cargo]'}) %>
+  </div>
+
+  <div class="form-group">
+  	<%= f.label :ultimo_nivel_educativo, "Último nivel educativo alcanzado" %>
+    <%= select_tag(:ultimo_nivel_educativo, options_for_select([['Seleccione el último nivel educativo alcanzado',''],['Bachiller pedagógico', 'Bachiller pedagógico'], ['Otro bachiller', 'Otro bachiller'],['Normalista superior','Normalista superior'],['Técnico o tecnólogo en educación','Técnico o tecnólogo en educación'],['Técnico o tecnólogo en otras áreas','Técnico o tecnólogo en otras áreas'],['Profesional o licenciado en educación','Profesional o licenciado en educación'],['Profesional en otras áreas','Profesional en otras áreas'],['Especialización en educación','Especialización en educación'],['Maestría en educación','Maestría en educación'],['Doctorado en educación','Doctorado en educación'],['Especialización en otras áreas','Especialización en otras áreas'],['Maestría en otras áreas','Maestría en otras áreas'],['Doctorado en otras áreas','Doctorado en otras áreas']], (@evidencia_form.ultimo_nivel_educativo.blank? ? 1 : @evidencia_form.ultimo_nivel_educativo )), {:class => 'form-control', :name =>'evidencia_form[ultimo_nivel_educativo]'}) %>
+  </div>
+
+  <div class="form-group">
+  	<%= f.label :nivel, "Nivel de enseñanza" %>
+    <%= select_tag(:nivel, options_for_select([['Seleccione su nivel de enseñanza',''],['Preescolar', 'Preescolar'], ['Básica Primaria (1° a 5° grado)', 'Básica Primaria (1° a 5° grado)'],['Básica secundaria (6° a 9° grado)','Básica secundaria (6° a 9° grado)'],['Media vocacional (10° y 11° grado)','Media vocacional (10° y 11° grado)'],['Ciclo complementario (Normales Superiores)','Ciclo complementario (Normales Superiores)'],['Ciclo de adultos','Ciclo de adultos']], (@evidencia_form.nivel.blank? ? 1 : @evidencia_form.nivel )), {:class => 'form-control', :name =>'evidencia_form[nivel]'}) %>
+  </div>
+
+  <div class="form-group">
+  	<%= f.label :area, "Área de enseñanza *(Campo Obligatorio)" %>
+    <%= select_tag(:area, options_for_select([['Seleccione el área de enseñanza',''],['Ciencias Naturales', 'Ciencias Naturales'], ['Ciencias Naturales – Física', 'Ciencias Naturales – Física'],['Ciencias Naturales – Química','Ciencias Naturales – Química'],['Ciencias sociales','Ciencias sociales'],['Educ. Artística - Artes escénicas','Educ. Artística - Artes escénicas'],['Educ. Artística - Artes plásticas','Educ. Artística - Artes plásticas'],['Educ. Artística – Danzas','Educ. Artística – Danzas'],[' Educ. Artística – Música',' Educ. Artística – Música'],['Educ. Ética y Valores','Educ. Ética y Valores'],['Educ. Física, Recreación y Deporte','Educ. Física, Recreación y Deporte'],['Educ. Religiosa','Educ. Religiosa'],['Filosofía','Filosofía'],['Humanidades y Lengua Castellana','Humanidades y Lengua Castellana'],['Idioma Extranjero Francés','Idioma Extranjero Francés'],['Idioma Extranjero Inglés','Idioma Extranjero Inglés'],['Matemáticas','Matemáticas'],['Preescolar','Preescolar'],['Primaria','Primaria'],['Tecnología e Informática','Tecnología e Informática'],['Otra','Otra']], (@evidencia_form.area.blank? ? 1 : @evidencia_form.area )),{:class => 'form-control', :name =>'evidencia_form[area]'}) %>
+  </div>
+
+  <div class="form-group">
+  	<%= f.label :grado, "Grado * (campo obligatorio)" %>
+    <%= select_tag(:grado, options_for_select([['Seleccione el grado',''],['0 o transición', '0 o transición'], ['1', '1'],['2','2'],['3','3'],['4','4'],['5','5'],['6','6'],['7','7'],['8','8'],['9','9'],['10','10'],['11','11'],['21','21'],['22','22'],['23','23'],['24','24'],['25','25'],['26','26'],['Multigrado','Multigrado'],['Unitario','Unitario']], (@evidencia_form.grado.blank? ? 0 : @evidencia_form.grado )), {:class => 'form-control', :name =>'evidencia_form[grado]'}) %>
+  </div>
+
+  <div class="form-group">
+  	<%= f.label :modelo_educativo, "Modelo educativo de la Institución *(Campo Obligatorio)" %>
+    <%= select_tag(:modelo_educativo, options_for_select([['Seleccione el modelo educativo',''],['Educación Tradicional', 'Educación Tradicional'], ['Preescolar escolarizado', 'Preescolar escolarizado'],['Preescolar no escolarizado/semiescolarizado','Preescolar no escolarizado/semiescolarizado'],['SAT presencial','SAT presencial'],['Entorno comunidad','Entorno comunidad'],['Entorno familiar','Entorno familiar'],['Entorno Institucional','Entorno Institucional'],['Círculos de aprendizaje','Círculos de aprendizaje'],['Media Rural','Media Rural'],['Escuela Nueva','Escuela Nueva'],['Caminar en Secundaria','Caminar en Secundaria'],['Post Primaria','Post Primaria'],['Telesecundaria','Telesecundaria'],['Etnoeducación','Etnoeducación'],['Aceleración del Aprendizaje','Aceleración del Aprendizaje'],['Programa para jóvenes en extraedad y adultos','Programa para jóvenes en extraedad y adultos'],['Transformemos','Transformemos'],['Grupos Juveniles Creativos','Grupos Juveniles Creativos'],['Modalidad Virtual Asistida UCN','Modalidad Virtual Asistida UCN'],['A crecer','A crecer'],['Bachillerato pacicultor','Bachillerato pacicultor'],['A crecer a través de celulares','A crecer a través de celulares'],['SENA','SENA'],['Ser humano','Ser humano'],['Vamos a poder','Vamos a poder'],['FIMACAF','FIMACAF'],['Espere','Espere'],['Escuela Indígena intercultural de jóvenes y adultos – ACIN','Escuela Indígena intercultural de jóvenes y adultos – ACIN'],['UNAD','UNAD'],['Formación para la integración','Formación para la integración'],['SER','SER'],['CAFAM y SAT','CAFAM y SAT'],['Otros','Otros']], (@evidencia_form.modelo_educativo.blank? ? 1 : @evidencia_form.modelo_educativo )), {:class => 'form-control', :name =>'evidencia_form[modelo_educativo]'}) %>
+  </div>
+
+  <div class="form-group">
+  	<%= f.label :tiempo_laborado_institucion, "Tiempo laborado en la Institución" %>
+    <%= select_tag(:tiempo_laborado_institucion, options_for_select([['Seleccione el tiempo laborado en la institución',''],['Menos de un año', 'Menos de un año'], ['Entre 1 y 3 años', 'Entre 1 y 3 años'],['Entre 3 y 5 años','Entre 3 y 5 años'],['Más de 5 años','Más de 5 años']], (@evidencia_form.tiempo_laborado_institucion.blank? ? 1 : @evidencia_form.tiempo_laborado_institucion )), {:class => 'form-control', :name =>'evidencia_form[tiempo_laborado_institucion]'}) %>
+  </div>
+
+
+
+  <div class="form-group">
+  	<%= f.label :tiempo_docente_estudiantes, "Tiempo durante el que ha sido docente del grupo de estudiantes de la clase grabada" %>
+    <%= select_tag(:tiempo_docente_estudiantes, options_for_select([['Seleccione el tiempo',''],['Menos de tres meses', 'Menos de tres meses'], ['Entre tres y seis meses', 'Entre tres y seis meses'],['Entre seis meses y un año','Entre seis meses y un año'],['Entre 1 y 3 años','Entre 1 y 3 años'],['Más de 3 años','Más de 3 años']], @evidencia_form.tiempo_docente_estudiantes), {:class => 'form-control', :name =>'evidencia_form[tiempo_docente_estudiantes]'}) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :numero_estudiantes, "Número de estudiantes de la clase grabada *(Campo Obligatorio)" %>
+    <%= f.number_field :numero_estudiantes , min: 0, max: 99, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :numero_estudiantes_consentimiento, "Número de estudiantes de la clase grabada con consentimiento informado *( Campo Obligatorio)" %>
+    <%= f.number_field :numero_estudiantes_consentimiento , min: 0, max: 99, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :fecha_clase_grabada, "Fecha de la clase grabada" %>
+    <%= f.text_field :fecha_clase_grabada , class: "form-control", id: "datepicker", placeholder: "Campo en formato fecha (DD/MM/AAAA)"%>
+  </div>
+  <hr style="border: 1px solid #337AB7;">
+  <h2 style="color: #337AB7;"><br>Planeación de la clase que va a ser grabada</h2>
+  <div class="form-group">
+    <%= f.label :desarrollo_tematico, "Desarrollo temático de la clase:" %>
+    <%= f.text_area :desarrollo_tematico, size: "60x3" , class: "form-control", placeholder: "Máximo 100 caracteres" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :propositos_objetivos, "Plantee los propósitos, objetivos o fines de la clase:" %>
+    <%= f.text_area :propositos_objetivos, size: "60x3" , class: "form-control", placeholder: "Máximo 350 caracteres cada uno"%>
+  </div>
+  <div class="form-group">
+    <%= f.label :relacion_planes, "Relacione la planeación de esta clase con el plan de estudios de su institución y el plan de área:" %>
+    <%= f.text_area :relacion_planes, size: "60x3" , class: "form-control", placeholder: "Máximo 1000 caracteres"%>
+  </div>
+  <div class="form-group">
+    <%= f.label :planeacion_pei, "Describa cómo su planeación se relaciona con el PEI de su institución:" %>
+    <%= f.text_area :planeacion_pei, size: "60x3" , class: "form-control", placeholder: "Máximo 1000 caracteres" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :organizacion_contenidos, "Describa cómo organiza los contenidos de su clase a partir del nivel y particularidades de sus estudiantes:" %>
+    <%= f.text_area :organizacion_contenidos, size: "60x3" , class: "form-control", placeholder: "Máximo 1000 caracteres" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :planeacion_aspectos_criterios, "Mencione todos los aspectos y criterios que tiene en cuenta para la planeación de la clase (por ejemplo conocimiento disciplinar, experiencia, contexto, PEI, lineamientos, etc.):" %>
+    <%= f.text_area :planeacion_aspectos_criterios, size: "60x3" , class: "form-control", placeholder: "Máximo 1500 caracteres" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :materiales_recursos, "Mencione los materiales y recursos que va a utilizar durante la clase." %>
+    <%= f.text_area :materiales_recursos, size: "60x3" , class: "form-control", placeholder: "Máximo 600 caracteres, por favor separe los materiales usados usando ; ( punto y coma )" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :evaluacion_retroalimentacion_clase, "Describa cómo va a realizar el proceso de evaluación y retroalimentación de la clase." %>
+    <%= f.text_area :evaluacion_retroalimentacion_clase, size: "60x3" , class: "form-control",placeholder: "Máximo 1500 caracteres" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :metodologias_estrategias_empleadas, "Describa las metodologías y/o estrategias empleadas para el desarrollo de la clase (cómo desarrollará las actividades durante la clase)" %>
+    <%= f.text_area :metodologias_estrategias_empleadas, size: "60x3" , class: "form-control",placeholder: "Máximo 1500 caracteres" %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Guardar Formulario", class: "btn btn-success"%>
+  </div>
+<% end %>
+</div>
+<script>
+$( document ).ready(function() {
+  $(function() {
+    $( "#datepicker" ).datepicker( $.datepicker.regional[ "es" ] );
+    $( "#locale" ).change(function() {
+      $( "#datepicker" ).datepicker( "option",
+        $.datepicker.regional[ $( this ).val() ] );
+    });
+  });
+});
+
+$('#evidencia_form_numero_estudiantes').on('change', function() {
+  //alert( this.value ); // or $(this).val()
+  if(this.value>99){
+    this.value =99
+  }
+});
+$('#evidencia_form_numero_estudiantes_consentimiento').on('change', function() {
+  if(this.value>99){
+    this.value =99
+  }
+});
+  function validateForm() {
+        //alert("Validación ejecutada");
+        var total=$('#evidencia_form_numero_estudiantes').val();
+        var consentimiento=$('#evidencia_form_numero_estudiantes_consentimiento').val();
+        //alert("total:" +total);
+        //alert("con:" +consentimiento);
+        if(consentimiento > total){
+          alert("Número de estudiantes de la clase grabada con consentimiento informado: Este número debe ser inferior o igual al número de estudiantes de la clase grabada.")
+          return false;
+        }
+        else{
+          return true;
+         }
+}
+</script>

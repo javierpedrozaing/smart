@@ -1,0 +1,67 @@
+<div id="estado_evaluacion" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+     <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Estado evaluación</h4>
+      </div>
+      <div class="modal-body">
+         
+        <table>
+	          <tr>
+		          <th>
+		           Sin Evaluación
+		          </th>
+		          <th>
+		           Con Una Evaluación
+		          </th>
+		          <th>
+		          Pasadas a Tercer Evaluador
+		          </th>
+		           <th>
+		           Proceso Finalizado
+		          </th>
+		          
+		         
+	          </tr>
+	          <tr>
+		          <td>
+		           2000
+		          </td>
+		          <td>
+		           1000
+		          </td>
+		          <td>
+		            500
+		          </td>
+		           <td>
+		            40
+		          </td>
+		        
+		          </tr>
+	           <tr>
+		          <td>
+		            <%= link_to "Ver" ,"/admin/administracion/reporte_estados/reporte_Sin_Evaluar",  target:"_blank" %>
+		          </td>
+		          <td>
+		             <%= link_to "Ver" ,"/admin/administracion/reporte_estados/reporte_Con_Una_Evaluacion", target:"_blank" %>
+		          </td>
+		          <td>
+		             <%= link_to "Ver" ,"/admin/administracion/reporte_estados/reporte_Tercer_evaluadorr",  target:"_blank" %>
+		          </td>
+		           <td>
+		             <%= link_to "Ver" ,"/admin/administracion/reporte_estados/reporte_Finalizada",  target:"_blank" %>
+		          </td>
+		         
+		       
+	          </tr>
+	          
+	      </table>    
+      </div>
+     <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>  
+</div>

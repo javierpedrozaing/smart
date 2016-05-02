@@ -1,0 +1,25 @@
+<div>
+  <h1><%= @post.titulo %></h1>
+</div>
+
+<div>
+  <%= @post.cuerpo.html_safe %>
+</div>
+
+<div>
+  <strong>Visible:</strong>
+  <%= @post.visible %>
+</div>
+
+<div>
+  <strong>Creado por:</strong>
+  <%= @post.usuario_id %>
+</div>
+
+<div>
+  <strong>Descripcion:</strong>
+  <%= @post.descripcion %>
+</div>
+
+<%= link_to 'Editar', edit_post_path(@post) %> |
+<%= link_to 'Volver', posts_path %>

@@ -1,0 +1,152 @@
+<p id="notice"><%= notice %></p>
+<!-- Cargamos el parcial modal de stilo tabla-->
+<%= render "layouts/styletabla" %>
+
+<h1>Bienvenido Consulta del Sistema Para Logs</h1>
+<HR width=100% align="left">
+
+
+
+<br />
+<br />
+
+<br />
+<HR width=50% align="left">
+
+<div class="row">
+
+ 	<div id="filtro">
+ 	 <% @modulo="referencia" %>
+	 <%= render "layouts/filtrar_tabla_referencia" %> 
+	</div>	 
+ <div class="col-md-6">
+       <div class="btn-group">
+		  <button  type="button" id="filtrar" class="btn btn-default">Ver criterios de búsqueda</button>
+		  <button  type="button" id="filtrar_ocultar" class="btn btn-default">Ocultar criterios de búsqueda</button>
+		  
+        </div>
+		<table cellspacing="0" cellpadding="0">
+		   <tr>
+		    <td colspan=15> <%=  image_tag("excel.png", size: "30") %>
+                            <%=  image_tag("pdf.jpg", size: "30")   %>
+                                
+             </td>
+				
+		  </tr>	
+			<tr>
+				<th>Id</th>
+				<th>Número Usuario</th>
+				<th>Nombre Usuario</th>
+				<th>Apellido Usuario</th>
+				<th>Fecha de acción</th>
+				<th>Acción en el sistema</th>
+											
+			</tr>
+			<tr>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				
+				
+			</tr>			
+			<tr>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+			</tr>			
+			<tr>
+			    <td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+			</tr>			
+			<tr>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+			</tr>
+			<tr>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+			</tr>
+			<tr>
+			    <td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+			</tr>
+			<tr>
+			    <td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+			</tr>	
+			<tr>
+			<td colspan=2 class="total"> </td>
+			<td colspan=4 align="rigth">
+				<nav>
+				  <ul class="pagination">
+				    <li>
+				      <a href="#" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				    <li><a href="#">1</a></li>
+				    <li><a href="#">2</a></li>
+				    <li><a href="#">3</a></li>
+				    <li><a href="#">4</a></li>
+				    <li><a href="#">5</a></li>
+				    <li>
+				      <a href="#" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+				  </ul>
+				</nav> 
+			</td>
+			</tr>																												
+		</table>	
+      </div>
+ 
+</div>
+
+<% @titulo="Estados" %>
+
+<!-- Cargamos el parcial modal de crear estado-->
+<%= render "layouts/modal_crear_referencia" %>
+
+<!-- Cargamos el parcial modal de cargar base-->
+<%= render "layouts/modalcargarbase" %>
+
+<!-- Cargamos el parcial modal de reportes-->
+<%= render "layouts/modalreportes" %>
+
+<!-- Cargamos el parcial modal de videotutorial-->
+<%= render "layouts/modalvideotutorial" %>
+
+<!-- Cargamos el parcial modal de pdf-->
+<%= render "layouts/modalpdf" %>
+
+<HR width=100% align="left">
+
+<!-- Cargamos el parcial modal de javascripts-->
+<%= render "layouts/javascripts" %>

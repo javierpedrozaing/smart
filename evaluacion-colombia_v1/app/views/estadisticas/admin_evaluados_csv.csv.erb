@@ -1,0 +1,11 @@
+<%- headers = ['Tipo de documento','Documento','Nombre','Apellido paterno','Apellido materno','codigo area','Nombre area','Codigo sede','Nombre sede','Codigo institucion','Nombre institucion','Tipo de grabación','Dirección','Telefono','Celular','Email','Fecha creado','Fecha actualizado','Estado'] -%>
+<%= CSV.generate_line(headers,col_sep: "|") -%>
+<%- @profesores.each do |prof| -%>
+<% if true %>
+  <%= CSV.generate_line(prof,col_sep: "|") -%>
+<% else %>
+  <% if prof.persona && prof.estado %>
+    <%= CSV.generate_line([prof.persona.tipo_documento.documento,prof.persona.documento, prof.estado.estado]) -%>
+  <% end %>
+<% end %>
+<%- end -%>

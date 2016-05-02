@@ -1,0 +1,271 @@
+<h1>
+  Coordinación de evaluadores
+</h1>
+<% if Rails.env.development? %>
+Valores con los que se solicito la reasginción
+<% end %>
+<!--
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Evaluaciones en progreso</h3>
+      </div>
+      <div class="panel-body">
+        <table class="table table-bordered">
+          <tr>
+            <th>Evaluador</th>
+            <th>Cédula de profesor</th>
+            <th>Inicio de evaluación</th>
+            <th>Estado</th>
+          </tr>
+          <!-- Listar evaluaciones que se estan realizando 
+        </table>
+      </div>
+      <div class="panel-footer">
+        <%= link_to "Ver todas las evaluaciones en progreso (#{@total_procesando})", evaluaciones_procesando_path %>
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Evaluaciones en discrepancia</h3>
+			</div>
+			
+			<div class="panel-body">
+				<table class="table table-bordered">
+					<tr>
+					    <th colspan="2">Evaluaciones</th>
+					    <th>Acciones</th>
+				  	</tr>
+				  	<tr>
+				      <td>Pendientes</td>
+				      <td><%= @pendientes %></td>
+				      <% if @pendientes > 0  && @en_proceso <= 0%>
+				      <td>
+				      <!--<%= link_to "Comenzar a evaluar!", evaluador_evaluar_path, html_options = {class: "btn btn-warning btn-xs", role: "button"} %>-->
+				      <!--<button type="button " class="btn btn-success btn-sm">Evaluar</button>-->
+				      
+				      <button data-toggle="modal" data-target="#myModalEvaluar" type="button " class="btn btn-success btn-sm">Evaluar</button>
+				      </td>
+				      <% end %>
+				    </tr>
+				    <tr>
+				      <td>Terminadas</td>
+				      <td><%= @terminadas %></td>
+				      <td></td>
+				    </tr>
+				    <tr>
+                    <td>En proceso</td>
+                    <td><%= @en_proceso %></td>
+                    <td>
+                    <% if @en_proceso > 0 %>
+                      <button data-toggle="modal" data-target="#myModalEvaluar" type="button " class="btn btn-success btn-sm">Evaluar</button>
+                    <% end %>
+                    </td>
+                    </tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="myModalEvaluar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog ">
+    	<div class="modal-content">
+        	<div class="modal-header">
+            	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            	<h4 style="color: #fff;" class="modal-title text-align:left;" id="myModalLabel">Confirmar ingreso a Evaluar</h4>
+            </div>
+            <div class="modal-body evaluacion">
+            	<h4>Estas seguro que quieres comenzar?</h4>
+            	<p>Recuerda que tu desempeño será evaluado</p>
+            </div>
+            <div class="modal-footer">
+            	<div class="row">
+        			<div class="col-xs-12 ">
+          				<%= link_to "Evaluar", evaluador_evaluar_path, html_options = {class: "btn btn-success btn-sm", role: "button", "data-target" => "#myModalEvaluar"}%>
+          <!-- <a href="evaluar_video.html"><button style="margin-top: 0px;" type="button" class="btn btn-success btn-sm">Evaluar</button></a> -->
+        			</div>
+  				</div>        
+      		</div>
+    	</div>
+  	</div>
+</div>
+
+<% @videos_reportados.each do |video, coordinador_reportes| %>
+	<div class="modal fade" id="myModalVideo<%= video.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog ">
+	    	<div class="modal-content">
+	        	<div class="modal-header">
+	            	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	            	<h4 style="color: #fff;" class="modal-title text-align:left;" id="myModalLabel">Video Reportado</h4>
+	            </div>
+	            <div class="modal-body evaluacion">
+	            	<div class="panel-body">
+				        <div class="embed-responsive embed-responsive-16by9">
+				        	<% if video.get_extension  != ".flv" %>
+				        	  <%= video_tag(download_video_path(video), controls: true,id:("ver_video_src"+video.id.to_s), autobuffer: true, class: "embed-responsive-item") %>
+				        	<script>
+								$('#myModalVideo<%= video.id %>').on('hidden.bs.modal', function () {
+								  //alert("cerrado");
+								  var video = document.getElementById("ver_video_src<%= video.id %>");
+								  video.pause();
+								  video.currentTime = 0;
+								})
+							</script>
+				            <% else %>
+            <div id="myElement<%= video.id %>" class="container" align="center">Loading the player...</div>
+              <script type="text/javascript">
+              var playerInstance = jwplayer("myElement<%= video.id %>");
+              playerInstance.setup({
+                  playlist: [{
+                  sources: [{ 
+                  //file: "rtmp://s1qyt7ke7nzx83.cloudfront.net/cfx/st/flv:videos/attaches/000/022/227/original/video.flv"
+                  file: "<%= video.cloudfront_path %>"
+                      }]
+                  }],
+              primary: "flash",
+              width: "100%"
+              }); 
+              </script>
+				            <% end %>
+				              <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/1QG2RMApZN4" frameborder="0" allowfullscreen=""></iframe> -->
+				        </div>
+				           <!--  <button style="margin-top: 6px; float: right;" data-toggle="modal" data-target="#modalConfirmacionPar" type="button" class="btn btn-success btn-xs">Reportar Video
+				            </button> -->
+				        <table>               
+				        </table>              
+				    </div>
+	            </div>
+	            <div class="modal-footer">
+	            	<div class="row">
+	        			<div class="col-xs-12 ">
+			            <%= link_to "Reportar video", reportar_video_path(video), html_options = {class: "btn btn-danger btn-xs", role: "button"} %>
+	         			<%= link_to "Reasignar video", "/coordinador/reasignar/#{video.id}", html_options = {class: "btn btn-success btn-xs", role: "button"} %> 
+	         			 <!-- <a href="evaluar_video.html"><button style="margin-top: 0px;" type="button" class="btn btn-success btn-sm">Evaluar</button></a> -->
+	        			</div>
+	  				</div>        
+	      		</div>
+	    	</div>
+	  	</div>
+	</div>
+<% end %>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Videos Reportados</h3>
+			</div>
+			
+			<div class="panel-body">
+				<table class="table table-bordered">
+					<tr>
+					    <th>ID Video</th>
+					    <th>Nombre Evaluador</th>
+					    <th>Cedula Evaluado</th>
+					    <th>Especificaciones del reporte</th>
+					    <th>Acciones</th>
+				  	</tr>
+				  	<% @videos_reportados.each do |video, coordinador_reportes| %>
+				  		<% coordinador_reportes_personas = coordinador_reportes.group_by{ |cr| cr.reporte.persona } %>
+				  		<% first = true %>
+				  		<% coordinador_reportes_personas.each do |persona, crs| %>
+				  		<tr>
+				  			<% if first %>
+					  			<td rowspan="<%= coordinador_reportes_personas.length %>"><%= video.id %></td>
+				      		<% end %>
+				      		<td><%= persona.nombre %> <%= persona.apellido_paterno %></td>
+					      	<td><%= video.profesor.persona.documento %></td>
+					      	<td><%= crs.reduce(""){ |acc, cr| cr.reporte.tipos_reporte.nombre + " " + acc } %></td>
+					      	<% if first %>
+						      	<td rowspan="<%= coordinador_reportes_personas.length %>">
+							      	<!--<%= link_to "Comenzar a evaluar!", evaluador_evaluar_path, html_options = {class: "btn btn-warning btn-xs", role: "button"} %>-->
+							      	<!--<button type="button " class="btn btn-success btn-sm">Evaluar</button>-->
+							      
+							      	<button data-toggle="modal" data-target="#myModalVideo<%= video.id %>" type="button " class="btn btn-success btn-sm">Revisar</button>
+						      	</td>
+					      	<% end %>
+					      	<% first = false %>
+				      	</tr>
+				      	<% end %>
+				      	
+				      	
+				    <% end %>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Evaluadores</h3>
+      </div>
+      <div class="panel-body">
+        <table class="table table-bordered">
+          <tr>
+            <th>Nombre</th>
+            <th>Evaluaciones realizadas</th>
+            <th>Evaluaciones pendientes</th>
+            <th>Estado</th>
+          </tr>
+          <!-- Listar evaluaciones que se estan realizando -->
+          <% if @evaluadores.any? %>
+            <% @evaluadores.each do |evaluador| %>
+              <% puts "Evaluador:  " << evaluador.to_json %>
+              <tr>
+                <td><%= evaluador.nombre_completo %></td>
+                <td><%= evaluador.evaluador.evaluaciones.terminadas.count %></td>
+                <td><%= evaluador.evaluador.evaluaciones.pendientes.count %></td>
+                <td>Todo bien!</td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="4">No hay evaluadores asignados</td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+      <div class="panel-footer">
+        <%= link_to "Ver todos los evaluadores (#{@total_evaluadores})", coordinador_evaluadores_path %>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Evaluaciones terminadas</h3>
+      </div>
+      <div class="panel-body">
+        <table class="table table-bordered">
+          <tr>
+            <th>Evaluador</th>
+            <th>Cédula de profesor</th>
+            <th>Inicio de evaluación</th>
+            <th>Estado</th>
+          </tr>
+          <!-- Listar evaluaciones ya están realizadas 
+          <% #if @terminadas.any? %>
+            <% #@terminadas.each do |evaluacion| %>
+              
+            <% #end %>
+          <% #end %>
+        </table>
+      </div>
+      <div class="panel-footer">
+        <%= link_to "Ver todas las evaluaciones sin asignar (9)", evaluaciones_realizadas_path %>
+      </div>
+    </div>
+  </div>
+</div> -->

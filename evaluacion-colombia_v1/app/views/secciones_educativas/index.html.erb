@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Secciones Educativas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Descripcion</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @secciones_educativas.each do |secciones_educativa| %>
+      <tr>
+        <td><%= secciones_educativa.descripcion %></td>
+        <td><%= link_to 'Show', secciones_educativa %></td>
+        <td><%= link_to 'Edit', edit_secciones_educativa_path(secciones_educativa) %></td>
+        <td><%= link_to 'Destroy', secciones_educativa, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Secciones educativa', new_secciones_educativa_path %>

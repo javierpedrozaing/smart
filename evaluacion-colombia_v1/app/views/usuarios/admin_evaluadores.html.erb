@@ -1,0 +1,46 @@
+# encoding: utf-8
+<h1>
+  Administradores de Evaluadores
+</h1>
+<!-- Acciones sobre la tabla en general -->
+<% if check_perfiles ["editar_jefes"] %>
+  <h3>Acciones a realizar</h3>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Subir Administrador Evaluadores <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a href="/system/csv/test_jefe_evaluadores.csv">Descargar plantilla</a></li>
+      <li><a href="#" data-toggle="modal" data-target="#modal-subida-admin-evaluadores" >Subir archivo</a></li>
+    </ul>
+  </div>
+    <!-- Modal para subir profesores -->
+  <%= render :partial => "usuarios/modals/modal_carga_usuario", :locals => {:titulo => "Subida de Jefes de Evaluadores por archivo", :tipo_usuario => "admin_evaluadores", :modal_id => "modal-subida-admin-evaluadores"} %>
+  <% end %>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered">
+      <tr>
+        <th>Nombre</th>
+        <th>Documento</th>
+        <!--th>Más campos</th>
+        <th>Acciones</th-->
+      </tr>
+      <!-- Listar evaluaciones que se estan realizando -->
+      <% if @jefes_evaluadores.any? %>
+        <% @jefes_evaluadores.each do |jefe| %>
+          <tr data-persona-id="<%= jefe.id %>">
+            <td><%= jefe.nombre_completo %></td>
+            <td><%= jefe.documento %></td>
+            <!--td>-</td>
+            <td>Todo bien!</td-->
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="4">No hay Administradores de evaluadores en el sistema</td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

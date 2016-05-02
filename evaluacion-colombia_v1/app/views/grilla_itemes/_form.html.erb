@@ -1,0 +1,64 @@
+<%= form_for(@grilla_item) do |f| %>
+  <% if @grilla_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@grilla_item.errors.count, "error") %> prohibited this grilla_item from being saved:</h2>
+
+      <ul>
+      <% @grilla_item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label 'Pauta_id' %><br>
+    <%#= f.text_field :grilla_id %>
+    <%= collection_select(:grilla_item, :grilla_id, Grilla.all, :id, :grilla, prompt: true) %>
+  </div>
+  <div class="field">
+    <%= f.label :cod_item %><br>
+    <%= f.text_field :cod_item %>
+  </div>
+  <div class="field">
+    <%= f.label :categoria_id %><br>
+    <!-- <%= f.text_field :categoria_id %> -->
+    <%= collection_select(:grilla_item, :categoria_id, Categoria.all, :id, :select_string, prompt: true) %>
+  </div>
+  <div class="field">
+    <%= f.label :cod_dimension %><br>
+    <%= f.text_field :cod_dimension %>
+  </div>
+  <div class="field">
+    <%= f.label :cod_sub_dimension %><br>
+    <%= f.text_field :cod_sub_dimension %>
+  </div>
+  <div class="field">
+    <%= f.label :cod_afirmacion %><br>
+    <%= f.text_field :cod_afirmacion %>
+  </div>
+  <div class="field">
+    <%= f.label :cod_evidencia %><br>
+    <%= f.text_field :cod_evidencia %>
+  </div>
+  <div class="field">
+    <%= f.label :item %><br>
+    <%= f.text_field :item %>
+  </div>
+  <div class="field">
+    <%= f.label :escala %><br>
+    <!-- <%= f.text_field :escala %> -->
+    <%= collection_select(:grilla_item, :escala, GrillaItem.tipos_escala, :to_s, :to_s, prompt: true) %>
+  </div>
+  <div class="field">
+    <%= f.label :orden_item %><br>
+    <%= f.text_field :orden_item %>
+  </div>
+  <div class="field">
+    <%= f.label :ejemplos %><br>
+    <%= f.text_field :ejemplos %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Guardar item' %>
+  </div>
+<% end %>

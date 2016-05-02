@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombre: MyString
+  persona_id: 1
+
+two:
+  nombre: MyString
+  persona_id: 1

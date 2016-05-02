@@ -1,0 +1,39 @@
+<h1>Editing Test</h1>
+
+<%= form_for @test, url: update_test_path(@test), method: :patch do |f| %>
+ 
+  <% if @test.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@test.errors.count, "error") %> prohibited
+        this article from being saved:
+      </h2>
+      <ul>
+        <% @test.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+ 
+  <p>
+    <%= f.label :test %><br>
+    <%= f.text_field :test %>
+  </p>
+ 
+  <p>
+    <%= f.label :validado %><br>
+    <%= f.text_area :validado %>
+  </p>
+ 
+  <p>
+    <%= f.submit %>
+  </p>
+ 
+<% end %>
+
+<div><%= @test.test %></div>
+<div><%= @test.validado %></div>
+
+<%= link_to 'Show', @test %> |
+<%= link_to 'Back', tests_path %>

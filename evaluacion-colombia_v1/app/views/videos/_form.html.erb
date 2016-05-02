@@ -1,0 +1,56 @@
+<div class="panel panel-default" style="margin-top:-37px;">
+<div class="panel-heading">
+  <h3 class="panel-title">
+  <% if current_persona.rol.rol == "Profesor" %>
+    Adjuntar Vídeo Autograbación
+  <% else %>
+    Adjuntar Grabación
+    <!--Adjuntar Vídeo para profesor asignado-->
+  <% end %>
+  </h3>
+</div>
+<div id="errors" style="color: red; padding: 15px 0px 0px 13px;"></div>
+<div id="status"></div>
+<%= form_for @video, :html => { :multipart => true, :id => 'form_video_save'} do |f| %>
+<% if @video.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@video.errors.count, "error") %> Este video no se pudo guardar debido a:</h2>
+  <ul>
+    <% @video.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+<div class="panel-body" style="text-align:center;">
+<div class="table-responsive">
+<table class="table table-hover">
+<tbody>
+  <tr style="border:1px solid #ddd;">
+    <td style="width: 412px;">
+      <% if current_persona.rol.rol == "Profesor" %>
+        <!--<%= f.label "Estimado profesor de clic en el botón seleccionar archivo y adjunte su vídeo." %>-->
+        <p style="font-size:13px; margin-bottom: 0px;padding-top: 3px;padding-left: 13px;">Estimado profesor de clic en el botón seleccionar archivo <br>y adjunte su video.</p>
+      <% else %>
+      <p style="font-size:13px; margin-bottom: 0px;padding-top: 3px;padding-left: 13px;">Estimado camarografo de clic en el botón seleccionar archivo <br>y adjunte su video.</p>
+        <!--<%= f.label :seleccionar_video %>-->
+      <% end %>
+    </td>
+    <td style=" background: #F9E384; padding-top: 10px;"><%= f.file_field :attach, class: "form-control no-border", style:"background: #F9E384; height: 26px; padding: 3px; padding-bottom: 32px;padding-top: 7px; " %></td>
+  <td style=" background: #F9E384;"><%= f.submit :submit, class: "btn btn-success btn-sm", style:"margin-top: 10px;", value: "Guardar Video", id: 'video_submit', data: { disable_with: "Subiendo"} %></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
+      <div class="video new" id="progress">
+          <div class="video new"id="bar"></div>
+          <div class="video new" id="percent">0%</div >
+      </div>
+    <br/>
+     
+    <div id="message"></div>
+    </td>
+  </tr>
+</table>
+<div id="video-number" style="display:none"><%= @video.id %></div>
+<% end %>

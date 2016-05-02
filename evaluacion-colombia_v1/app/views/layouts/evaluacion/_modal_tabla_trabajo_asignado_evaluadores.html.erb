@@ -1,0 +1,92 @@
+<div id="trabajo_evaluadores" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Estadística</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div id="filtro">
+						<%= render "layouts/filtroevaluadores" %> 
+					</div>	 
+					<div class="col-md-6">
+						<div class="btn-group">
+							<button  type="button" id="filtrar" class="btn btn-default">Ver criterios de busqueda</button>
+							<button  type="button" id="filtrar_ocultar" class="btn btn-default">Ocultar criterios de busqueda</button>
+
+						</div>
+						<table cellspacing="0" cellpadding="0">
+							<tr>
+								<th>id</th>
+								<th>Tipo documento</th>
+								<th>Numero documento</th>
+								<th>Nombres</th>
+								<th>Apellidos</th>
+								<th>Perfil-roll</th>
+								<th>Asignatura</th>
+								<th>Telefono</th>
+								<th>Celular</th>
+								<th>Email</th>
+								<th>Video</th>
+								<th>Localización</th>
+								<th>Evaluadores</th>	
+								<th>Estado</th>		
+								<th>Acciones</th>							
+							</tr>
+							<%# creating cicle %>
+							<% 7.times do %>
+							<tr>
+								<td>Data</td>
+								<td>Data</td>
+								<td>Data</td>
+								<td>Data</td>
+								<td>Data</td>
+								<td><select><option selected>Profesor</option><option>Camarografo</option></select>	</td>	
+								<td><select><option selected>Matemáticas</option><option>Física</option></select>	</td>
+								<td>Data</td>
+								<td>Data</td>
+								<td>Data</td>
+								<td><%= link_to "Video" ,"/administracion/show/previsualizacion_video", id: "evaluadores",class: "btn btn-info", target:"_blank" %></td>
+								<td>Data</td>
+								<td><a class="btn btn-info" data-toggle="modal" href="#proceso_evaluadores">Ver</a></td>
+								<td><select><option>Activo</option><option>Inactivo</option> <option selected>Evaluado Tres</option></select>	</td>	
+								<td><select class="asignacio_1"><option>Acciones</option><option  data-text="evaluador">Asignar</option><option>Ver</option><option>Editar</option> </select></td>							
+							</tr>
+							<% end %>
+							<tr>
+								<td colspan=4 class="total"> </td>
+								<td colspan=11 align="rigth">
+									<nav>
+										<ul class="pagination">
+											<li>
+												<a href="#" aria-label="Previous">
+													<span aria-hidden="true">&laquo;</span>
+												</a>
+											</li>
+											<li><a href="#">1</a></li>
+											<li><a href="#">2</a></li>
+											<li><a href="#">3</a></li>
+											<li><a href="#">4</a></li>
+											<li><a href="#">5</a></li>
+											<li>
+												<a href="#" aria-label="Next">
+													<span aria-hidden="true">&raquo;</span>
+												</a>
+											</li>
+										</ul>
+									</nav> 
+								</td>
+							</tr>																												
+						</table>	
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+
+			</div>
+		</div>
+	</div>  
+</div>			

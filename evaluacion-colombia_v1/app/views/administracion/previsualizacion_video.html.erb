@@ -1,0 +1,18 @@
+<!--
+<h1>Previsualización vídeo Juanito Perez Espitia</h1>
+<h2>Asignatura: Matemáticas</h2>
+<h2>Colegio Nuestra señora de la Chiquinquirá</h2>
+<div style="background-color: #e5f1f4">
+-->
+<%# video_tag("/pathI", controls: true, autobuffer: true , size: "700") %>
+<div>
+<% 
+parsed = URI.parse(request.original_url)
+p = CGI.parse(parsed.query)
+video = Video.find(1) 
+profesor = Persona.find(p['profesor_id'].first)
+
+%>
+<%= render(partial: "videos/show", locals: { video: video, profesor: profesor})%>
+
+</div>

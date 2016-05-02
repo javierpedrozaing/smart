@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  evaluacion_id: 
+  grilla_item_id: 
+  valor: MyString
+
+two:
+  evaluacion_id: 
+  grilla_item_id: 
+  valor: MyString

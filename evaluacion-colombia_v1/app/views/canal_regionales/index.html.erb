@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Canal Regionales</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Descripcion</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @canal_regionales.each do |canal_regional| %>
+      <tr>
+        <td><%= canal_regional.descripcion %></td>
+        <td><%= link_to 'Show', canal_regional %></td>
+        <td><%= link_to 'Edit', edit_canal_regional_path(canal_regional) %></td>
+        <td><%= link_to 'Destroy', canal_regional, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Nuevo Canal regional', new_canal_regional_path %>

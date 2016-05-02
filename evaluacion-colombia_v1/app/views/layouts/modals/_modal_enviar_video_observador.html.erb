@@ -1,0 +1,55 @@
+<!-- Modal confirmar envio de video -->
+<div class="modal fade" id="myModalConf_<%= persona.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<%= form_tag observador_enviar_video_modal_path do %>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 style="color: #fff;" class="modal-title text-align:left;" id="myModalLabel">CONFIRMAR ENVÍO</h4>
+      </div>
+      <div class="modal-body">
+        <p style="color: rgb(51,51,51);font-weight: normal;">Este video será asignado al docente identificado con documento “<%= persona.documento %>”. Para confirmar la asignación del video, seleccione Aceptar.</p>
+        <div class="embed-responsive embed-responsive-16by9">
+          <!--<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/J7EBm3Ra-es"></iframe>-->
+          <% if persona.profesor.video.get_extension != ".flv" %>
+          <%= video_tag(download_video_path(persona.profesor.video),id:"enviar_video_camarografo_src_"+persona.id.to_s, controls: true, preload: "auto", class: "embed-responsive-item") %>
+
+          <% else %>
+            <div id="myElement_2" class="container" align="center">Loading the player...</div>
+              <script type="text/javascript">
+              var playerInstance = jwplayer("myElement_2");
+              playerInstance.setup({
+                  playlist: [{
+                  sources: [{ 
+                  //file: "rtmp://s1qyt7ke7nzx83.cloudfront.net/cfx/st/flv:videos/attaches/000/022/227/original/video.flv"
+                  file: "<%= persona.profesor.video.cloudfront_path %>"
+                  //file: "https://s3-us-west-1.amazonaws.com/evaluacion-colombia-videos/videos/attaches/000/000/042/original/video.flv"
+                      }]
+                  }],
+              primary: "flash",
+              width: "100%"
+              }); 
+              </script>
+          <% end %>
+        </div>
+      </div>
+     <div class="modal-footer">
+        <div class="row">
+  <div class="col-xs-12 ">
+    <%= submit_tag "Aceptar", class: "btn btn-success btn-sm", style: "margin-top: 0px;" %>
+    <!--<button style="margin-top: 0px;" type="button" class="btn btn-success btn-sm">Enviar</button>-->
+  </div>
+</div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div><!-- FIN MODAL ENVIO VIDEO -->
+<script>
+$('#myModalConf_<%= persona.id %>').on('hidden.bs.modal', function () {
+  //alert("cerrado");
+  var video = document.getElementById("enviar_video_camarografo_src_<%= persona.id %>");
+  video.pause();
+  video.currentTime = 0;
+})
+</script>

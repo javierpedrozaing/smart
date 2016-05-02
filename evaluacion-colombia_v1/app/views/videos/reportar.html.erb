@@ -1,0 +1,62 @@
+<%= form_for @reporte, url: params['revisor']=='1' ? videos_procesar_reporte_revisor_path : videos_procesar_reporte_path do |f| %>
+<div class="col-xs-12">
+                <div class="panel panel-primary">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Reportar Fallas en el Video</h3>
+                  </div>
+                  <div class="panel-body">
+                  	<%= params['evaluador'].to_s + 'Esto es la variable' %>
+  <% if @reporte.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@reporte.errors.count, "error") %> impidieron que se guardara este reporte:</h2>
+      <ul>
+        <% @reporte.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+                    <ul class="list-group">
+                          <li class="list-group-item">
+                            <label class="checkbox-inline">
+                            <!--<input name="reporte[reporte_audio]" type="hidden" value="0"><input type="checkbox" value="Audio" name="reporte[reporte_audio]" id="reporte_reporte_audio"> Audio-->
+                            <%= f.check_box :reporte_audio, {}, "Audio"%> Audio<br>
+                            </label>     
+                            <!-- Radio Button -->                
+                        </li>
+                        <li class="list-group-item">
+                            <label class="checkbox-inline">
+                            <!--<input name="reporte[reporte_imagen]" type="hidden" value="0"><input type="checkbox" value="Imagen" name="reporte[reporte_imagen]" id="reporte_reporte_imagen"> Imagen-->
+                            <%= f.check_box :reporte_imagen, {}, "Imagen"%> Imagen<br>
+                            </label>                         
+                        </li>             
+                        <%= f.hidden_field :video_id, value: @video_id %>
+                    </ul>
+                    <% #if params['revisor'] == "1"
+                    %>
+                         <div class="form-group" style="margin-top: 10px;">
+                          <label for="comment">Agregar Información Adicional</label>
+                          <!--<textarea class="form-control" name="reporte[causa]" id="reporte_causa" maxlength="200" rows="5" placeholder="máximo 200 caracteres"></textarea>-->
+                        <%= f.text_area :causa, class: "form-control", maxlength: "1000", placeholder: "máximo 1000 caracteres", size: "60x5" %>
+                        </div>
+                    <% #end 
+                    %>
+                      <div class="row">
+                        <div class="col-md-6" style="text-align: -webkit-right;">
+                        <% if params['revisor'] == "1"%>
+                          <%= link_to 'Volver a revisar', revisor_videos_path(evaluacion_id: @video_id) %>
+                          <!--<a href="/revisor_videos?evaluacion_id=5">Volver al Video</a>-->
+                          <%= f.hidden_field :revision_id, value: params['revision_id'] %>
+                        <% else %>
+                          <%= link_to 'Volver', evaluador_evaluar_path(evaluacion_id: @video_id) %>
+                        <% end %>
+                        </div>
+                        <div class="col-md-6" style="text-align: -webkit-left;">
+                           <!--<input type="submit" name="commit" value="Enviar Reporte" class="btn btn-success btn-sm">-->
+                           <%= f.submit :submit, class: "btn btn-success btn-sm", value: "Enviar Reporte" %>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+<% end %>

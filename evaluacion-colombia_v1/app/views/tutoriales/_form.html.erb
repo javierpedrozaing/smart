@@ -1,0 +1,80 @@
+<%= form_for(@tutorial) do |f| %>
+  <% if @tutorial.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tutorial.errors.count, "error") %> prohibido guardar este tutorial:</h2>
+
+      <ul>
+      <% @tutorial.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+   <div class="field">
+    <%= label_tag 'Rol' %><br>
+    <%= select_tag 'tutorial[rol_id]', options_for_select(@roles.collect{ |u| [u.rol, u.id] }) %>
+  </div>
+
+   <div class="field">
+    <%= f.label :pagina_id %><br>
+    
+    <%= f.collection_select(:pagina_id, @paginas, :id, :pagina_completa) %>
+  </div>
+  <div class="field">
+    <%= f.label :perfil_id %><br>
+    <%= f.select :perfil_id, [] %>
+  </div>
+
+  <div class="field">
+    <%= f.label :tutorial %><br>
+    <%= f.text_field :tutorial %>
+  </div>
+  <div class="field">
+    <%= f.label :youtube_id %><br>
+    <%= f.text_field :youtube_id %>
+  </div>
+
+
+  <div class="actions">
+    <%= f.submit "Realizar acción"%>
+  </div>
+<% end %>
+
+<script>
+$(document).ready(function(){
+
+  $('#tutorial_rol_id').change(function(){
+  	$(".options_values").remove();	
+    $("select option:selected" ).each(function(j,e) {
+    	
+        console.log($(e).attr('value') + j);
+       if(j == 0 ){
+        
+	     $.get('/tutoriales/select_ajax', {select: $(e).attr('value')}, function(data) {
+	      //var  campo=[]
+	      for(var i=0; i<=data.length; i++ ){
+	
+	        //console.log(data[i])
+	
+	       var campo=("<option class='options_values' value="+data[i].id+">"+ data[i].perfil +"</option>")
+	        $("#tutorial_perfil_id").append(campo);        
+	
+	       } 
+	      //console.log(campo)
+	      // $("#perfil_id").html(campo);
+	      
+	      })
+        }
+      })
+
+    })
+    
+  $('#perfil_id').change(function(){
+  	
+    $("select option:selected" ).each(function(j,e) {
+    $("#perfil_id").after('<input type=hidden name= perfil_id id=perfil_id value="'+$(this).attr('value')+'" >');	
+    })
+  })
+ });
+
+</script>

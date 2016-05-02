@@ -1,0 +1,343 @@
+<div>
+
+<% if permit_videos %>
+<% if Rails.env.development? %>
+<%= button_to "Reset revisiones", revisor_reset_path, :method => :get %>
+<% if @video %>
+Revision_id = <%= @revision.id %>
+Persona_id = <%= current_persona.id %>
+Video_id = <%= @video.id %>
+Profesor_id = <%= @video.profesor.id %>
+Profesor_persona_id = <%= @video.profesor.persona.id %>
+Profesor_persona_documento = <%= @video.profesor.persona.documento %>
+</br>
+<% if current_persona.rol.rol= "Revisor de videos" %>
+ROL Revisor de videos
+<% end %>
+</br>
+<% if check_perfiles ["cola_de_videos"] %>
+PERFIL cola_de_videos
+<% end %>
+</br>
+<% if check_perfiles ["revisar_videos"] %>
+PERFIL revisar_videos
+<% end %>
+
+<div>
+    <i>Este video es el primero en la cola de revision. Para continuar con el siguiente video debe revisar el video actual y aprobarlo o repotarlo.</i>
+  </div>
+  <div class="row col-md-5" >
+
+      
+       
+      
+       <% if @video.get_extension  != ".flv" %>       
+          <%= video_tag(download_video_path(@video), controls: true, preload: "auto", class: "embed-responsive-item") %>           
+          <% else %>
+            <div id="myElement" class="container" align="center">Loading the player...</div>
+              <script type="text/javascript">
+              var playerInstance = jwplayer("myElement");
+              playerInstance.setup({
+                  playlist: [{
+                  sources: [{ 
+                  	file: "rtmp://s106p0uzko8je9.cloudfront.net/cfx/st/flv:videos/attaches/000/000/952/original/video.flv"
+                  //file: "rtmp://s1qyt7ke7nzx83.cloudfront.net/cfx/st/flv:videos/attaches/000/022/227/original/video.flv"
+                  //file: "<%#                   @video.cloudfront_path
+                   %>"
+                      }]
+                  }],
+              primary: "flash",
+              width: "100%"
+              }); 
+              </script>
+          <% end %>
+    </div>
+    <div>
+      <%= link_to "Reportar video", reportar_video_path(@video, revisor: "1", revision_id: @revision.id), html_options = {class: "btn btn-danger btn-xs", role: "button"} %>
+    </div>
+  </div>
+  <div class="row col-md-1"> 
+  </div>
+  
+  <div class="row col-md-6">
+  <h3>Revision de video</h3>
+    <%= form_for @revision, url: guardar_revision_path do |f| %>
+    <% if @revision.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@revision.errors.count, "error") %> prohibited this video from being saved:</h2>
+          <ul>
+            <% @revision.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <!--<%= f.text_field :id, class: "form-control" , title: "Este campo es obligatorio"%><br>-->
+      <%= f.hidden_field :revision_id, { :value => @revision.id } %>
+      <%= f.submit :submit, class: "btn btn-primary", value: "Aprobar video e ir al siguiente" %>
+      <!--<%= link_to "Aprobar video e ir al siguiente", "#", html_options = {class: "btn btn-success", role: "button"} %>-->
+    <% end %><!-- form_video -->
+</div>
+
+</div>
+<% else %>
+No hay videos en su cola de revision.
+<% end %><!-- if_video -->
+<% end %><!-- if env -->
+<div class="panel panel-primary" style="clear: both;">
+  <div class="panel-heading">Revisor de Videos</div>
+  <div class="panel-body"> 
+
+      <div class="table-responsive" style="height: 170px;">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th colspan="5" class="text-center" style="background: #F5EABE; color:#333;">Videos Autograbación</th>
+            </tr>
+            <tr>
+              <th>Aprobados</th>
+              <th>Revisados</th>
+              <th>Reportados</th>
+              <th>Por Revisar</th>
+              <th style="width: 210px;">Total Videos</th>
+            </tr>
+          </thead>
+          <tbody id="myTable">
+            <tr>
+              <td><%= @auto_aprobados %></td>
+              <td><%= @auto_revisados %></td>
+              <td><%= @auto_reportados %></td>
+              <td><%= @auto_por_revisar %></td>
+              <td><%= @auto_total %></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row evaluarRevi">
+          <div class="col-md-6 col-md-offset-3">
+            <input type="button" class="btn btn-success  btn-sm eval" id="botonocultamuestra" value="Evaluar" style="font-size:13px;cursor:pointer;margin:1px;padding:5px;">
+          </div>
+        </div>
+      </div>
+       <div class="container">
+         <div id="divocultamuestra" style="display: none;">
+          <% if @video %>
+          <div class="col-md-6">
+          <div class="panel panel-primary">
+      <div class="panel-heading">Video a Evaluar</div>
+    <div class="panel-body">
+    <div class="embed-responsive embed-responsive-16by9">
+          <% # video_tag(download_video_path(@video), controls: true, preload: "auto", class: "embed-responsive-item") 
+          %>
+        
+       <% if @video.get_extension  != ".flv" %>
+            <%= video_tag(download_video_path(@video), controls: true, preload: "auto", class: "embed-responsive-item") %>
+          <% else %>
+            <div id="myElement2" class="container" align="center">Loading the player...</div>
+              <script type="text/javascript">
+              var playerInstance = jwplayer("myElement2");
+              playerInstance.setup({
+                  playlist: [{
+                  sources: [{ 
+                  //file: "rtmp://s1qyt7ke7nzx83.cloudfront.net/cfx/st/flv:videos/attaches/000/022/227/original/video.flv"
+                  file: "<%= @video.cloudfront_path %>"
+                      }]
+                  }],
+              primary: "flash",
+              width: "100%"
+              }); 
+              </script>
+          <% end %>
+        </div>
+        <div><%= link_to "Reportar video", reportar_video_path(@video, revisor: "1", revision_id: @revision.id), html_options = {class: "btn btn-success btn-xs eval", style: "margin-top: 6px; float: right;", role: "button"} %></div>
+      </table>
+  </div>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="panel panel-primary">
+  <div class="panel-heading">Revisión de Video</div>
+  <div class="panel-body">
+    <!-- agregar form video -->
+
+    <%= form_for @revision, url: guardar_revision_path do |f| %>
+    <% if @revision.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@revision.errors.count, "error") %> prohibited this video from being saved:</h2>
+          <ul>
+            <% @revision.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <!--<%= f.text_field :id, class: "form-control" , title: "Este campo es obligatorio"%><br>-->
+      <%= f.hidden_field :revision_id, { :value => @revision.id } %>
+    <table class="table table-bordered table-hover">
+     <tbody>
+        <tr>
+          <td><%= f.submit :submit, class: "btn btn-success btn-sm eval", style: "margin-top: 1px; float: center;", value: "Aprobar Video e ir al Siguiente" %></td>
+        </tr>
+      </tbody>
+      </table>
+      <% end %><!-- form_video -->
+      
+    </div>
+  </div>
+</div>
+<% else %>
+  <div id="message"><div style="width: 98%;" class="alert alert-success fade in"><button type="button" class="close close-alert" data-dismiss="alert" aria-hidden="true">×</button>No tienes evaluaciones pendientes</div></div>
+<% end %><!-- if_video -->
+</div>
+    </div>
+    <hr class="separador">
+   <!--    PANEL 2  -->
+
+      <div class="table-responsive" style="height:180px;">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th colspan="5" class="text-center" style="background: #F5EABE; color:#333;">Videos Camarógrafos</th>
+            </tr>
+            <tr>
+              <th>Aprobados</th>
+              <th>Revisados</th>
+              <th>Reportados</th>
+              <th>Por Revisar</th>
+              <th style="width: 210px;">Total Videos</th>
+            </tr>
+          </thead>
+          <tbody id="myTable">
+            <tr>
+              <td><%= @cama_aprobados %></td>
+              <td><%= @cama_revisados %></td>
+              <td><%= @cama_reportados %></td>
+              <td><%= @cama_por_revisar %></td>
+              <td><%= @cama_total %></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row evaluarRevi">
+          <div class="col-md-6 col-md-offset-3">
+            <input type="button" class="btn btn-success  btn-sm eval" id="botonocultamuestra2" value="Evaluar" style="font-size:13px;cursor:pointer;margin:1px;padding:5px;">
+          </div>
+        </div>
+      </div>
+      <div class="container">
+         <div id="divocultamuestra1" style="display: none;">
+         <% if @video_camarografo %>
+         <div class="col-md-6">
+         <div class="panel panel-primary">
+      <div class="panel-heading">Video a Evaluar</div>
+    <div class="panel-body">
+    <div class="embed-responsive embed-responsive-16by9">
+          <% # video_tag(download_video_path(@video_camarografo), controls: true, preload: "auto", class: "embed-responsive-item") 
+          %>
+      
+       <% if @video_camarografo.get_extension  != ".flv" %>
+            <%= video_tag(download_video_path(@video), controls: true, preload: "auto", class: "embed-responsive-item") %>
+          <% else %>
+            <div id="myElement3" class="container" align="center">Loading the player...</div>
+              <script type="text/javascript">
+              var playerInstance = jwplayer("myElement3");
+              playerInstance.setup({
+                  playlist: [{
+                  sources: [{ 
+                  //file: "rtmp://s1qyt7ke7nzx83.cloudfront.net/cfx/st/flv:videos/attaches/000/022/227/original/video.flv"
+                  file: "<%= @video_camarografo.cloudfront_path %>"
+                      }]
+                  }],
+              primary: "flash",
+              width: "100%"
+              }); 
+              </script>
+          <% end %>
+         </div>
+        <div><%= link_to "Reportar video", reportar_video_path(@video_camarografo, revisor: "1", revision_id: @revision_camarografo.id), html_options = {class: "btn btn-success btn-xs eval", style: "margin-top: 6px; float: right;", role: "button"} %></div>
+      </table>
+  </div>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="panel panel-primary">
+  <div class="panel-heading">Revisión de Video</div>
+  <div class="panel-body">
+  <!-- agregar form video -->
+    <%= form_for @revision_camarografo, url: guardar_revision_path do |f| %>
+    <% if @revision_camarografo.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@revision_camarografo.errors.count, "error") %> prohibited this video from being saved:</h2>
+          <ul>
+            <% @revision_camarografo.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    <%= f.hidden_field :revision_id, { :value => @revision_camarografo.id } %>
+    <table class="table table-bordered table-hover">
+     <tbody>
+        <tr>
+          <td><%= f.submit :submit, class: "btn btn-success btn-sm eval", style: "margin-top: 1px; float: center;", value: "Aprobar Video e ir al Siguiente" %></td>
+        </tr>
+      </tbody>
+      </table>
+      <% end %><!-- form_video -->
+      <% else %>
+        <div id="message"><div style="width: 98%;" class="alert alert-success fade in"><button type="button" class="close close-alert" data-dismiss="alert" aria-hidden="true">×</button>No tienes evaluaciones pendientes</div></div>
+      <% end %><!-- if video camarografo -->
+    </div>
+  </div>
+</div>   
+</div>
+    </div>
+     </div>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+  $('#divocultamuestra').hide()
+   $("#botonocultamuestra").click(function () {
+      $("#divocultamuestra").each(function() {
+        displaying = $(this).css("display");
+        if(displaying == "block") {
+          $(this).fadeOut('slow',function() {
+           $(this).css("display","none");
+          });
+        } else {
+          $(this).fadeIn('slow',function() {
+            $(this).css("display","block");
+          });
+        }
+      });
+    });
+  });
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+  $('#divocultamuestra1').hide()
+   $("#botonocultamuestra2").click(function () {
+      $("#divocultamuestra1").each(function() {
+        displaying = $(this).css("display");
+        if(displaying == "block") {
+          $(this).fadeOut('slow',function() {
+           $(this).css("display","none");
+          });
+        } else {
+          $(this).fadeIn('slow',function() {
+            $(this).css("display","block");
+          });
+        }
+      });
+    });
+  });
+<% if !@video %>
+  $('#divocultamuestra1').css("margin-bottom","5px");
+  //$('#divocultamuestra1').parent().css("height","50px");
+<% end %>
+<% if !@video_camarografo %>
+  $('#divocultamuestra').css("margin-bottom","5px");
+<% end %>
+</script>

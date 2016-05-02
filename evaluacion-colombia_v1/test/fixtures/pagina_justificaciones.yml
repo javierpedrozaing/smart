@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  autoevaluacion_id: 1
+  pagina: 1
+  justificacion: MyString
+
+two:
+  autoevaluacion_id: 1
+  pagina: 1
+  justificacion: MyString

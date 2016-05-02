@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  evaluador_id: 1
+  coordianador_id: 1
+
+two:
+  evaluador_id: 1
+  coordianador_id: 1

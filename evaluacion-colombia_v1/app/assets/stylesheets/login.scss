@@ -1,0 +1,21 @@
+#header {  
+  background-color: #444;
+  background: image-url("main-bg9.jpg") no-repeat center top;
+    /*background-color: #0dccc0;*/
+   /* background-attachment:fixed; */
+  margin-top: -20px;
+  padding-top: 30px;
+  background-attachment: relative;
+  min-height: 600px;
+  width: 100%;
+  
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}

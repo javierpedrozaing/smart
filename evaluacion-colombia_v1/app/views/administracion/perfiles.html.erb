@@ -1,0 +1,141 @@
+<!-- Cargamos el parcial modal de stilo tabla-->
+<%= render "layouts/styletabla" %>
+
+<h1>Bienvenido Modulos Gestión Perfiles</h1>
+<HR width=100% align="left">
+<% @Titulo="Perfiles" %>
+
+
+<br />
+<br />
+<div class="btn-group">
+
+  <button title="Cargar registros de perfiles o roles"  type="button" class="btn btn-info" data-toggle="modal" href="#cargar_base">Cargar Base Perfiles</button>
+  <button title="Crear un perfil o rol del usuario" type="button" class="btn btn-info" data-toggle="modal" href="#crear">Crear Perfiles</button>
+ </div>
+<br />
+<HR width=50% align="left">
+
+<div class="row">
+
+ 	<div id="filtro">
+ 	 <% @modulo="referencia" %>
+	 <%= render "layouts/filtrar_tabla_referencia" %>  
+	</div>	 
+ <div class="col-md-6">
+       <div class="btn-group">
+		  <button  type="button" id="filtrar" class="btn btn-default">Ver criterios de búsqueda</button>
+		  <button  type="button" id="filtrar_ocultar" class="btn btn-default">Ocultar criterios de búsqueda</button>
+		  
+        </div>
+		<table cellspacing="0" cellpadding="0">
+			<tr>
+				<th>Id</th>
+				<th>Descripción</th>
+				<th>Fecha creación</th>
+				<th>Estado</th>
+				<th>Acciones</th>
+											
+			</tr>
+			<tr>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td><select><option>Activo</option><option>Inactivo</option></select>	</td>	
+				<td><select class="asignacio_1"><option>Acciones</option><option>Ver</option><option>Editar</option> </select></td>							
+				
+				
+				
+			</tr>			
+			<tr>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td><select><option>Activo</option><option>Inactivo</option></select>	</td>	
+				<td><select class="asignacio_1"><option>Acciones</option><option>Ver</option><option>Editar</option> </select></td>							
+			</tr>			
+			<tr>
+			    <td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td><select><option>Activo</option><option>Inactivo</option></select>	</td>	
+				<td><select class="asignacio_1"><option>Acciones</option><option>Ver</option><option>Editar</option> </select></td>							
+			</tr>			
+			<tr>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td><select><option>Activo</option><option>Inactivo</option></select>	</td>	
+				<td><select class="asignacio_1"><option>Acciones</option><option>Ver</option><option>Editar</option> </select></td>							
+			</tr>
+			<tr>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td><select><option>Activo</option><option>Inactivo</option></select>	</td>	
+				<td><select class="asignacio_1"><option>Acciones</option><option>Ver</option><option>Editar</option> </select></td>							
+			</tr>
+			<tr>
+			    <td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td><select><option>Activo</option><option>Inactivo</option></select>	</td>	
+				<td><select class="asignacio_1"><option>Acciones</option><option>Ver</option><option>Editar</option> </select></td>							
+			</tr>
+			<tr>
+			    <td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td><select><option>Activo</option><option>Inactivo</option></select>	</td>	
+				<td><select class="asignacio_1"><option>Acciones</option><option>Ver</option><option>Editar</option> </select></td>							
+			
+			</tr>	
+			<tr>
+			<td colspan=2 class="total"> </td>
+			<td colspan=4 align="rigth">
+				<nav>
+				  <ul class="pagination">
+				    <li>
+				      <a href="#" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				    <li><a href="#">1</a></li>
+				    <li><a href="#">2</a></li>
+				    <li><a href="#">3</a></li>
+				    <li><a href="#">4</a></li>
+				    <li><a href="#">5</a></li>
+				    <li>
+				      <a href="#" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+				  </ul>
+				</nav> 
+			</td>
+			</tr>																												
+		</table>	
+      </div>
+ 
+</div>
+
+
+<!-- Cargamos el parcial modal de crear estado-->
+<%= render "layouts/modal_crear_referencia" %>
+
+<!-- Cargamos el parcial modal de cargar base-->
+<%= render "layouts/modalcargarbase" %>
+
+<!-- Cargamos el parcial modal de reportes-->
+<%= render "layouts/modalreportes" %>
+
+<!-- Cargamos el parcial modal de videotutorial-->
+<%= render "layouts/modalvideotutorial" %>
+
+<!-- Cargamos el parcial modal de pdf-->
+<%= render "layouts/modalpdf" %>
+
+<HR width=100% align="left">
+
+<!-- Cargamos el parcial modal de javascripts-->
+<%= render "layouts/javascripts" %>

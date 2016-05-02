@@ -1,0 +1,25 @@
+// Place all the styles related to the videos controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.video.new#progress{
+  position:relative; 
+  width:400px; 
+  border: 1px solid #ddd; 
+  padding: 1px; 
+  border-radius: 3px;
+}
+
+.video.new#bar {
+  background-color: #B4F5B4; 
+  width:0%; height:20px; 
+  border-radius: 3px;
+}
+
+.video.new#percent {
+  position:absolute; 
+  display:inline-block; 
+  top:3px; 
+  left:48%;
+}

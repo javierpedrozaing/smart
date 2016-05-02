@@ -1,0 +1,61 @@
+<%= form_for(@grilla) do |f| %>
+  <% if @grilla.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@grilla.errors.count, "error") %> prohibited this pauta from being saved:</h2>
+
+      <ul>
+      <% @grilla.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label 'Pauta' %><br>
+    <%= f.text_field :grilla %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label 'Seleccione rol' %><br>
+    <% nombres = {'Directivos sindicales' => '3', 'Docente de Aula' => '4', 'Docente Orientador' => '5', 'Docente Tutor del PTA' => '6', 'Rector' => '7', 'Directivo Rural' => '8', 'Coordinador' => '9'} %>
+    <% lista = nombres.sort %>
+
+    <%= f.select :cargo_id, nombres %>
+  </div>
+
+  <div class="field" style="display:none">
+    <%= f.label :materia_id %><br>
+    <%= select_tag 'grilla[asignatura_id]', options_for_select(@materia.collect{ |u| [u.materia, u.id] }) %>
+  </div>
+
+  <!-- div class="field" style="display:none">
+    <%# f.label :tipo_grilla %><br>
+    <%# select_tag 'grilla[tipo_grilla]', options_for_select(@seccion_educativa.collect{ |u| [u.seccion, u.id] }) %>
+  </div -->
+
+
+  <div class="field">
+    <%= f.label :importar_itemes %><br>
+    <%= text_area(:import, :csv, cols: 50, rows: 10) %>
+  </div>
+  
+  <div class="field" style="display:none">
+    <%= f.label 'Pregunta' %><br>
+    <%= link_to 'asdf' %>
+  </div>
+
+  <div class="field" id="prueba" style="display:none">
+    <%= f.label 'Pregunta' %><br>
+    <a href="#" id='pregunta_insertar'>Agregar Pregunta</a>
+     <div id="pregunta_campos"> </div>
+    
+  </div>
+  
+  <br>
+  <div class="actions">
+    <%= f.submit 'Enviar' %>
+  </div>
+<% end %>
+

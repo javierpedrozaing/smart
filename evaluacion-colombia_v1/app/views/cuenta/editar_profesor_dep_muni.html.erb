@@ -1,0 +1,22 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    ACTUALIZACIÓN DE DATOS
+  </div>
+</div>
+<!---
+<p><b>Apreciado docente:</b><br /></p>
+<p>Recuerde que debe guardar por separado su información personal  y su información laboral. 
+Al finalizar cada formulario, deberá hacer clic en el botón que dice "guardar información personal" o "guardar información laboral" según corresponda.</p>
+-->
+<% if current_persona.profesor %>
+<div class="panel panel-primary col-md-12">
+    <div class="panel-body">
+	    <div class="">
+	     <%= render :partial => "cuenta/profesor_dep_muni" , :locals =>{editar: "1" , :url_form => editar_dep_muni_path } %>
+	    </div>
+	   
+    </div>
+  
+</div>
+<% end %>
+<!--<%= button_to "SALIR", authenticated_root_path, :class => "btn btn-success", :method => :get  %>-->

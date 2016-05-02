@@ -1,0 +1,8 @@
+<p id="notice"><%= notice %></p>
+<!-- agregar info relevante para la vista de observador -->
+<h1> Mostrando video de observador </h1>
+<!--
+Se usa first dado que por ahora la asociacion entre observador, profesor y video es unica
+-->
+<% video = Video.where(observador_id: @observador_id, profesor_id: 1).first %>
+<%= render partial: "videos/show", locals: {video: video} %>

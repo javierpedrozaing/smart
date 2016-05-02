@@ -1,0 +1,131 @@
+<% if permit_videos %>
+
+<div class="panel panel-primary">
+<div class="panel-heading">ASIGNACIÓN DE VIDEOS</div>
+    <h4 style="font-size: 19px; text-align: -webkit-center; margin-top: -8px; padding-bottom: 12px; padding-top: 14px;">En caso de que esta lista no corresponda con sus registros, por favor comuníquese inmediatamente con  el productor encargado de su canal.</h4>
+    <div class="panel-body">
+      <% if !@personas.blank? %>
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover" data-pagination="true  ">
+          <thead>
+            <tr>
+              <th>Número de identificación</th>
+              <th>Municipio</th>
+              <th>Departamento</th>
+              <th>Institución Educativa</th>
+              <th>Fecha de cargue</th>
+              <!--
+              <th>Estado de cargue</th>
+              -->
+              <th style="width: 228px;">Acciones</th>
+            </tr>
+          </thead>
+            <div style="overflow: auto">
+              <tbody style="height: 200px; oveflow: auto" id="myTable---">
+                <% @personas.each do |persona| %>
+                  <tr>
+                    <td><!--<%= persona.nombre_completo %>--><%= persona.documento %></td>
+                    <td>
+                    <!--Abejorral-->
+                    <% if persona.profesor.municipio %>
+                      <%= persona.profesor.municipio.nombre %>
+                    <% else %>
+                    --
+                    <% end %>
+                    	</td>
+                    <td>
+                    <!--Antioquia-->
+                    <% if persona.profesor.departamento %>
+                      <%= persona.profesor.departamento.nombre %>
+                    <% else %>
+                    --
+                    <% end %>
+                    </td>
+                    <td>
+                    <!--Francisco jose de Caldas-->
+                    <% if persona.profesor.institucion %>
+                      <%= persona.profesor.institucion.nombre %>
+                    <% else %>
+                    --
+                    <% end %>
+                    </td>
+                    <!--25-12-2015-->
+                    <td>
+                      <% if persona.profesor.video %>
+                        <% if persona.profesor.video.attach_updated_at.present? %>
+                          <%= persona.profesor.video.attach_updated_at.strftime("%d-%m-%Y")%>
+                          <% else %>
+                          --
+                        <% end %>
+                      <% end %>
+                    </td>
+                    <% if persona.profesor.video.attach_file_name != nil%>
+                      <!--
+                      #TODO: Claudio, revisa que puedes hacer con esto que no me da la logica de la barra de carga
+        
+                        <td><%= persona.profesor.video.conversion_status %></td>
+                        <td><%= persona.profesor.video.identidad_verificada %></td>
+                      -->
+                      <!--
+                      <td>
+                        <div class="progress progress-striped">
+                          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                            <span class="sr-only">40% completado (éxito)</span>
+                          </div>
+                        </div>
+                      </td>
+                      -->
+                      <td>
+                      <div data-toggle="modal" data-target="#myModalConf_<%= persona.id %>" style="position:relative;float:right; width:70px ">
+                        <a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Aceptar"><span class="btn btn-default btn-file btn-circle"><span class="fileinput-new"><i class="fa fa-paper-plane-o" style="color:#fff;"></i></span></span></a>   
+                      </div>
+                        <%# link_to video_path(persona.profesor.video), html_options = {class: "sprite sprite-two", role: "button", rel: "tooltip", "data-original-title" => "Ver vídeo"} do %>
+                        <!--
+                        <%= link_to video_path(persona.profesor.video), html_options = {:rel => "tooltip", "data-placement" => "top", "data-original-title" => "Ver video"} do %>
+                          <span class="btn btn-default btn-file btn-circle" style="background-color: #FFCC00; border-radius: 30px;">
+                            <i class="fa fa-eye" style="color:#fff;">
+                            </i>
+                          </span>
+                        <% end %>-->
+                        <div data-toggle="modal" data-target="#myModalMap_<%= persona.id %>" style="position:relative;float:right; width:70px">
+                          <a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Ver Video Adjuntado"><span class="btn btn-default btn-file btn-circle" style="background-color: #FFCC00; border-radius: 30px;"><i class="fa fa-eye" style="color:#fff;"></i></span></a>
+                        </div>
+                    <div style="position:relative;float:right; width:50px ">
+                    <%= link_to edit_video_path(persona.profesor.video), html_options = {class: "sprite sprite-one", role: "button", rel: "tooltip", "data-original-title" => "Adjuntar Vídeo"} do %>
+                      <span class="btn btn-default btn-file btn-circle doc"><span class="fileinput-new"><i class="fa fa-video-camera" style="color:#fff;"></i></span><input type="file" name="..."></span>
+                    <% end %>
+                    </div>
+                        <%# link_to "#", html_options = {class: "sprite sprite-three", role: "button", rel: "tooltip", "data-original-title" => "Enviar vídeo"} do %>
+                          <%# image_tag("hover-sprite2.png") %>
+                        <%# end %>
+                      </td>
+                    <% else %>
+                      <!-- <td></td> -->
+                      <!-- td>-</td-->
+                      <td>
+                        <%# link_to new_video_path(profesor_id: persona.profesor.id), html_options = {class: "sprite sprite-one subir-video", role: "button", rel: "tooltip", "data-original-title" => "Subir vídeo"}  do %>
+                        <%= link_to new_video_path(profesor_id: persona.profesor.id), html_options = { "data-toggle" => "tooltip", "data-placement" => "top", "data-original-title" => "Adjuntar Video"} do %>
+                          <span class="btn btn-default btn-file btn-circle doc"><i class="fa fa-video-camera" style="color:#fff;"></i></span>
+                        <% end %>
+                      </td>
+                    <% end %>
+                  </tr>
+                  <%= render "layouts/modals/modal_ver_video_observador", persona: persona%>
+                  <%= render "layouts/modals/modal_enviar_video_observador", persona: persona%>
+                <% end %><!-- CIERRE EACH PERSONA -->
+              </tbody>
+            </div>
+          </table>
+        </div>
+
+      <% else %>
+      No existen profesores (Camarografo sin profesores asociados).
+      <% end %>
+      </div>
+    </div>
+<% end %>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>

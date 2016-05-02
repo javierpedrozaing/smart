@@ -1,0 +1,1 @@
+json.extract! @grilla_item, :id, :grilla_id, :cod_item, :categoria_id, :cod_dimension, :cod_sub_dimension, :cod_afirmacion, :cod_evidencia, :item, :escala, :orden_item, :ejemplos, :created_at, :updated_at

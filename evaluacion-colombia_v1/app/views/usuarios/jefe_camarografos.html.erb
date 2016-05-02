@@ -1,0 +1,240 @@
+
+<div class="panel panel-primary" style="text-align:center; border:transparent;">
+ <div class="btn-group btn-group-sm botonesTitulo">
+  <button type="button" class="btn btn-success"><span class="fa fa-upload fa-lg fa-fw"></span>&nbsp; Subir Base</button>
+  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu">
+     <li><a href="/system/csv/test_jefe_camarografos.csv">Descargar plantilla</a></li>
+      <li><a href="#" data-toggle="modal" data-target="#modal-subida-jefe-camarografos" >Subir archivo</a></li>     
+  </ul>
+</div>	
+
+  <!--div class="btn-group btn-group-sm botonesTitulo">
+  <button type="button" class="btn btn-success"><span class="fa fa-times-circle fa-lg fa-fw"></span>&nbsp; Reportes</button>
+  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="#">Videos Reportados</a></li>
+    <li><a href="#">Estado del Video</a></li>
+    
+    
+  </ul>
+</div-->
+<!--div class="btn-group btn-group-sm botonesTitulo">
+  <button type="button" class="btn btn-success"><span class="fa fa-bar-chart fa-lg fa-fw"></span>&nbsp; Estadísticas</button>
+  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="#">Estadísticas</a></li>
+    <li><a href="#">Estadísticas Totales</a></li>
+    
+    
+  </ul>
+</div-->
+<div class="panel panel-primary">
+<div class="panel-heading">Perfil Jefe Camarógrafos</div>
+  <div class="panel-body">
+     <div class="row">
+     	
+       <div class="container-fluid">
+           <div class='exportar'>
+		    <!--button type="button" class="btn btn-default"  title="Exportar Tabla en PDF" style="
+		    border: transparent;">
+		        <span class="fa-stack fa-lg" title="Exportar Tabla en PDF">
+		              <i class="fa fa-circle fa-stack-2x" style="color:#5CB85C"></i>
+		              <i class="fa fa-file-pdf-o fa-stack-1x fa-inverse"></i>
+		            </span>
+		     
+		    </button-->	
+		</div>   
+		
+		<div class="col-lg-4">
+           <div class="input-group">
+             <span class="input-group-btn">
+               <button class="btn btn-default" type="button">Buscar</button>
+             </span>
+             <input id="filtrar" type="text" class="form-control" placeholder="Ingrese el Número de Documento">
+           </div><!-- /input-group -->
+        
+       </div>
+		<!-- Acciones sobre la tabla en general -->
+		<% if check_perfiles ["editar_jefes"] %>
+		  
+		
+
+  
+  
+    <!-- Modal para subir profesores -->
+  <%= render :partial => "usuarios/modals/modal_carga_usuario", :locals => {:titulo => "Subida de Jefes de Camarógrafos por archivo", :tipo_usuario => "jefe_camarografos", :modal_id => "modal-subida-jefe-camarografos"} %>
+  <% end %>
+<div class="row">
+  <div class="col-md-12">
+     <table id="example" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+      <thead>
+      <tr>
+                <th>Nombre</th>
+                <th>Documento</th>
+                <!--th>Estado</th>             
+                <th>Acciones</th-->
+      </tr>
+      </thead>
+      <tbody id="mytable" class="buscar">
+      <!-- Listar evaluaciones que se estan realizando -->
+      <% if @jefes_camarografos.any? %>
+        <% @jefes_camarografos.each do |jefe| %>
+          <tr data-persona-id="<%= jefe.id %>">
+            <td><%= jefe.nombre_completo %></td>
+            <td><%= jefe.documento %></td>
+            <!--td><%= jefe.estado %></td>
+            <td><a href="ver_jefe_evaluadores.html"><button  type="button" class="btn btn-primary  btn-xs">Ver</button></a>
+                <a href="editar_per_jefe_evaluadores.html"><button  type="button" class="btn btn-success  btn-xs">Editar</button></a>
+            </td -->
+          </tr>
+          
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="4">No hay jefes de carógrafos en el sistema</td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+     </div>
+     <div class="col-md-12 text-center">
+             <ul class="pagination pagination-sm pager" id="myPager">        
+             </ul>
+     </div>
+    </div>
+   </div>    
+  </div>
+ </div>
+</div>
+  
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function () {
+
+           (function ($) {
+
+               $('#filtrar').keyup(function () {
+
+                   var rex = new RegExp($(this).val(), 'i');
+                   $('.buscar tr').hide();
+                   $('.buscar tr').filter(function () {
+                       return rex.test($(this).text());
+                   }).show(); 
+               }) 
+           }(jQuery)); 
+       });
+</script>
+<script >$.fn.pageMe = function(opts){
+   var $this = this,
+       defaults = {
+           perPage: 7,
+           showPrevNext: false,
+           hidePageNumbers: false
+       },
+       settings = $.extend(defaults, opts);
+   
+   var listElement = $this;
+   var perPage = settings.perPage; 
+   var children = listElement.children();
+   var pager = $('.pager');
+   
+   if (typeof settings.childSelector!="undefined") {
+       children = listElement.find(settings.childSelector);
+   }
+   
+   if (typeof settings.pagerSelector!="undefined") {
+       pager = $(settings.pagerSelector);
+   }
+   
+   var numItems = children.size();
+   var numPages = Math.ceil(numItems/perPage);
+
+   pager.data("curr",0);
+   
+   if (settings.showPrevNext){
+       $('<li><a href="#" class="prev_link">«</a></li>').appendTo(pager);
+   }
+   
+   var curr = 0;
+   while(numPages > curr && (settings.hidePageNumbers==false)){
+       $('<li><a href="#" class="page_link">'+(curr+1)+'</a></li>').appendTo(pager);
+       curr++;
+   }
+   
+   if (settings.showPrevNext){
+       $('<li><a href="#" class="next_link">»</a></li>').appendTo(pager);
+   }
+   
+   pager.find('.page_link:first').addClass('active');
+   pager.find('.prev_link').hide();
+   if (numPages<=1) {
+       pager.find('.next_link').hide();
+   }
+   pager.children().eq(1).addClass("active");
+   
+   children.hide();
+   children.slice(0, perPage).show();
+   
+   pager.find('li .page_link').click(function(){
+       var clickedPage = $(this).html().valueOf()-1;
+       goTo(clickedPage,perPage);
+       return false;
+   });
+   pager.find('li .prev_link').click(function(){
+       previous();
+       return false;
+   });
+   pager.find('li .next_link').click(function(){
+       next();
+       return false;
+   });
+   
+   function previous(){
+       var goToPage = parseInt(pager.data("curr")) - 1;
+       goTo(goToPage);
+   }
+    
+   function next(){
+       goToPage = parseInt(pager.data("curr")) + 1;
+       goTo(goToPage);
+   }
+   
+   function goTo(page){
+       var startAt = page * perPage,
+           endOn = startAt + perPage;
+       
+       children.css('display','none').slice(startAt, endOn).show();
+       
+       if (page>=1) {
+           pager.find('.prev_link').show();
+       }
+       else {
+           pager.find('.prev_link').hide();
+       }
+       
+       if (page<(numPages-1)) {
+           pager.find('.next_link').show();
+       }
+       else {
+           pager.find('.next_link').hide();
+       }
+       
+       pager.data("curr",page);
+       pager.children().removeClass("active");
+       pager.children().eq(page+1).addClass("active");
+   
+   }
+};
+</script>

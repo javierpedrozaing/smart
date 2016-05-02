@@ -1,0 +1,21 @@
+<%= form_for(@secretarias_educacion) do |f| %>
+  <% if @secretarias_educacion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@secretarias_educacion.errors.count, "error") %> prohibited this secretarias_educacion from being saved:</h2>
+
+      <ul>
+      <% @secretarias_educacion.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :descripcion %><br>
+    <%= f.text_field :descripcion %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

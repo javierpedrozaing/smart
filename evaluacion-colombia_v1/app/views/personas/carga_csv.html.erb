@@ -1,0 +1,413 @@
+<h2>Listado de errores <%= @tipo_usuario  %> </h2>
+
+<br />
+
+
+ <%  contador=0 %>
+<table cellspacing="0" cellpadding="0"> 
+
+		      <tr>
+				          <td colspan=16> 
+				          	<%= link_to image_tag("excel.png", size: "30", :alt => 'Exportar a csv'), persona_evaluados_csv_evaluados_error_path(format: "csv") %> 
+						   
+                           </td>				
+
+		      </tr>	
+ </table>  		
+<br />
+  <% if @tipo_usuario!='camarógrafos'  %>
+
+	 <% if @archivo_errores_formato.uniq.count!=0  %>
+	 <table cellspacing="0" cellpadding="0" class="table">
+
+		  <tr>
+
+		                   <td colspan=16>
+			                     <h3>
+			                       Emails con errores de formato 
+			                      </h3> 
+		                   </td>
+
+
+          </tr>	
+	     <thead>
+		  <tr>
+	
+							<th>id</th>
+			
+							<th>Tipo documento</th>
+			
+							<th>Número documento</th>
+			
+							<th>Nombres</th>
+			
+							<th>Apellido Paterno</th>
+			
+							<th>Apellido Materno</th>
+			
+							<th>Dirección</th>
+			
+							<th>Teléfono</th>
+			
+							<th>Celular</th>
+			
+			                <th>Email</th>									
+	
+			</tr>
+        </thead>      			
+
+		
+       <tbody>
+		<%  @archivo_errores_formato.each do |row|%>
+
+
+		      <tr>
+		
+						        <td><%= contador +=1 %></td>
+				
+								<td><%=row[:nombre] %></td>
+				
+								<td><%=row[:apellido_paterno]%></td>
+				
+								<td><%=row[:apellido_materno]%></td>
+				
+								<td><%=row[:tipo_documento]%></td>
+				
+								<td><%=row[:documento]%></td>
+				
+								<td><%=row[:direccion]%></td>
+				
+								<td><%=row[:telefono]%></td>
+				
+								<td><%=row[:celular]%></td>
+				
+								<td><%=row[:email]%></td>
+		
+		      </tr>  
+
+                            
+
+           <% end %>
+         </tbody>
+       </table>
+	 <% end %>	
+
+		
+
+     <% if @archivo_errores_email.uniq.count!=0   %>
+			<br />
+	<table cellspacing="0" cellpadding="0" class="table">
+		
+
+               <tr>
+
+                                <td colspan=16><h3>Emails repetidos en base de datos</h3>
+
+                                 </td>
+
+                </tr>
+          <thead>
+             <tr>
+	
+							<th>id</th>
+			
+							<th>Tipo documento</th>
+			
+							<th>Número documento</th>
+			
+							<th>Nombres</th>
+			
+							<th>Apellido Paterno</th>
+			
+							<th>Apellido Materno</th>
+			
+							<th>Dirección</th>
+			
+							<th>Teléfono</th>
+			
+							<th>Celular</th>
+			
+			                <th>Email</th>		
+			               								
+	
+			</tr>
+            </thead>
+
+       <tbody>
+      <%  @archivo_errores_email.each do |row|%>
+
+                <tr>
+
+                                <td><%= contador +=1 %></td>
+
+                                <td><%=row[:nombre] %></td>
+
+                                <td><%=row[:apellido_paterno]%></td>
+
+                                <td><%=row[:apellido_materno]%></td>
+
+                                <td><%=row[:tipo_documento]%></td>
+
+                                <td><%=row[:documento]%></td>
+
+                                <td><%=row[:direccion]%></td>
+
+                                <td><%=row[:telefono]%></td>
+
+                                <td><%=row[:celular]%></td>
+
+                                <td><%=row[:email]%></td>
+
+                 </tr>
+
+           <% end %>
+           </tbody>
+       </table>      
+	  <% end %>
+
+		<br />
+
+		<% if @archivo_errores_documento.uniq.count!=0   %>
+
+		<table cellspacing="0" cellpadding="0" class="table">
+			   	
+
+                 <tr>
+
+                                <td colspan=16>
+	                                <h3>
+	                                	Número de documento repetidos en base de datos
+	                                </h3>
+                                </td>
+
+                 </tr>
+           <thead>
+             <tr>
+	
+							<th>id</th>
+			
+							<th>Tipo documento</th>
+			
+							<th>Número documento</th>
+			
+							<th>Nombres</th>
+			
+							<th>Apellido Paterno</th>
+			
+							<th>Apellido Materno</th>
+			
+							<th>Dirección</th>
+			
+							<th>Teléfono</th>
+			
+							<th>Celular</th>
+			
+			                <th>Email</th>		
+			            								
+	
+			</tr>
+          </thead>
+
+			<br />
+        <tbody>
+		<%  @archivo_errores_documento.each do |row|%>
+
+
+                 <tr>
+
+                                <td><%= contador +=1 %></td>
+
+                                <td><%=row[:nombre] %></td>
+
+                                <td><%=row[:apellido_paterno]%></td>
+
+                                <td><%=row[:apellido_materno]%></td>
+
+                                <td><%=row[:tipo_documento]%></td>
+
+                                <td><%=row[:documento]%></td>
+
+                                <td><%=row[:direccion]%></td>
+
+                                <td><%=row[:telefono]%></td>
+
+                                <td><%=row[:celular]%></td>
+
+                                <td><%=row[:email]%></td>
+
+                  </tr>
+
+
+
+              <% end %>		
+           </tbody>
+       </table>
+		<% end %>		
+
+	    <% else %>		
+
+		<% if @archivo_profesor_no_relacionado.uniq.count!=0  %>
+	<table cellspacing="0" cellpadding="0" class="table">
+              <tr>
+
+                      <td colspan=16>
+	                      <h3>
+	                      	Profesores no existen en base de datos
+	                      </h3>
+                      </td>
+
+
+             </tr>
+          <thead>
+             <tr>
+	
+							<th>id</th>
+			
+							<th>Tipo documento profesor</th>
+			
+							<th>Número documento profesor</th>
+			
+							<th>Nombres profesor</th>
+			
+							<th>Apellido Paterno profesor</th>
+			
+							<th>Apellido Materno profesor</th>
+			
+							<th>Dirección profesor</th>
+			
+							<th>Teléfono profesor</th>
+			
+							<th>Celular</th>
+			
+			                <th>Email</th>	
+			                
+			                <th>Fecha Grabación</th>	
+			                								
+	
+			</tr>
+          </thead>
+
+			<br />
+          <tbody>
+			 <%  @archivo_profesor_no_relacionado.each do |row|%>
+
+
+
+                 <tr>
+
+                                <td><%= contador +=1 %></td>
+                                
+                                <td><%=row[:tipo_documento_profesor]%></td>
+                                
+                                <td><%=row[:documento_profesor]%></td>
+
+                                <td><%=row[:nombre_profesor] %></td>
+
+                                <td><%=row[:apellido_paterno_profesor]%></td>
+
+                                <td><%=row[:apellido_materno_profesor]%></td>         
+                                
+                                <td><%=row[:direccion_profesor]%></td>
+
+                                <td><%=row[:telefono_profesor]%></td>
+
+                                <td><%=row[:celular_profesor]%></td>
+
+                                <td><%=row[:email_profesor]%></td>
+                                
+                                <td><%=row[:fecha_grabacion]%></td>
+
+                  </tr>
+
+
+
+              <% end %>
+            </tbody>
+       </table>
+		<% end %>
+		
+		<% if @archivo_profesor_ya_citado.uniq.count!=0  %>
+			<table cellspacing="0" cellpadding="0" class="table">
+              <tr>
+
+                      <td colspan=16>
+	                      <h3>
+	                      	Profesores con cita previa en el sistema 
+	                      </h3>
+                      </td>
+
+
+             </tr>
+             <thead>
+             <tr>
+	
+							<th>id</th>
+			
+							<th>Tipo documento</th>
+			
+							<th>Número documento</th>
+			
+							<th>Nombres</th>
+			
+							<th>Apellido Paterno</th>
+			
+							<th>Apellido Materno</th>
+			
+							<th>Dirección</th>
+			
+							<th>Teléfono</th>
+			
+							<th>Celular</th>
+			
+			                <th>Email</th>		
+			                <th>Fecha Grabación</th>								
+	
+			</tr>
+            </thead>
+
+			<br />
+            <tbody>
+			 <%  @archivo_profesor_ya_citado.each do |row|%>
+
+
+
+                 <tr>
+
+                                <td><%= contador +=1 %></td>
+                                
+                                 <td><%=row[:tipo_documento_profesor]%></td>
+
+                                <td><%=row[:documento_profesor]%></td>
+
+                                <td><%=row[:nombre_profesor] %></td>
+
+                                <td><%=row[:apellido_paterno_profesor]%></td>
+
+                                <td><%=row[:apellido_materno_profesor]%></td>                              
+
+                                <td><%=row[:direccion_profesor]%></td>
+
+                                <td><%=row[:telefono_profesor]%></td>
+
+                                <td><%=row[:celular_profesor]%></td>
+
+                                <td><%=row[:email_profesor]%></td>
+                                
+                                <td><%=row[:fecha_grabacion]%></td>
+
+                  </tr>
+
+
+
+              <% end %>
+         </tbody>
+       </table>
+		<% end %>		
+
+
+      
+ <% end %>
+
+ 
+
+

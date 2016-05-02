@@ -1,0 +1,82 @@
+<h4>Vista central de observador</h4>
+<div>
+  <% if !@profesores.blank? %>
+  <div class="row">
+  <div class="col-md-12" style="height: auto; overflow: auto">
+      <div>
+        <table class="table" data-pagination="true  ">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th class="text-center">Video</th>
+            <th class="text-center">Editar Video</th>
+          </tr>
+        </thead>
+          <div style="overflow: auto">
+            <tbody style="height: 200px; oveflow: auto" id="myTable">
+              <% @profesores.each do |profesor| %>
+              <tr>
+                <td><%= profesor.nombre_completo %></td>
+                <% if profesor.videos.blank? %>
+                  <td></td>
+                  <td><%= link_to "Agregar", new_video_path(profesor_id: profesor.id), html_options = {class: "btn btn-default btn-xs btn-block", role: "button"} %></td>
+                <% else %>
+                  <td><%= link_to "Ver", video_path(profesor.videos.first.id), html_options = {class: "btn btn-default btn-xs btn-block", role: "button"} %></td>
+                  <td><%= link_to "Editar", edit_video_path(profesor.videos.first), html_options = {class: "btn btn-warning btn-xs btn-block", role: "button"} %></td>
+                <% end %>
+              </tr>
+              <% end %>
+            </tbody>
+          </div>
+        </table>
+      </div>
+  </div>
+  <div class="col-md-12 text-center">
+    <ul class="pagination pagination-sm pager" id="myPager"></ul>
+  </div>
+  </div>
+  <% else %>
+  No existen profesores.
+  <% end %>
+</div>
+
+<div>
+  <% if !@profesores.blank? %>
+  <div class="row">
+  <div class="col-md-12" style="height: auto; overflow: auto">
+      <div>
+        <table class="table" data-pagination="true  ">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th class="text-center">Video</th>
+            <th class="text-center">Editar Video</th>
+          </tr>
+        </thead>
+          <div style="overflow: auto">
+            <tbody style="height: 200px; oveflow: auto" id="myTable2">
+              <% @profesores.each do |profesor| %>
+              <tr>
+                <td><%= profesor.nombre_completo %></td>
+                <% if profesor.videos.blank? %>
+                  <td></td>
+                  <td><%= link_to "Agregar", new_video_path(profesor_id: profesor.id), html_options = {class: "btn btn-default btn-xs btn-block", role: "button"} %></td>
+                <% else %>
+                  <td><%= link_to "Ver", video_path(profesor.videos.first.id), html_options = {class: "btn btn-default btn-xs btn-block", role: "button"} %></td>
+                  <td><%= link_to "Editar", edit_video_path(profesor.videos.first), html_options = {class: "btn btn-warning btn-xs btn-block", role: "button"} %></td>
+                <% end %>
+              </tr>
+              <% end %>
+            </tbody>
+          </div>
+        </table>
+      </div>
+  </div>
+  <div class="col-md-12 text-center">
+    <ul class="pagination pagination-sm pager" id="myPager2"></ul>
+  </div>
+  </div>
+  <% else %>
+  No existen profesores.
+  <% end %>
+</div>

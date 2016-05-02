@@ -1,0 +1,21 @@
+<%= form_for(@secciones_educativa) do |f| %>
+  <% if @secciones_educativa.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@secciones_educativa.errors.count, "error") %> prohibido que esta seccion educativa se guarden:</h2>
+
+      <ul>
+      <% @secciones_educativa.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :descripcion %><br>
+    <%= f.text_field :descripcion %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Accion" %>
+  </div>
+<% end %>

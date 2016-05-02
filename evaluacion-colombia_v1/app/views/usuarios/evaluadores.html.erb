@@ -1,0 +1,58 @@
+<h1>
+  Evaluadores
+</h1>
+
+<!-- Acciones sobre la tabla en general -->
+<% if check_perfiles ["editar_evaluadores"] %>
+  <h3>Acciones a realizar</h3>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Subir evaluadores <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a href="/system/csv/test_carga_evaluadores.csv">Descargar plantilla</a></li>
+      <li><a href="#" data-toggle="modal" data-target="#modal-subida-evaluadores" >Subir archivo</a></li>
+    </ul>
+  </div>
+  <!-- Modal para subir evaluadores -->
+  <%= render :partial => "usuarios/modals/modal_carga_usuario", :locals => {:titulo => "Subida de evaluadores por archivo", :tipo_usuario => "evaluadores", :modal_id => "modal-subida-evaluadores"} %>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Asignar coordinadores <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><%= link_to "Descargar plantilla",persona_export_csv_profesores_path(format: "csv",tipo_relacion: "evaluadorvscoordinador"), class: "btn btn-primary" ,title: "Reporte de evaluadores sin coordinador asociado en el sistema " %></li>
+      <li><a href="#" data-toggle="modal" data-target="#modal-subida-coordinadores-evaluadores" >Subir archivo</a></li>
+    </ul>
+  </div>
+  <!-- Modal para asignacion de coordinadores -->
+  <%= render :partial => "usuarios/modals/modal_carga_relacion", :locals => {:titulo => "Asignación de coordinadores vía archivo", :relacion_path => persona_evaluadores_coordinadores_path, :modal_id => "modal-subida-coordinadores-evaluadores" } %>
+<% end %>
+<!-- Fin de bloque de acciones -->
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered">
+      <tr>
+        <th>Nombre</th>
+        <!--th>Evaluaciones realizadas</th>
+        <th>Evaluaciones pendientes</th-->
+        <th>Documento</th>
+      </tr>
+      <!-- Listar evaluaciones que se estan realizando -->
+      <% if @evaluadores.any? %>
+        <% @evaluadores.each do |evaluador| %>
+          <tr>
+            <td><%= evaluador.nombre_completo %></td>
+            <!--td><%= evaluador.evaluador.evaluaciones.terminadas.count %></td>
+            <td><%= evaluador.evaluador.evaluaciones.pendientes.count %></td-->
+            <td><%= evaluador.documento %></td>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="4">No hay evaluadores asignados</td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

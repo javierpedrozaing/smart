@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Pauta:</strong>
+  <%= @grilla.grilla %>
+</p>
+
+<p>
+  <strong>Materia(ID):</strong>
+  <%= @grilla.cargo_id %>
+</p>
+
+<!--p>
+  <strong>Tipo de Grilla:</strong>
+  <% # @grilla.seccion_educativa_id %>
+</p -->
+
+<div>
+  <table>
+    <thead>
+      <th>Categoría</th>
+      <th>Item</th>
+      <th>Escala</th>
+    </thead>
+    <tbody>
+    <% @grilla.grilla_item.each do | item | %>
+      <tr>
+        <td><%= item.categoria.nombre %></td>
+        <td><%= item.item %></td>
+        <td><%= item.escala %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= link_to 'Editar', edit_grilla_path(@grilla) %> |
+<%= link_to 'Volver', grillas_path %>

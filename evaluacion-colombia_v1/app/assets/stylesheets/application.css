@@ -1,0 +1,536 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ *= require font-awesome.min
+ *= require bootstrap_and_overrides
+ */
+
+/*!
+ * Start Bootstrap - Logo Nav HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+/* Override Bootstrap 3 font locations */
+/*
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('../assets/glyphicons-halflings-regular.eot');
+  src: url('../assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+  url('../assets/glyphicons-halflings-regular.woff') format('woff'),
+  url('../assets/glyphicons-halflings-regular.ttf') format('truetype'),
+  url('../assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+*/
+/*
+@font-face {
+  font-family: 'Glyphicons Halflings';
+
+  src: url('../fonts/glyphicons-halflings-regular.eot');
+  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+*/
+/*NAV*/
+.navbar-brand{
+  padding-top: 6px;
+}
+.navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand{
+  margin-left: 25px;
+}
+.navbar-default{
+  background-image: linear-gradient(to bottom, #fff 0%, #fff 100%);
+  border-color: transparent;
+  background-color: none;
+  border-radius: inherit;
+  margin-bottom: 16px;
+  border-bottom: 2px solid #00B0E5;
+}
+.navbar-default .navbar-nav>li>a{
+  color: #fff;
+}
+
+.navbar-default .navbar-nav>li>a:hover{
+  color: #333;
+}
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover{
+  color: #fff;
+}
+.navbar-right {
+    background-color: #00AFE4;
+}
+.navbar-right li:hover{
+  background-color: #FFCF00;
+
+}
+.navbar-right li a:hover{
+  background-color: green;
+}
+.navbar-right li{
+  border-left: 2px solid #fff;
+}
+.navbar-nav.navbar-right:last-child{
+    margin-right: -33px;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+    font-weight: bold;
+    margin:0px;
+}
+.navbar-default .navbar-nav>li>a:hover{
+  color: #333;
+}
+.navbar-default .navbar-nav>li>a:focus, .navbar-default {
+  color: #333;
+}
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover{
+  background-color: #5cb85c;
+  color: #fff;
+}
+.dropdown-menu>li>a:hover{
+  background-color: #5CB85C;
+  color: #fff;
+}
+.logo{
+  box-shadow: none;
+}
+.prof {
+    text-align: center;
+}
+.prof .btn-success {
+    width: 30%;
+    background-color: #00B0E4;
+    border: none;
+}
+.prof .btn-success:hover {
+    background-color: #FFCF00;
+    color: #333;
+}
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+}
+p {
+    text-align: justify;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+.panel-heading {
+    text-align: center;
+    font-weight: 800;
+}
+.panel-primary>.panel-heading {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+.panel-default>.panel-heading {
+    background-color: #337AB7;
+    color: #fff;
+    border-color: #337AB7;
+}
+.list-group {
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+.list-group{
+    -webkit-box-shadow: 2px 2px 5px 2px #999;
+    -moz-box-shadow: 2px 2px 5px #999;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color='#666666', Direction=135, Strength=4);
+}
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    text-align: -webkit-left;
+    color: rgb(51, 51, 51);
+    font-weight:100;
+}
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+.panel-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    color: inherit;
+}
+.no-border {
+    border:0px;
+    border-radius: 0px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.progress-bar {
+    float: left;
+    width: 0;
+    height: 100%;
+    font-size: 12px;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    background-color: #337ab7;
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    -webkit-transition: width .6s ease;
+    -o-transition: width .6s ease;
+    transition: width .6s ease;
+}
+.progress-bar-success {
+    background-color: #5cb85c;
+}
+.modal-header .close{
+    color:black;
+}
+.btn-circle {
+    background: #5CB854;
+    border-radius: 30px;
+}
+.doc {
+    background: #00AFE4;
+    border-radius: 30px;
+}
+.btn-info {
+    background: #00AFE4;
+}
+.btn-group-xs>.btn, .btn-xs {
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+.btn-info {
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}
+.popover-title {
+    background: #337AB7;
+    color: #fff;
+    text-align: center;
+}
+.popover-content {
+    text-align: justify;
+}
+.popover.bottom>.arrow:after {
+    border-bottom-color: #337AB7;
+}
+.errorForm {
+    padding: 3px;
+    margin-bottom: 37px;
+    border-bottom: 2px solid #DADADA;
+    -webkit-box-shadow: 0 8px 6px -6px black;
+    -moz-box-shadow: 0 8px 6px -6px black;
+    box-shadow: 2px 8px 6px -6px black;
+}
+.errorForm h3 {
+    padding: 6px;
+    margin-left: 20px;
+}
+.errorForm ul {
+    line-height: 24px;
+    padding-left: 40px;
+}
+.estadisticas {
+    margin-bottom: 10px;
+    margin-top: 2px;
+    text-align: left;
+}
+.estadisticasNur {
+    background: #FFCF00;
+    padding: 3px;
+    border-top-right-radius: 10px;
+    margin-top: 0px;
+}
+.estadisticasNur-camarografo{
+    background: #5AA129;
+    padding: 3px;
+    border-top-right-radius: 10px;
+    margin-top: 0px;
+}
+.camarografo span {
+    background: #00B0E4;
+    font-size: 15px;
+    margin-left: 41px;
+}
+.estadisticasNur span {
+    background: #00B0E4;
+    font-size: 15px;
+    margin-left: 41px;
+}
+.estadisticas a {
+    padding-left: 6px;
+    color: #333;
+    text-decoration: none;
+}
+.terminadas {
+    font-size: 15px;
+    margin-left: 25px;
+}
+.badge {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    background-color: #777;
+    border-radius: 10px;
+}
+.button_download {
+    text-decoration: none !important;
+    color: white !important;
+}
+.evaluadoresTabla {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.btn-default:hover {
+    background: #5CB85C;
+    border-color: #5CB85C;
+    color: #fff;
+}
+.evaluarRevi {
+    text-align: center;
+}
+#divocultamuestra1 {
+  margin-bottom: 250px;
+}
+.mbot5 {
+  margin-bottom: 5px;
+}
+.envioValidacion {
+    background: #4A4A4A;
+    height: 70px;
+    margin-bottom: 20px;
+    margin-top: 9px;
+    padding-left: 20px;
+    webkit-box-shadow: 0 8px 6px -6px black;
+    -moz-box-shadow: 0 8px 6px -6px black;
+    box-shadow: 0 8px 6px -6px black;
+}
+.envioValidacion p {
+    color: #fff;
+    font-size: 13px;
+    padding: 2px;
+    text-align: justify;
+    margin-top: 7px;
+}
+.btnEvaluacion {
+    margin-top: 23px;
+    text-align: -webkit-center;
+}
+.envioEvaluar {
+    background: #5CB854;
+    border-color: transparent;
+    border-bottom: 4px solid #1B6315;
+    border-radius: 0px;
+}
+.envioEvaluar:hover{
+  background: #E06662;
+  border-color: transparent;
+  border-bottom: 4px solid #CA3B36;  
+}
+.envioEvaluar:focus{
+  background: #E06662;
+  border-color: red;
+  border-bottom: 4px solid #CA3B36;
+  outline: transparent;  
+}
+/* footer */
+#footer {
+  background: #fff;
+  padding: 20px 0 5px;
+  border-top: 2px solid #00B0E5;
+  position: relative;
+  bottom: 0;
+}
+
+p.copyright {
+  color: #black;
+  text-align: center;
+}
+
+.modal-footer{
+    margin-top: 10px;
+    padding: 13px;
+    text-align: center;    
+}
+
+a:focus{
+  outline: 0px;
+}
+
+/** 2 level sub menu **/
+.dropdown-menu-with-subs .sub-menu {
+  left: 100%;
+  position: absolute;
+  top: 0;
+  visibility: hidden;
+  margin-top: -1px;
+}
+
+.dropdown-menu-with-subs li:hover .sub-menu {
+  visibility: visible;
+  display: block;
+}
+
+.navbar .sub-menu:before {
+  border-bottom: 7px solid transparent;
+  border-left: none;
+  border-right: 7px solid rgba(0, 0, 0, 0.2);
+  border-top: 7px solid transparent;
+  left: -7px;
+  top: 10px;
+}
+.navbar .sub-menu:after {
+  border-top: 6px solid transparent;
+  border-left: none;
+  border-right: 6px solid #fff;
+  border-bottom: 6px solid transparent;
+  left: 10px;
+  top: 11px;
+  left: -6px;
+}  
+
+
+.dropdown-menu>li>a:hover{
+  background-color: #5CB85C;
+  color: #fff;
+
+}
+
+/*list table*/
+
+
+.list-group-item{
+  border:1px solid #ddd;
+}
+
+
+
+/*Panel*/
+th{
+   text-align: -webkit-center;
+}
+
+.panel-heading{
+    text-align: center;  
+}
+
+thead tr{
+    background-color: #818182;
+    color: #fff;
+}
+tfoot tr{
+    background-color: #818182;
+    color: #fff;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+    text-align: center;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+    padding: 4px;
+}
+
+
+
+/*List Group */
+
+
+a.list-group-item .list-group-item-heading{
+  color: #337ab7;
+}
+
+/*PANEL ADJUNTAR ARCHIVOS*/
+
+.btn-file {
+  position: relative;
+  overflow: hidden;
+  margin-right: 10px;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  background: red;
+  cursor: inherit;
+  display: block;
+}
+input[readonly] {
+  background-color: white !important;
+  cursor: text !important;
+}
+.glyphicon-folder-open{
+  margin-right: 10px;
+}
+
+/*VENTANA MODAL*/
+
+.modal-header{
+  background-color: #337AB7;
+  color: #fff;
+  text-align: center;
+}
+.modal-title{
+    text-align: center;
+    font-weight: bold;
+    color: #FFFFFF
+
+}
+.list-group{
+    -webkit-box-shadow: 2px 2px 5px #999;
+   -moz-box-shadow: 2px 2px 5px #999;
+   filter: progid:DXImageTransform.Microsoft.Shadow(color='#666666', Direction=135, Strength=4);
+}
+.list-group hr{
+  border-top: 2px solid #C5C5C5;
+  margin-top: 12px;
+}
+@media (max-width: 492px){
+ .col-xs-6{
+   width: 100%;
+ }
+}
+
+.exportar{
+  text-align: -webkit-auto;	
+}
+.botonesTitulo{
+	margin-bottom: 20px;
+    margin-top: 6px;
+}
+#persona_tipo_documento_id, #persona_estado_id{
+	width: 100%;
+	
+} 

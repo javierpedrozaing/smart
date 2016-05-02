@@ -1,0 +1,5 @@
+<%# render "layouts/menu/admin" %>
+<li><%= link_to "Evaluaciones", evaluaciones_path  %></li>
+<% if permit_videos %>
+<li><%= link_to "Vídeos", admin_camarografos_path  %></li>
+<% end %>

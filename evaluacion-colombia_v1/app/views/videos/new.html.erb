@@ -1,0 +1,6 @@
+<!--<h1>Agregar Video</h1>-->
+<% if @video.intentos >= 10 %>
+  <h3>Hemos notado que ha tenido problemas intentando subir el video. Favor considere contactarse con el jefe de camarógrafos, o entregar el video directamente a la central.</h3>
+<% end %>
+<div style="margin-bottom: 90px;"></div>
+<%= render partial: 'form' %>

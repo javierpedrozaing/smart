@@ -1,0 +1,124 @@
+<p id="notice"><%= notice %></p>
+<% if !@respuestas_sinona.blank? %>
+<h1>Autoevaluación</h1>
+<h1>Pagina <%= @pagina %></h1>
+
+          <div class="panel-body contenidosPregun">
+            <table class="table table-condensed table-bordered ">
+              <thead>
+              	<tr>
+              		<td colspan=3 style='font-size: 200%;color: #fff;background-color: #337ab7;border-color: #FFFFFF;border-radius: 15px;'><%= @Titulo[0]  %></td>
+              	</tr>
+                <th>#</th>
+                <th>Pregunta</th>
+                <th>Respuesta</th>
+              </thead>
+              <tbody>
+              	
+              <%= form_for  @EvaluacionRespuesta, :url => autoevaluacion_guardar_autoevaluacion_path, remote: true, format: :json do |f| %>	
+               <%= csrf_meta_tags %>
+               <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+               <%=  f.hidden_field :autoevaluacion , :value => @respuestas_sinona[0].autoevaluacion_id 
+               %>
+                <% @respuestas_sinona.each do |respuesta| %>
+                       
+                 <% if @contador <= @limite %>
+       
+                  <tr>
+                  	
+                    <td>
+                        <%= @contador; %>
+
+                    </td>
+                    <td>
+                      <%= respuesta.grilla_autoevaluacion.rv
+                      %>
+                    </td>
+                    <td>
+                      <div class="alternativas_sinona">
+                          
+	                        <% if(respuesta.grilla_autoevaluacion.escala_id == 1 || respuesta.grilla_autoevaluacion.escala_id == 2  ) %>
+		                        <div>
+		                         <%= f.radio_button respuesta.id, "A", :checked => (respuesta.valor == "A") ,data: respuesta.id, data_auto: respuesta.autoevaluacion.id, class: 'autoevaluacion_r', :required => true %> Si
+		                        </div>
+		                        <div>
+		                          <%= f.radio_button respuesta.id, "B", :checked => (respuesta.valor  == "B") , data: respuesta.id, data_auto: respuesta.autoevaluacion.id,class: 'autoevaluacion_r' , :required => true%> No 
+		                        </div>
+		                        <% end %>
+	                        <% if(respuesta.grilla_autoevaluacion.escala_id==2) %>
+		                        <div>
+		                          <%= f.radio_button respuesta.id, "C" , :checked => (respuesta.valor  == "C"),data: respuesta.id, data_auto: respuesta.autoevaluacion.id,class: 'autoevaluacion_r', :required => true %> N/A  
+		                        </div>
+		                      <% end %>                       
+                        
+                      </div>
+                       <div class="alternativas_sinona">
+                          
+	                        <% if(respuesta.grilla_autoevaluacion.escala_id == 3 ) %>
+		                        <div>
+		                         <%= f.radio_button respuesta.id, "A", :checked => (respuesta.valor == "A") ,data: respuesta.id, data_auto: respuesta.autoevaluacion.id,class: 'autoevaluacion_r', :required => true %> totalmente de acuerdo
+		                        </div>
+		                        <div>
+		                          <%= f.radio_button respuesta.id, "B", :checked => (respuesta.valor  == "B") ,data: respuesta.id , data_auto: respuesta.autoevaluacion.id ,class: 'autoevaluacion_r' , :required => true%> parcialmente de acuerdo 
+		                        </div>
+		                         <div>
+		                          <%= f.radio_button respuesta.id, "C", :checked => (respuesta.valor  == "C") ,data: respuesta.id, data_auto: respuesta.autoevaluacion.id,class: 'autoevaluacion_r' , :required => true%> parcialmente en desacuerdo 
+		                        </div>
+		                         <div>
+		                          <%= f.radio_button respuesta.id, "D", :checked => (respuesta.valor  == "D") ,data: respuesta.id, data_auto: respuesta.autoevaluacion.id,class: 'autoevaluacion_r' , :required => true%> totalmente en desacuerdo
+		                        </div>
+		                        <% end %>
+	                        <% if(respuesta.grilla_autoevaluacion.escala_id==4) %>
+		                        <div>
+		                          <%= f.radio_button respuesta.id, "A" , :checked => (respuesta.valor  == "A"),data: respuesta.id , data_auto: respuesta.autoevaluacion.id, class: 'autoevaluacion_r', :required => true %> siempre  
+		                        </div>
+		                         <div>
+		                          <%= f.radio_button respuesta.id, "B" , :checked => (respuesta.valor  == "B") ,data: respuesta.id, data_auto: respuesta.autoevaluacion.id, class: 'autoevaluacion_r', :required => true %> muchas veces 
+		                        </div>
+		                         <div>
+		                          <%= f.radio_button respuesta.id ,"C" , :checked => (respuesta.valor  == "C") ,data: respuesta.id, data_auto: respuesta.autoevaluacion.id, class: 'autoevaluacion_r', :required => true %> pocas veces 
+		                        </div>
+		                         <div>
+		                          <%= f.radio_button respuesta.id, "D" , :checked => (respuesta.valor  == "D") ,data: respuesta.id, data_auto: respuesta.autoevaluacion.id, class: 'autoevaluacion_r', :required => true %> nunca 
+		                        </div>
+		                      <% end %>                       
+                        
+                      </div>
+                    </td> 
+                    
+		           
+                  </tr>
+                
+                  <% end %>
+                    
+                   <% @contador += 1; %>
+                <% end %>
+                <tr>
+                  <td colspan=3>
+                        
+                        <%= f.label 'Justifique su respuesta' %>:
+                          <div> 
+                              <%=  f.text_area(:registro_obligatorio, cols: 100, rows: 5, :value => ((@pagina_justificacion.count==0)? 0 : @pagina_justificacion[0].justificacion),data: ((@pagina_justificacion.count==0)? 0 : @pagina_justificacion[0].id),  data_auto: @respuestas_sinona[0].autoevaluacion_id, class: 'autoevaluacion_r', :placeholder=>"Para guardar el contenido de este cuadro de clic a fuera de el.",:maxlength=>1000,:required => true)
+                               %>     
+                         </div>
+                  
+                  </td>
+                </tr>   
+               <tr>
+                <td colspan=3>
+                <%= f.submit "Enviar", class: "btn btn-success", id: 'prueba-multidimencional' %>
+                </td>
+               </tr> 
+		       <% end %> 
+              </tbody>
+            </table>
+          </div>
+          <% else%>
+          <div style='text-align: center' >
+          <h1 style='font-size: 400%; ;color: #fff;background-color: #337ab7;border-color: #FFFFFF;'>Usted ya ha contestado esta evaluación.</h1>
+            <%= link_to 'Volver', :authenticated_root,  class: "btn btn-success"  %>
+          
+          </div>
+          <% end %>
+
+          

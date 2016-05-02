@@ -1,0 +1,46 @@
+# encoding: utf-8
+<h1>
+  Revisores de video
+</h1>
+<!-- Acciones sobre la tabla en general -->
+<% if check_perfiles ["editar_jefes"] %>
+  <h3>Acciones a realizar</h3>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Subir Revisor de video <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a href="/system/csv/test_jefe_evaluadores.csv">Descargar archivo para subida</a></li>
+      <li><a href="#" data-toggle="modal" data-target="#modal-subida-revisores-video" >Subir archivo</a></li>
+    </ul>
+  </div>
+    <!-- Modal para subir profesores -->
+  <%= render :partial => "usuarios/modals/modal_carga_usuario", :locals => {:titulo => "Subida de Revisored de video por archivo", :tipo_usuario => "revisor_video", :modal_id => "modal-subida-revisores-video"} %>
+  <% end %>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered">
+      <tr>
+        <th>Nombre</th>
+        <th>Campos....</th>
+        <th>Más campos</th>
+        <th>Acciones</th>
+      </tr>
+      <!-- Listar evaluaciones que se estan realizando -->
+      <% if @revisores_video.any? %>
+        <% @revisores_video.each do |jefe| %>
+          <tr data-persona-id="<%= jefe.id %>">
+            <td><%= jefe.nombre_completo %></td>
+            <td>-</td>
+            <td>-</td>
+            <td>Todo bien!</td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="4">No hay revisores de video en el sistema</td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,265 @@
+/*
+  *= require bootstrap_and_overrides
+  *= require_self
+  *= require login
+*/
+
+/* ==== Google font ==== */
+@import url('http://fonts.googleapis.com/css?family=Lato:400,300,700,900');
+
+body {
+  background-color: #f2f2f2;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.6em;
+    -webkit-font-smoothing: antialiased;
+    -webkit-overflow-scrolling: touch;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    color: #444;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+h3 {
+  font-weight: 400;
+}
+
+h4 {
+  font-weight: 400;
+  font-size: 20px;
+}
+
+p {
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+
+a {    
+    word-wrap: break-word;
+    -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+    transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+.btn-success{
+  margin-top: -3px;
+}
+
+/*a:hover,
+a:focus {
+    color: #b7cb1b;
+    text-decoration: none;
+    outline: 0;
+}*/
+
+a:before,
+a:after {
+    -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+    transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+
+.navbar-default .navbar-nav > li > a{
+    margin-top: 6px;
+    color: #636363;
+    font-weight: bold;
+   
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus{
+    color: #0DBD66;
+}
+
+
+
+.navbar-default{
+    background-image: linear-gradient(to bottom, #273B47 0%, #273B47 100%);
+    border-color: transparent;
+    background-color: #273B47;
+    border-radius: inherit;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #c6d550;
+}
+.logo{
+    margin: 6px 0px 4px 7px;
+}
+
+.alignleft {
+    text-align: left;
+}
+.alignright {
+    text-align: right;
+}
+
+.aligncenter {
+    text-align: center;
+}
+
+.btn-theme  {
+  color: #fff;
+  background-color: #fd680e;
+  border-color: #fd680e;
+}
+.btn-theme:hover  {
+  color: #fff;
+  background-color: #444;
+  border-color: #444;
+}
+form.signup {
+  margin-top: 30px;
+}
+form.signup button.btn {
+  text-transform: uppercase;
+  font-weight: 700;
+}
+form.signup input.form-control:focus {
+  border-color: #fd680e;
+}
+
+
+/* Nav */
+
+a.navbar-brand {
+  color: #fff !important;
+  font-weight: 900;
+  text-transform: uppercase;
+    padding: 23px;
+}
+a.navbar-brand:hover {
+    color: #ddd !important;
+}
+/* End Nav */
+
+
+/*PANEL REGISTRO*/
+.panel-heading{
+    text-align: center;
+    font-weight: 800;
+}
+
+
+
+/* Header */
+
+#footer {
+  background: #fff;
+  padding: 20px 0 5px;
+}
+
+
+
+#header h1 {
+  margin-top: 2px;
+  margin-bottom: 15px;
+    color: #EDCD33;
+  font-size: 23px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+    padding: 0px 0px 12px;
+}
+
+h2.subtitle {
+  color: #fff;
+  font-size: 19px;
+    font-weight: bold;
+}
+/* Header */
+
+
+/* video */
+.video-container{
+    margin-top: 20%;
+    margin-left:0px;
+
+}
+
+/*.panel-body{
+    padding: 0px 0px 45px;
+}*/
+
+.new_persona{
+    margin-top: 24px;
+}
+
+/* end video */
+
+/*MODAL*/
+
+
+.panel-title{
+
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+}
+
+form{
+    margin-top: 9px;
+}
+
+.modal-header .close{
+    color: blue;
+}
+.modal-title{
+    text-align: center;
+    font-weight: bold;
+    color: #FFFFFF
+
+}
+.modal-body{
+
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    
+
+}
+.modal-body p{
+  color: black;
+  text-align: center;
+  margin-top: 21px; 
+}
+
+/* footer */
+#footer {
+  background: #fff;
+  padding: 20px 0 5px;
+}
+
+p.copyright {
+  color: #333;
+  text-align: center;
+    font-weight: 300;
+}
+
+/*banner y video */
+.video-container{
+   margin-top: 0%;
+   margin-left:0px;
+   text-align: -webkit-center;
+
+}
+.banner{
+ margin-bottom: 20px;
+ text-align: center;
+ margin-bottom: 32px;
+}
+
+#video1{
+ width: 400px;
+}

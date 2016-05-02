@@ -1,0 +1,60 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Pauta:</strong>
+  <%= link_to(@grilla_item.grilla.grilla, grilla_path(@grilla_item.grilla)) %>
+</p>
+
+<p>
+  <strong>Cod item:</strong>
+  <%= @grilla_item.cod_item %>
+</p>
+
+<p>
+  <strong>Categoria:</strong>
+  <%= @grilla_item.categoria.nombre %>
+  <%#= link_to(@grilla_item.categoria.nombre, grilla_item_path(@grilla_item.categoria)) %>
+</p>
+
+<p>
+  <strong>Cod dimension:</strong>
+  <%= @grilla_item.cod_dimension %>
+</p>
+
+<p>
+  <strong>Cod sub dimension:</strong>
+  <%= @grilla_item.cod_sub_dimension %>
+</p>
+
+<p>
+  <strong>Cod afirmacion:</strong>
+  <%= @grilla_item.cod_afirmacion %>
+</p>
+
+<p>
+  <strong>Cod evidencia:</strong>
+  <%= @grilla_item.cod_evidencia %>
+</p>
+
+<p>
+  <strong>Item:</strong>
+  <%= @grilla_item.item %>
+</p>
+
+<p>
+  <strong>Escala:</strong>
+  <%= @grilla_item.escala %>
+</p>
+
+<p>
+  <strong>Orden item:</strong>
+  <%= @grilla_item.orden_item %>
+</p>
+
+<p>
+  <strong>Ejemplos:</strong>
+  <%= @grilla_item.ejemplos %>
+</p>
+
+<%= link_to 'Editar', edit_grilla_item_path(@grilla_item) %> |
+<%= link_to 'Volver', grilla_itemes_path %>

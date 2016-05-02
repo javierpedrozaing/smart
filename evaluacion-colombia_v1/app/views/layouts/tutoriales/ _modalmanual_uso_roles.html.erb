@@ -1,0 +1,25 @@
+<div id="<%= tipo_usuario %>" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+     <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Manual Docente</h4>
+      </div>
+      <div class="modal-body">
+      <% if tipo_usuario == 'evaluado' %>
+		<% manual_uso='Manua_de_uso_profesores.pdf' %>
+	  <% elsif tipo_usuario == 'camarografo' %>
+		<% manual_uso='jefe_camarografos.pdf' %>
+	  <% elsif tipo_usuario == 'evaluador'  %>
+		<% manual_uso='par_evaluador.pdf' %>
+	 <% end %>
+     
+     <iframe src="/static_files/<%= manual_uso %>" style="width:700px; height:505px;" frameborder="0"></iframe>
+      </div>
+     <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        
+      </div>
+    </div>
+  </div>  
+</div>

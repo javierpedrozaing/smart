@@ -1,0 +1,54 @@
+<% if permit_videos && !@video.blank? && @video.conversion_status == 'COMPLETED'%>
+  <div class="row col-md-12" >
+    <h3>Muestra de Video</h3>
+    <% if @video.attach_file_name.blank? %>
+    No existe video asociado.
+    <% else %>
+      <% if Rails.env.development? %>
+        Video_id: <%= @video.id %> </br>
+        Profesor_id: <%= @video.profesor_id %> </br>
+      <% if @video.observador %>
+        Observador_id: <%= @video.observador_id %> </br>
+        Observador_persona_id:<%= @video.observador.persona_id %> </br>
+        Observador_persona_documento: <%= @video.observador.persona.documento %></br>
+      <% end %>
+    <% end %>
+    <div class="col-md-6">
+      <div class="embed-responsive embed-responsive-16by9">
+        <%= video_tag(@video.preview_path, controls: true, autobuffer: true, class: "embed-responsive-item") %>
+      </div>
+    </div>
+    <% if @video.identidad_verificada == false %>
+    <div class="col-md-6">
+      <label style="text-color: red">Este video se reportó como no válido.</label>
+    </div>
+    <% elsif @video.identidad_verificada == true%>
+    <div class="col-md-6">
+      <label>El video ya ha sido validado.</label>
+    </div>
+    <% else %>
+    <div class="col-md-6">
+      <label>Es usted el profesor en este video?</label>
+      <%= form_tag profesor_validar_video_path do %>
+        <% if @valid.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@valid.errors.count, "error") %> prohibited this video from being saved:</h2>
+          <ul>
+            <% @valid.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+      <%= radio_button_tag("validate_video[presencia]", "true") %>Si<br>
+      <%= radio_button_tag("validate_video[presencia]", "false") %>No<br>
+      <%= submit_tag "Validar", class: "btn btn-primary btn-xs"%>
+      <% end %>
+    </div>
+    <% end %>
+    <% end %>
+  </div>
+
+<% else %>
+El vídeo no existe o aun se esta procesando.
+<% end %>

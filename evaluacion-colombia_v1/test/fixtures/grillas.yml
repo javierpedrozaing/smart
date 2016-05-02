@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  asignatura_id: 
+  seccion_educativa_id: 
+  grilla: MyString
+
+two:
+  asignatura_id: 
+  seccion_educativa_id: 
+  grilla: MyString

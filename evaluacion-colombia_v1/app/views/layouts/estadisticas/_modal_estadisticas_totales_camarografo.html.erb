@@ -1,0 +1,63 @@
+<div id="revisados" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+     <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Totales de Vídeos</h4>
+      </div>
+      <div class="modal-body">
+      
+        <%  @modulo="Vídeosevaluados" %>
+            
+        <%   @Titulo="camarografostotal" %>
+     
+        <%=  render "layouts/observacion/filtrar_camarografos"   %>
+        <table>
+	          <tr>
+		          <th>
+		           Total Asignaciones Vídeos
+		          </th>
+		          <th>
+		           Vídeos en Plataforma
+		          </th>
+		          <th>
+		           Asignaciones pendientes
+		          </th>
+		           
+	          </tr>
+	          <tr>
+		          <td>
+		          589
+		          </td>
+		          <td>
+		           230
+		          </td>
+		          <td>
+		            359
+		          </td>
+		           
+	          </tr>
+	           <tr>
+		          <td>
+		           
+		          </td>
+		          <td>
+		             <%= link_to "Ver" ,"/admin/administracion/reporte_estados/reporte_En_Plataforma", id: "evaluadores", target:"_blank" %>
+		          </td>
+		          <td>
+		             <%= link_to "Ver" ,"/admin/administracion/reporte_estados/reporte_Pendientes", id: "evaluadores", target:"_blank" %>
+		          </td>
+		         
+		       
+	          </tr>
+	         
+	          
+	      </table>    
+      </div>
+     <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        
+      </div>
+    </div>
+  </div>  
+</div>

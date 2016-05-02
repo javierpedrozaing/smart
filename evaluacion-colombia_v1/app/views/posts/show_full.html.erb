@@ -1,0 +1,32 @@
+<p>
+  <strong>Titulo:</strong>
+  <%= @post.titulo %>
+</p>
+
+<p>
+  <strong>Cuerpo:</strong>
+  <%= @post.cuerpo.html_safe %>
+</p>
+
+<p>
+  <strong>Visible:</strong>
+  <%= @post.visible %>
+</p>
+
+<p>
+  <strong>Usuario:</strong>
+  <%= @post.usuario_id %>
+</p>
+
+<p>
+  <strong>Imagen:</strong>
+  <%= @post.imagen %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @post.descripcion %>
+</p>
+
+<%= link_to 'Editar', edit_post_path(@post) %> |
+<%= link_to 'Volver', posts_path %>

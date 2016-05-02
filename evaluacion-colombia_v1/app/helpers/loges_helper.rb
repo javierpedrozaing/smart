@@ -1,0 +1,2 @@
+module LogesHelper
+end

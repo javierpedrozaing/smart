@@ -1,0 +1,724 @@
+<div id="subir_video_js"></div>
+<div class="row envioValidacion">
+        
+        <div class="col-xs-12 col-md-8">
+          
+          <p>Estimado profesor, recuerde primero completar todo el proceso de práctica educativa. Luego adjunte y guarde los archivos de  planeación de clase, evidencia de evaluación a estudiantes y complete el Formulario de planeación. Finalmente de clic en el botón "Enviar para Evaluación", para completar el proceso.</p>    
+     
+        </div>
+        <div class="col-xs-6 col-md-4">
+          <div class="btnEvaluacion">
+            <button data-toggle="modal"  data-target="#modalConfirmacion" type="button" class="btn btn-success envioEvaluar">Enviar para Evaluación</button>
+            
+          </div>          
+        </div>
+      </div>
+      <!-- Capturamos el id del cargo para validacion en javascript -->
+      <div data-id='<%= current_persona.profesor.cargo.id %>' id='cargo_id' ></div>
+<div class="col-md-12">
+<div class="col-md-6">
+<div class="panel panel-primary">
+  <div class="panel-heading">Subir Video</div>
+  <div class="panel-body">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Estado de Subida</th>
+          <th style="width: 180px;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Práctica Educativa</td>
+          <td>
+          	
+          	
+            <% if current_persona.profesor.video.conversion_status == 'COMPLETED' %>
+              <p style="font-size: 13px; text-align: center; margin-bottom: 0px;">Su video ha sido guardado correctamente.</p>
+            <% else 
+              if current_persona.profesor.video.attach_file_name.blank? %>
+                <p style="font-size: 13px; text-align: center; margin-bottom: 0px;">No existe video asociado.</p>
+              <% else %>
+                <p style="font-size: 13px; text-align: center; margin-bottom: 0px;">Su video se está procesando.</p>
+              <% end %>
+            <% end %>
+          </td>
+          <td>
+            <% if current_persona.profesor.video.observador_id == 0 || current_persona.profesor.video.observador_id == nil %>
+                <% if current_persona.profesor.video.conversion_status == 'COMPLETED' %>
+                  
+                  <div style="position:relative;float:right; width:50px ">
+                  <a href="#" onclick="subir_video_flash();return false;" data-toggle="tooltip" data-placement="top" data-original-title="Guardar Video"><span class="btn btn-default btn-file btn-circle"><span class="fileinput-new"><i class="fa fa-floppy-o" style="color:#fff;"></i></span></a>
+                </div>
+
+                  <div data-toggle="modal" data-target="#myModal" style="position:relative;float:right; width:50px">
+                    <a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Ver Video Adjuntado"><span class="btn btn-default btn-file btn-circle" style="background-color: #FFCC00; border-radius: 30px;"><i class="fa fa-eye" style="color:#fff;"></i></span></a>
+                  </div>
+
+                <% end %>
+                            
+               <% if current_persona.profesor.video.intentos < 3  && !current_persona.profesor.cargo_id.nil? %>
+               <% if @pico_placa[0] == true && 
+          		!current_persona.profesor.video.blank?  %> <!-- Habre pico placa muestra de botones  y bloquea segun cargos-->
+       
+                <div style="position:relative;float:right; width:50px ">
+                  <%= link_to edit_video_path(current_persona.profesor.video), html_options = {class: "sprite sprite-one", role: "button", rel: "tooltip", "data-original-title" => "Adjuntar Vídeo"} do %>
+                    <span class="btn btn-default btn-file btn-circle doc"><span class="fileinput-new"><i class="fa fa-video-camera" style="color:#fff;"></i></span><span class="fileinput-exists"></span><input type="file" name="..."></span>
+                  <% end %>
+                </div>
+                 <% end %><!-- Cierra pico placa muestra de botones-->
+                <% end %>
+            <% else %>
+              <% if !current_persona.profesor.video.nil? %>
+                <% if current_persona.profesor.video.conversion_status == 'COMPLETED' %>
+                <div style="position:relative;float:right; width:50px ">
+                  <a href="#" onclick="subir_video_flash();return false;" data-toggle="tooltip" data-placement="top" data-original-title="Guardar Video"><span class="btn btn-default btn-file btn-circle"><span class="fileinput-new"><i class="fa fa-floppy-o" style="color:#fff;"></i></span></a>
+                </div>
+                
+                <div data-toggle="modal" data-target="#myModal" style="position:relative;float:right; width:50px">
+                  <a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Ver Video Adjuntado"><span class="btn btn-default btn-file btn-circle" style="background-color: #FFCC00; border-radius: 30px;"><i class="fa fa-eye" style="color:#fff;"></i></span></a>
+                </div>
+                <% end %>
+                <!--
+                <div style="position:relative;float:right; width:50px ">
+                  <%= link_to edit_video_path(current_persona.profesor.video), html_options = {class: "sprite sprite-one", role: "button", rel: "tooltip", "data-original-title" => "Adjuntar Vídeo"} do %>
+                    <span class="btn btn-default btn-file btn-circle" style="background-color: #FF6600; border-radius: 30px;"><span class="fileinput-new"><i class="fa fa-video-camera" style="color:#fff;"></i></span><span class="fileinput-exists"></span><input type="file" name="..."></span>
+                  <% end %>
+                </div>
+                -->
+              <% else %>
+                --
+              <% end %>
+            <% end %>
+           
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-danger">
+      
+    </div>
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Especificaciones para subir el video </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body instrucciones" style="background-color: #F3CDCD;">
+        <p>
+      Recuerde que si su video no cuenta con las características técnicas, este no podrá ser cargado en la plataforma. <br> <br>
+      * Vídeos de máximo 350 MB <br>
+      * Formato FLV o MP4<br>
+      * Resolución de 360 puntos de alto<br>
+      * Se recomienda formato 4:3</p>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="panel panel-primary">
+  <!--<h3 style="text-align:center;" class="sub-header">Información complementaria</h3>-->
+  <div class="panel-heading">Información complementaria</div>
+  <div class="panel-body">
+  <div id="errors" style="color: red;"></div>
+  <div id="good" style="color: green;"></div>
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Archivos</th>
+          <th>Estado de Subida</th>
+          <th>Especificaciones</th>
+          <th style="width: 140px;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+                <% 	case current_persona.profesor.cargo.id %>
+		<% 	    when 1    #Cargo Docente  
+		%>
+					<td style="text-align: -webkit-auto;">Planeación de clase</td>
+		<%	     when 2    #Cargo Directivo
+		%>
+				     <td style="text-align: -webkit-auto;">Evidencia de planeación de la reunión</td>
+		<%	     when 3    #Cargo Directivos sindicales
+		  pdf_planeacion='formulario_directivosb.pdf'
+		  planeacion_text= "1. Ser un archivo en formato PDF o Word. 2. Máximo 1000 palabras en computador o a mano. 3. Máximo tres páginas. Si requiere incluir gráficos, tablas o figuras, hágalo sin exceder el máximo de páginas. 4. El archivo no debe pesar más de 1 MB. 5. El archivo debe venir identificado de la siguiente manera: Número de cédula_ letra P. Ejemplo:    1000000000_P"
+		%>
+		             <td style="text-align: -webkit-auto;">Evidencia de planeación del taller de formación</td>
+		<%	     when 4    #Cargo Docente de aula
+		
+		%>
+		             <td style="text-align: -webkit-auto;">Planeación de clase</td>
+		<%	     when 5    #Cargo Docente orientador
+		   pdf_planeacion='formulario_orientadoresb.pdf'
+		   planeacion_text= ""
+		%>
+		            <td style="text-align: -webkit-auto;">Evidencia de planeación</td>
+		<%	     when 6    #Cargo Docente Tutor del PTA
+		    pdf_planeacion='formulario_docentes tutoresb.pdf'
+		    planeacion_text= ""
+		%>
+		            <td style="text-align: -webkit-auto;">Evidencia de planeación de la reunión</td>
+	    <%	     when 7    #Cargo Rector
+	         pdf_planeacion='formulario_rectoresb.pdf'
+	         planeacion_text= ""
+		%>
+		            <td style="text-align: -webkit-auto;">Evidencia de planeación de la reunión</td>
+	    <%	     when 8    #Cargo Directivo rural
+	          pdf_planeacion='formulario_rectoresb.pdf'
+	          planeacion_text= ""
+		%>
+		            <td style="text-align: -webkit-auto;">Evidencia de planeación de la reunión</td>
+	    <%	     when 9    #Cargo Coordinador
+	           pdf_planeacion='formulario_coordinadores_b.pdf'
+	           planeacion_text= ""
+		%>
+		            <td style="text-align: -webkit-auto;">Evidencia de planeación de la reunión</td>
+	   <%	     else   #Cargo Docente o docente de aula
+	    %>
+	                <td style="text-align: -webkit-auto;">Planeación de clase</td>
+	   <% end %>	
+        	
+          <td>
+	
+            <%if @planeacion_file.blank? %>
+              <p style="font-size: 13px; text-align: center; margin-bottom: 0px;">No existe archivo asociado.</p>
+            <% else %>
+              <p style="font-size: 13px; text-align: center; margin-bottom: 0px;">Su archivo ha sido guardado correctamente.</p>
+            <% end %>
+          </td>
+            
+          <td>
+         <% if   [ 1, 4].include? current_persona.profesor.cargo.id  %>
+          <button style="margin-top: 5px;" type="button" class="btn btn-info btn-xs" data-container="body" data-toggle="popover" title="" data-trigger="focus" data-placement="bottom" data-content="En este apartado deberá cargar su evidencia de planeación correspondiente a la clase que será grabada. Este documento debe tener las siguientes características: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+              1. Ser un archivo en formato PDF o Word. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+              2. Máximo 1000 palabras en computador o a mano. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+              3. Máximo tres páginas. Si requiere incluir gráficos, tablas o figuras, hágalo sin exceder el máximo de páginas.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+              4. El archivo no debe pesar más de 1 mb. &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Recuerde que el archivo debe venir identificado de la siguiente manera: Número de cédula_ letra P. Ejemplo: 1000000000_P.&nbsp;&nbsp; "
+		   data-original-title="Evidencia de planeación">Especificaciones</button>
+		    <% elsif   [7,8].include? current_persona.profesor.cargo.id %> 
+		  <button style="margin-top: 5px;" type="button" class="btn btn-info btn-xs" data-container="body" data-toggle="popover" title="" data-trigger="focus" data-placement="bottom" data-content="1. Ser un archivo en formato PDF o Word.
+			2. Máximo 1000 palabras en computador o a mano.
+			3. Máximo tres páginas. Si requiere incluir gráficos, tablas o figuras, hágalo sin exceder el máximo de páginas.
+			4. El archivo no debe pesar más de 1 MB.
+			5. El archivo debe venir identificado de la siguiente manera: Número de cédula_ letra P. Ejemplo:    1000000000_P "
+		   data-original-title="Evidencia de planeación">Especificaciones</button>
+		    <% elsif   [9].include? current_persona.profesor.cargo.id %> 
+		  <button style="margin-top: 5px;" type="button" class="btn btn-info btn-xs" data-container="body" data-toggle="popover" title="" data-trigger="focus" data-placement="bottom" data-content="1. Ser un archivo en formato PDF o Word.
+			2. Máximo 1000 palabras en computador o a mano.
+			3. Máximo tres páginas. Si requiere incluir gráficos, tablas o figuras, hágalo sin exceder el máximo de páginas.
+			4. El archivo no debe pesar más de 1 MB.
+			5. El archivo debe venir identificado de la siguiente manera: Número de cédula_ letra P. Ejemplo:    1000000000_P"
+		   data-original-title="Evidencia de planeación">Especificaciones</button>
+		    <% elsif   [5].include? current_persona.profesor.cargo.id %>
+		   <button style="margin-top: 5px;" type="button" class="btn btn-info btn-xs" data-container="body" data-toggle="popover" title="" data-trigger="focus" data-placement="bottom" data-content="1. Ser un archivo en formato PDF o Word.
+			2. Máximo 1000 palabras en computador o a mano.
+			3. Máximo tres páginas. Si requiere incluir gráficos, tablas o figuras, hágalo sin exceder el máximo de páginas.
+			4. El archivo no debe pesar más de 1 MB.
+			5. El archivo debe venir identificado de la siguiente manera: Número de cédula_ letra P. Ejemplo:    1000000000_P"
+		   data-original-title="Evidencia de planeación">Especificaciones</button>  
+		   <% elsif   [6].include? current_persona.profesor.cargo.id %>
+		   <button style="margin-top: 5px;" type="button" class="btn btn-info btn-xs" data-container="body" data-toggle="popover" title="" data-trigger="focus" data-placement="bottom" data-content="1. Ser un archivo en formato PDF o Word.
+			2. Máximo 1000 palabras en computador o a mano.
+			3. Máximo tres páginas. Si requiere incluir gráficos, tablas o figuras, hágalo sin exceder el máximo de páginas.
+			4. El archivo no debe pesar más de 1 MB.
+			5. El archivo debe venir identificado de la siguiente manera: Número de cédula_ letra P. Ejemplo:    1000000000_P"
+		   data-original-title="Evidencia de planeación">Especificaciones</button> 
+		   <% elsif   [3].include? current_persona.profesor.cargo.id %>
+		   <button style="margin-top: 5px;" type="button" class="btn btn-info btn-xs" data-container="body" data-toggle="popover" title="" data-trigger="focus" data-placement="bottom" data-content="1. Ser un archivo en formato PDF o Word.
+			2. Máximo 1000 palabras en computador o a mano.
+			3. Máximo tres páginas. Si requiere incluir gráficos, tablas o figuras, hágalo sin exceder el máximo de páginas.
+			4. El archivo no debe pesar más de 1 MB.
+			5. El archivo debe venir identificado de la siguiente manera: Número de cédula_ letra P. Ejemplo:    1000000000_P"
+		   data-original-title="Evidencia de planeación">Especificaciones</button> 
+		   <%end%>
+          </td>
+          <td>
+         <% if !current_persona.profesor.cargo.blank? && current_persona.profesor.video.identidad_verificada.blank?  %>          
+          
+          <form action="<%= archivos_upload_path %>" enctype="multipart/form-data" accept-charset="UTF-8" method="post" id="form-planeacion">
+
+          <%= hidden_field :archivos_persona, :tipo, value: "1" %>
+
+          <div class="fileinput fileinput-new" data-provides="fileinput" style="position:relative;float:right; width:50px ">
+
+          <a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Guardar Archivo" id="enviar-planeacion"><span class="btn btn-default btn-file btn-circle"><span class="fileinput-new"><i class="fa fa-floppy-o" style="color:#fff;"></i></span></span></a>
+
+          
+          </div>
+          <div class="fileinput fileinput-new" data-provides="fileinput" style="position:relative;float:right; width:50px">
+            <a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Adjuntar Archivo">
+            <span class="btn btn-default btn-file btn-circle doc" >
+            <span class="fileinput-new"><i class="fa fa-file-text" style="color:#fff;"></i></span>
+            <span class="fileinput-exists"></span>
+            
+              <input type="file" name="archivos_persona[archivo]" id="planeacion-input">
+            
+            </span></a>
+            <span class="fileinput-filename"></span>
+          </div>
+            <a rel="tooltip" data-original-title="Adjuntar Video" href="adjuntar_archivo_profesor.html" class="sprite sprite-one">
+              <!--<%= image_tag("hover-sprite.png") %>-->
+            </a>
+            <a rel="tooltip" data-original-title="Ver archivo" href="#" class="sprite sprite-two">
+              <!--<%= image_tag("hover-sprite.png", :data => { toggle: "modal", target: "#myModal"}, alt: "Icon One" ) %>-->
+            </a>
+            <a rel="tooltip" data-original-title="Guardar Archivo" href="#" class="sprite sprite-three">
+              <!--<%= image_tag("hover-sprite.png") %>-->
+            </a>
+            </form>             
+           
+           <% end %>
+          </td>
+        </tr>
+        <tr>
+        <% 	case current_persona.profesor.cargo.id %>
+		<% 	    when 1    #Cargo Docente  
+		%>
+					<td style="text-align: -webkit-auto;">Evidencia de evaluación</td>
+		<%	     when 2    #Cargo Directivo
+		%>
+				     <td style="text-align: -webkit-auto;">Evidencia de acta de  conclusiones de la reunión</td>
+		<%	     when 3    #Cargo Directivos sindicales
+		%>
+		             <td style="text-align: -webkit-auto;"></td>
+		<%	     when 4    #Cargo Docente de aula
+		%>
+		             <td style="text-align: -webkit-auto;">Evidencia de evaluación</td>
+		<%	     when 5    #Cargo Docente orientador
+		%>
+		            <td style="text-align: -webkit-auto;">Evidencia de evaluación</td>
+		<%	     when 6    #Cargo Docente Tutor del PTA
+		%>
+		            <td style="text-align: -webkit-auto;"></td>
+	    <%	     when 7    #Cargo Rector
+		%>
+		            <td style="text-align: -webkit-auto;">Evidencia de  acta  de  conclusiones de la reunión</td>
+	    <%	     when 8    #Cargo Directivo rural
+		%>
+		            <td style="text-align: -webkit-auto;">Evidencia de  acta  de  conclusiones de la reunión</td>
+	    <%	     when 9    #Cargo Coordinador
+		%>
+		            <td style="text-align: -webkit-auto;">Evidencia de acta de  conclusiones de la reunión</td>
+	   <%	     else   #Cargo Docente o docente de aula
+	    %>
+	                <td style="text-align: -webkit-auto;">Evidencia de evaluación</td>
+	   <% end %>
+	   			
+       <td>
+	        <% if  ![ 3, 6].include? current_persona.profesor.cargo.id  %>
+             <%if @evidencias_file.blank? %>              
+              <p style="font-size: 13px; text-align: center; margin-bottom: 0px;">No existe archivo asociado.</p>
+            <% else %>
+              <p style="font-size: 13px; text-align: center; margin-bottom: 0px;">Su archivo ha sido guardado correctamente.</p>
+            <% end %>
+           <% end %> 
+          </td>
+          <td>
+          <% if  ![ 3, 6].include? current_persona.profesor.cargo.id  %>
+	          <% if   [ 1, 4].include? current_persona.profesor.cargo.id  %>	 	
+	          <button style="margin-top: 5px;" type="button" class="btn btn-info btn-xs" data-container="body" data-toggle="popover" title="" data-placement="bottom" data-trigger="focus" data-content="En este apartado deberá cargar su evidencia de la evaluación realizada a un estudiante. Este archivo debe tener las siguientes características:  &nbsp; &nbsp; 
+	               1. Estar en formato PDF o en Word. Si la evaluación del estudiante o su retroalimentación contempla la grabación de un audio, el archivo debe venir en formato Mp3 y pesar máximo 5mb que equivalen aproximadamente a cinco minutos. En todo caso no se puede cargar más de un archivo. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+	               &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; 
+	               2. Incluir la retroalimentación realizada al estudiante.   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+	               3. El archivo debe tener máximo 1000 palabras en computador o a mano. &nbsp;&nbsp;&nbsp;&nbsp;
+	               4. Máximo tres páginas. Si esta incluye gráficos, tablas y figuras, hágalo sin exceder el máximo de páginas.  &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+	                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  
+	              Recuerde que el archivo debe venir identificado de la siguiente manera: Número de cédula_ letra E. Ejemplo: 1000000000_123456789101_E. " data-original-title="Evidencia de evaluación">Especificaciones</button>
+	            <% elsif   [7,8].include? current_persona.profesor.cargo.id %> 
+	           <button style="margin-top: 5px;" type="button" class="btn btn-info btn-xs" data-container="body" data-toggle="popover" title="" data-trigger="focus" data-placement="bottom" data-content="1. Ser un archivo en formato PDF o Word.
+						2. Máximo 1000 palabras en computador o a mano.
+						3. Máximo tres páginas. Si requiere incluir gráficos, tablas o figuras, hágalo sin exceder el máximo de páginas.
+						4. El archivo no debe pesar más de 1 MB.
+						5. El archivo debe venir identificado de la siguiente manera: Número de cédula_ letra P. Ejemplo:    1000000000_E" data-original-title="Evidencia de acta de conclusiones de la reunión">Especificaciones</button> 
+	            <% elsif   [5].include? current_persona.profesor.cargo.id %> 
+	            <button style="margin-top: 5px;" type="button" class="btn btn-info btn-xs" data-container="body" data-toggle="popover" title="" data-trigger="focus" data-placement="bottom" data-content="Puede subir la evidencia de evaluación de una de las siguientes formas: 1. En formato PDF o  Word, en un archivo de máximo 1000 palabras en computador y tener 1 MB. Máximo tres páginas. Si esta incluye gráficos, tablas y figuras, hágalo sin exceder el máximo de páginas o 2. Si la evaluación del participante de la actividad contempla la grabación de un audio. El archivo debe venir en formato Mp3 y tener un máximo 5MB que equivalen aproximadamente a cinco minutos y solo se puede subir en un único archivo. Los problemas de sonido derivados de grabaciones son responsabilidad del docente orientador evaluado, por lo que debe asegurarse de la calidad del audio.
+                 3. El archivo debe venir identificado de la siguiente manera: Número de cédula_ letra P. Ejemplo:    1000000000_E" data-original-title="Evidencia de evaluación">Especificaciones</button> 
+	            <% elsif   [9].include? current_persona.profesor.cargo.id %> 
+	            <button style="margin-top: 5px;" type="button" class="btn btn-info btn-xs" data-container="body" data-toggle="popover" title="" data-trigger="focus" data-placement="bottom" data-content="1. Ser un archivo en formato PDF o Word.
+						2. Máximo 1000 palabras en computador o a mano.
+						3. Máximo tres páginas. Si requiere incluir gráficos, tablas o figuras, hágalo sin exceder el máximo de páginas.
+						4. El archivo no debe pesar más de 1 MB.
+						5. El archivo debe venir identificado de la siguiente manera: Número de cédula_ letra P. Ejemplo:    1000000000_E" data-original-title="Evidencia de acta de conclusiones de la reunión">Especificaciones</button> 
+	            <% end %>
+            <% end %>
+          </td>
+          <td>
+         <% if !current_persona.profesor.cargo.blank?  &&  current_persona.profesor.video.identidad_verificada.blank? %>
+          
+           <% if  ![2, 3, 6].include? current_persona.profesor.cargo.id  %>	
+          <form action="<%= archivos_upload_path %>" enctype="multipart/form-data" accept-charset="UTF-8" method="post" id="form-evidencia">
+
+          <%= hidden_field :archivos_persona, :tipo, value: "2" %>
+
+          <div class="fileinput fileinput-new" data-provides="fileinput" style="position:relative;float:right; width:50px ">
+            <a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Guardar Archivo"  id="enviar-evidencia"><span class="btn btn-default btn-file btn-circle"><span class="fileinput-new"><i class="fa fa-floppy-o" style="color:#fff;"></i></span></span></a>
+          </div>
+          <div class="fileinput fileinput-new" data-provides="fileinput" style="position:relative;float:right; width:50px">
+            <a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Adjuntar Archivo">
+            <span class="btn btn-default btn-file btn-circle doc">
+            <span class="fileinput-new"><i class="fa fa-file-text" style="color:#fff;"></i></span>
+            <span class="fileinput-exists"></span>
+
+            <input type="file" name="archivos_persona[archivo]" id="evidencia-input"></span></a>
+
+            <span class="fileinput-filename"></span>
+          </div>
+            <a rel="tooltip" data-original-title="Adjuntar Archivo" href="#" class="sprite sprite-one">
+              <!--<%= image_tag("hover-sprite.png") %>-->
+            </a>
+            <a rel="tooltip" data-original-title="Ver Archivo" href="#" class="sprite sprite-two">
+              <!--<%= image_tag("hover-sprite.png", :data => { toggle: "modal", target: "#myModal"}, alt: "Icon One" ) %>-->
+            </a>
+            <a rel="tooltip" data-original-title="Guardar Archivo" href="#" class="sprite sprite-three">
+              <!--<%= image_tag("hover-sprite.png") %>-->
+            </a>
+            </form>
+             
+            <% end %>
+           <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table table-bordered table-hover">  
+     <tbody>  
+      <% if !current_persona.profesor.cargo_id.nil?  &&  current_persona.profesor.video.identidad_verificada.blank?  %>
+	    <% if  ![2, 3, 5, 6, 7, 8, 9].include? current_persona.profesor.cargo.id  %>     
+        <tr>
+            <!-- <td>
+              <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox1" value="option1">
+                  </label> 
+            </td> -->
+      
+            <td style="padding-top: 7px;text-align: -webkit-auto;">Formulario de planeación</td>
+            
+	            <td>
+	              <!-- <span class="fa-stack" style="color: #00D400;">
+	                <i class="fa fa-circle fa-stack-2x"></i>
+	                <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+	              </span> -->
+	              
+	               <div style="position:relative;float:right; width:50px">
+	                          <a href="<%= profesor_formulario_planeacion_path %>" data-toggle="tooltip" data-placement="bottom" data-original-title="Completar formulario"><span class="btn btn-default btn-file btn-circle doc"><span class="fileinput-new"><i class="fa fa-pencil " style="color:#fff;"></i></span></span></a>
+	                </div>
+	                
+	              </td> 
+	    <% else %>  
+	               
+	     <tr>
+          <td style="text-align: -webkit-auto; width: 90px ">Formato de planeación</td>
+          <td>
+            <%if @planeacion_cargo_file.blank? %>
+              <p style="font-size: 13px; text-align: center; margin-bottom: 0px; width: 85px ">No existe archivo asociado.</p>
+            <% else %>
+              <p style="font-size: 13px; text-align: center; margin-bottom: 0px; width: 92px ">Su archivo ha sido guardado correctamente.</p>
+            <% end %>
+          </td>
+          <td style="width: 120px;">
+          	<% @pdf_planeacion=pdf_planeacion %>
+          	<button style="margin-top: 5px;" type="button" class="btn btn-info btn-xs" data-container="body" data-toggle="popover" title="" data-trigger="focus" data-placement="bottom" data-content="Todos los roles deben descargar de la plataforma el pdf para diligenciarlo y 
+          	 posteriormente subirlo de nuevo a la plataforma.  El archivo  pdf debe venir identificado de la siguiente manera: Número de cédula_ letra F. Ejemplo:    1000000000_F" data-original-title="" style="margin-top: 5px; width: 120px; white-space: pre-line;">Especificaciones</button> 
+          	<%= link_to "Descargue el formulario de practica educativa aquí.", profesor_download_file_path( @pdf_planeacion), :format => 'pdf', :style=>"margin-top: 5px; width: 120px; white-space: pre-line;", :class=>"btn btn-info btn-xs" %>
+          	</td>
+           
+          <td>
+         <% if !current_persona.profesor.cargo.blank? %>
+        
+          <form action="<%= archivos_upload_path %>" enctype="multipart/form-data" accept-charset="UTF-8" method="post" id="form-planeacion-cargo">
+
+          <%= hidden_field :archivos_persona, :tipo, value: "3" %>
+
+	          <div class="fileinput fileinput-new" data-provides="fileinput" style="position:relative;float:right; width:50px ">
+	            <a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Guardar Archivo"  id="enviar-planeacion-cargo"><span class="btn btn-default btn-file btn-circle"><span class="fileinput-new"><i class="fa fa-floppy-o" style="color:#fff;"></i></span></span></a>
+	          </div>
+	          <div class="fileinput fileinput-new" data-provides="fileinput" style="position:relative;float:right; width:50px">
+	            <a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Adjuntar Archivo descargado anteriormente">
+	            <span class="btn btn-default btn-file btn-circle doc">
+	            <span class="fileinput-new"><i class="fa fa-file-text" style="color:#fff;"></i></span>
+	            <span class="fileinput-exists"></span>
+	
+	            <input type="file" name="archivos_persona[archivo]" id="planeacion-input-cargo"></span></a>
+	
+	            <span class="fileinput-filename"></span>
+	          </div>
+            <a rel="tooltip" data-original-title="Adjuntar Archivo" href="#" class="sprite sprite-one">
+              <!--<%= image_tag("hover-sprite.png") %>-->
+            </a>
+            <a rel="tooltip" data-original-title="Ver Archivo" href="#" class="sprite sprite-two">
+              <!--<%= image_tag("hover-sprite.png", :data => { toggle: "modal", target: "#myModal"}, alt: "Icon One" ) %>-->
+            </a>
+            <a rel="tooltip" data-original-title="Guardar Archivo" href="#" class="sprite sprite-three">
+              <!--<%= image_tag("hover-sprite.png") %>-->
+            </a>
+            </form>
+
+           <% end %>
+          </td>
+        </tr>
+	               
+	               
+	               
+	             <% end %> 
+             <% end %> 
+        </tr>
+    </tbody>
+</table>
+  </div>
+</div>
+</div>
+<!-- Modal video-->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 style="color: #fff; text-align: -webkit-left; font-size: 12px;" class="modal-title" id="myModalLabel">Número de documento: <%= current_persona.documento%><!--80186850--></h4>
+        <h5 style="color: #fff;" class="modal-title text-align:left;" id="myModalLabel">VIDEO CARGADO</h5>
+      </div>
+      <div class="modal-body">
+        <div class="embed-responsive embed-responsive-16by9">
+        <% if !current_persona.profesor.video.blank? %>
+          <%= video_tag(current_persona.profesor.video.preview_path, controls: true,id:"ver_video_src", preload: "auto", autobuffer: true, class: "embed-responsive-item") %>
+        <% end %>
+        </div>
+      </div>
+      <div class="modal-footer" style="background-color: #EAF785">
+        <div class="row">
+  <div class="col-xs-6 col-sm-4">
+    <% if @identidad.nil? %>
+    <h5>Este es el video de la clase qué desea se evalúe?</h5>
+    <% elsif @identidad %>
+    <h5>El video ya ha sido validado.</h5>
+    <% else %>
+    <h5>Este vídeo se reportó como no válido.</h5>
+    <% end %>
+  </div>
+  <div class="col-xs-6 col-sm-4">
+    <% if @identidad.nil? %>
+      <label>
+         <input name="identidad_radio" type="radio" />
+         <span class="lbl padding-12">SI</span>
+      </label>
+      <!-- Radio Button -->
+      <label>
+         <input name="identidad_radio" type="radio" />
+         <span class="lbl padding-12">NO</span>
+      </label>
+      <% end %>
+    </div>
+  <div class="col-xs-6 col-sm-4">
+  	<% if @identidad.nil? %>
+    <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Validar</button>
+  <% else %>
+    <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Cerrar</button>
+  <% end %>
+  </div>
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- FIN MODAL VIDEO-->
+<!-- FORMULARIO CONFIRMACION ENVIO VIDEO -->
+<div class="modal fade" id="modalConfirmacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" >
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Formulario de confirmación</h4>
+      </div>
+      
+      <%= form_tag profesor_validar_video_modal_path do %>
+        <% if @valid.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@valid.errors.count, "error") %> evitaron que su video fuera validado:</h2>
+          <ul>
+            <% @valid.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+      <div class="modal-body ">
+        <div class="row">
+          <div class="col-xs-12">
+            <h4 style="text-align: -webkit-center;margin-bottom: 22px;">Antes de terminar el proceso de envío  por favor indique:</h4>
+            <ul class="list-group">
+              <li class="list-group-item">La persona que aparece en el video cargado es usted:
+                <br>
+                <label>
+                   <!--
+                   <input type="radio" />
+                   <span class="lbl padding-12">SI</span>-->
+                   <%= radio_button_tag("validate_video_modal[presencia]", "true") %>SI<br>
+                </label>       
+                <!-- Radio Button -->
+                <label>
+                	<!--
+                   <input type="radio" />
+                   <span class="lbl padding-12">NO</span>-->
+                   <%= radio_button_tag("validate_video_modal[presencia]", "false") %>NO<br>
+               </label>    
+            </li>
+              <li class="list-group-item">Este es el video de su práctica educativa con el que desea ser evaluado: <br>
+                <label>
+                   <!--<input type="radio" />
+                   <span class="lbl padding-4">SI</span>-->
+                   <%= radio_button_tag("validate_video_modal[practica]", "true") %>SI<br>
+                </label>       
+                <!-- Radio Button -->
+                <label>
+                   <!--<input type="radio" />
+                   <span class="lbl padding-12">NO</span>-->
+                   <%= radio_button_tag("validate_video_modal[practica]", "false") %>NO<br>
+               </label> 
+
+              </li>
+              <li class="list-group-item">Los estudiantes que aparecen en el video, cuentan con consentimientos informados por parte de sus padres o acudientes?: <br>
+                <label>
+                   <!--<input type="radio" />
+                   <span class="lbl padding-12">SI</span>-->
+                   <%= radio_button_tag("validate_video_modal[consentimiento]", "true") %>SI<br>
+                </label>       
+                <!-- Radio Button -->
+                <label>
+                   <!--<input type="radio" />
+                   <span class="lbl padding-12">NO</span>-->
+                   <%= radio_button_tag("validate_video_modal[consentimiento]", "false") %>NO<br>
+               </label> 
+
+              </li>
+              <li class="list-group-item">
+                El video cuenta con las tres partes estipuladas en el manual (Testimonio introductorio, clase, testimonio de cierre):<br>
+                <label>
+                   <!--<input type="radio" />
+                   <span class="lbl padding-12">SI</span>-->
+                   <%= radio_button_tag("validate_video_modal[manual]", "true") %>SI<br>
+                </label>       
+                <!-- Radio Button -->
+                <label>
+                   <!--<input type="radio" />
+                   <span class="lbl padding-12">NO</span>-->
+                   <%= radio_button_tag("validate_video_modal[manual]", "false") %>NO<br>
+               </label> 
+              </li>
+            </ul>
+                       
+          </div>          
+        </div>  
+       
+        
+      <div class="modal-footer" >
+        <div class="row">  
+          <div class="col-xs-12 cerrarVentana">
+          	<!--<%= submit_tag "Enviar", class: "btn btn-success", data: {dismiss: "modal" } %>-->
+          	<%= submit_tag "Enviar", class: "btn btn-success" %>
+            <!--<button  type="button" class="btn btn-success" data-dismiss="modal">Enviar</button>-->
+            <button style="margin-right: 30px;" type="button" class="btn btn-success" data-dismiss="modal">Regresar</button>
+          </div>
+        </div>
+      </div>       
+      </div><!-- CIRRE MODAL_BODY-->
+      <% end %>
+    </div>
+  </div>
+</div>
+<!-- FIN FORMULARIO CONFIRMACION ENVIO VIDEO -->
+<hr style="border:2px solid #ddd; clear:both";>
+<!--  ESPACIO PARA INFOGRAFIA -->
+</div>
+
+<!-- ERROR AL SUBIR EL ARCHIVO -->
+
+<div class="modal fade" id="modalError" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Error en la carga del vídeo</h4>
+      </div>
+      <div class="modal-body ">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="alert alert-danger alert-dismissible alertas" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <strong>Su vídeo no pudo ser cargado</strong>
+            </div>
+          </div>
+        </div>
+       
+        <div class="row contenidoError" style="color: black;">
+          <div class="col-xs-12">
+            <hr>
+            <p><strong>Apreciado profesor,</p></strong>
+
+            Lamentamos que no haya podido realizar la carga de su video, por favor obtenga su certificado de envío físico aquí.
+          </div>
+
+          <div class="col-md-6 col-md-offset-3" >
+            <hr>
+             <a href="../archivos/show.pdf" target="_blank" >Descargar Archivo<span class="fa-stack fa-lg fa-2x">
+              <i style="color: #5CB85C;" class="fa fa-circle fa-stack-2x"></i>
+              <i style="color: #fff;" class="fa fa-download fa-stack-1x fa-inverse"></i>
+            </span></a>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="background-color: #D8D8D8">
+        <div class="row">
+          <div class="col-xs-12 cerrarVentana">
+          <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar Ventana</button>
+        </div>
+      </div>
+      </div>
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+<% if !current_persona.profesor.video.blank? %>
+<% if current_persona.profesor.video.intentos >= 3 %>
+<script>
+  $('#modalError').modal({show: false});
+  $('#modalError').modal('show');
+</script>
+<% end %>
+<% end %>
+<!-- FINAL ERROR AL SUBIR EL ARCHIVO -->
+
+<script>
+$('#myModal').on('hidden.bs.modal', function () {
+  //alert("cerrado");
+  var video = document.getElementById("ver_video_src");
+  video.pause();
+  video.currentTime = 0;
+})
+</script>
+<script>$(function () {
+  $('[data-toggle="popover"]').popover()
+})</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+   $('[data-toggle="tooltip"]').tooltip();   
+});
+
+function subir_video_flash (){
+  //var div = document.getElementById("subir_video_js");
+  $("#subir_video_js").html('<div class="alert fade in alert-success "><button type="button" class="close" data-dismiss="alert">×</button>El video fue subido correctamente.</div>')
+}
+</script>

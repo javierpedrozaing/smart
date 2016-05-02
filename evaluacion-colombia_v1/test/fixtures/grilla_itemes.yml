@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  grilla_id: 
+  cod_item: 
+  categoria_id: 
+  cod_dimension: 
+  cod_sub_dimension: 
+  cod_afirmacion: 
+  cod_evidencia: 
+  item: MyString
+  escala: MyString
+  orden_item: 
+  ejemplos: MyString
+
+two:
+  grilla_id: 
+  cod_item: 
+  categoria_id: 
+  cod_dimension: 
+  cod_sub_dimension: 
+  cod_afirmacion: 
+  cod_evidencia: 
+  item: MyString
+  escala: MyString
+  orden_item: 
+  ejemplos: MyString

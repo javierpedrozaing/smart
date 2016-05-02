@@ -1,0 +1,16 @@
+<li role="presentation" class="dropdown">
+  <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+    Usuarios <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <% if check_perfiles ['listar_profesores', 'listar_profesores_asignados'] %>
+      <li><%= link_to "Profesores", administracion_profesores_path %></li>
+    <% end %>
+    <% if check_perfiles ['listar_evaluadores', 'listar_evaluadores_asignados'] %>
+      <li><%= link_to "Evaluadores", usuarios_evaluadores_path %></li>
+    <% end %>
+    <% if check_perfiles ['listar_observadores', 'listar_observadores_asignados'] %>
+      <li><%= link_to "Camarógrafos", administracion_observadores_path %></li>
+    <% end %>
+  </ul>
+</li>

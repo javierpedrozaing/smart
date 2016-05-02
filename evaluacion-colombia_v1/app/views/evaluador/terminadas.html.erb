@@ -1,0 +1,35 @@
+<h4>Evaluaciones terminadas</h4>
+<div>  
+  <% if !@evaluaciones.blank? %>
+  <div class="row">
+  <div class="col-md-6" style="height: auto; overflow: auto">
+      <div>
+        <table class="table">
+        <thead>
+          <tr>
+            <th class="text-center">Nª</th>
+            <th class="text-center">Estado</th>
+          </tr>
+        </thead>
+          
+          <div style="overflow: auto">
+            <tbody style="height: 200px; oveflow: auto" id="myTable">
+              <% @evaluaciones.each_with_index do |evaluacion, index| %>
+                <tr class="info">
+                  <td class="text-center"><%= index + 1 %></td>
+                  <td class="text-center"><%= evaluacion.estado_evaluacion.estado %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </div>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-12 text-center">
+    <ul class="pagination pagination-sm pager" id="myPager"></ul>
+  </div>
+  </div>
+  <% else %>
+  No hay profesores para listar.
+  <% end %>
+</div>

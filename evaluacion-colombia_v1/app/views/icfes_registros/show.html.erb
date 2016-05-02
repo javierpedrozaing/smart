@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Pin:</strong>
+  <%= @icfes_registro.pin %>
+</p>
+
+<p>
+  <strong>Persona:</strong>
+  <%= @icfes_registro.persona_id %>
+</p>
+
+<%= link_to 'Edit', edit_icfes_registro_path(@icfes_registro) %> |
+<%= link_to 'Back', icfes_registros_path %>

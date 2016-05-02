@@ -1,0 +1,21 @@
+<%= @grilla %>
+
+<h1>Pauta de: Matematicas</h1>
+<h2>Materia: Matematicas</h2>
+<h2>Seccion Educativa:  Primaria</h2>
+
+<br />
+
+<% count=0 %>
+ <% @preguntas.each do |row| %>
+ 
+ <p><strong><%= count=count + 1 %>.  <%= row.pregunta %></strong> <br><br>
+ 	<ul>
+ 	<% Alternativa.where(:pregunta_id=>row.id).each do |alternativa| %>  
+ 	<li><input type="radio" name="<%= alternativa.valor_pregunta %>" value="<%= alternativa.valor_pregunta %>"><%= alternativa.alternativa %></li> <br>  
+     
+    <% end%>
+    </ul>
+  </p>
+
+ <% end%>

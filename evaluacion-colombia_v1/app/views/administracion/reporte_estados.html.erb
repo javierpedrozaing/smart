@@ -1,0 +1,179 @@
+<p id="notice"><%= notice %></p>
+
+<% @Titulo="Usuarios" %>
+<div class="row">
+	<div id="filtro">
+	 <%= render "layouts/evaluacion/filtro_evaluadores" %> 
+	</div>	 
+ <div class="col-md-6">
+       <div class="btn-group">
+		  <button  type="button" id="filtrar" class="btn btn-default">Ver criterios de búsqueda</button>
+		  <button  type="button" id="filtrar_ocultar" class="btn btn-default">Ocultar criterios de búsqueda</button>
+		  
+		</div>
+		<h2>Listado <%= @Criterio %></h2>
+		<br /><br /><br /><br /><br />
+		<table cellspacing="0" cellpadding="0">
+		   <tr>
+				<td colspan=15> <%=  image_tag("excel.png", size: "30") %>
+                       <%=  image_tag("pdf.jpg", size: "30") %></td>
+				
+		  </tr>		
+			<tr>
+				<th>Id</th>
+				<th>Tipo documento</th>
+				<th>Número documento</th>
+				<th>Nombres</th>
+				<th>Apellido Paterno</th>
+				<th>Apellido Materno</th>
+				<th>Perfil-roll</th>
+				<th>Asignatura</th>
+				<th>Dirección</th>
+				<th>Teléfono</th>
+				<th>Celular</th>
+				<th>Email</th>
+				<th>Entidad territorial</th>
+				<th>Estado</th>		
+				<th>Acciones</th>							
+			</tr>
+			<tr>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td><td>Profesor</td>	
+				<td>Matemáticas	</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td><%= @Criterio %></td>
+				<td><select class="asignacio_1"><option>Acciones</option><option>Ver</option><option>Editar</option> </select></td>							
+			</tr>			
+			<tr>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td><td>Profesor</td>	
+				<td>Matemáticas	</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td><%= @Criterio %></td>
+				<td><select class="asignacio_1"><option>Acciones</option><option>Ver</option><option>Editar</option> </select></td>									
+			</tr>			
+			<tr>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td><td>Profesor</td>	
+				<td>Matemáticas	</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td><%= @Criterio %></td>	
+				<td><select><option>Acciones</option><option>Ver</option><option>Editar</option> </select></td>								
+			</tr>			
+			<tr>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td><td>Profesor</td>	
+				<td>Matemáticas	</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td><%= @Criterio %></td>	
+				<td><select><option>Acciones</option><option>Ver</option><option>Editar</option> </select></td>								
+			</tr>
+			<tr>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td><td>Profesor</td>	
+				<td>Matemáticas	</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td><%= @Criterio %></td>
+				<td><select><option>Acciones</option><option>Ver</option><option>Editar</option> </select></td>									
+			</tr>
+			<tr>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td><td>Profesor</td>	
+				<td>Matemáticas	</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td><%= @Criterio %></td>
+				<td><select><option>Acciones</option><option>Ver</option><option>Editar</option> </select></td>									
+			</tr>
+			<tr>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td><td>Profesor</td>	
+				<td>Matemáticas	</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td>Data</td>
+				<td><%= @Criterio %></td>
+				<td><select><option>Acciones</option><option>Ver</option><option>Editar</option> </select></td>								
+			</tr>	
+			<tr>
+			<td colspan=4 class="total"> </td>
+			<td colspan=11 align="rigth">
+				<nav>
+				  <ul class="pagination">
+				    <li>
+				      <a href="#" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				    <li><a href="#">1</a></li>
+				    <li><a href="#">2</a></li>
+				    <li><a href="#">3</a></li>
+				    <li><a href="#">4</a></li>
+				    <li><a href="#">5</a></li>
+				    <li>
+				      <a href="#" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+				  </ul>
+				</nav> 
+			</td>
+			</tr>																												
+		</table>	
+      </div>
+ 
+</div>
+

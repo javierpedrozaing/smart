@@ -1,0 +1,21 @@
+<div class="modal fade" id="<%= modal_id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <%= form_tag persona_cargar_archivo_pico_y_placa_path, multipart: true, method: "post"  do %>
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"><%= titulo %></h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <%= file_field_tag 'archivo', :style=>"color:black;" %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="guardar-guardar-evaluacion" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

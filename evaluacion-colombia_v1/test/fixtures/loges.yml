@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  modulos_id: 1
+  usuarios_id: 1
+  log: MyString
+
+two:
+  modulos_id: 1
+  usuarios_id: 1
+  log: MyString

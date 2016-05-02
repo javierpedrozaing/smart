@@ -1,0 +1,101 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Estadísticas Evaluaciones</h3>
+  </div>
+  <div class="panel-body">
+<!--<h1>Estadisticas#admin_evaluador</h1>-->
+<!--<p>Find me in app/views/estadisticas/admin_evaluador.html.erb</p>-->
+<div class="row estadisticas">
+  <div class="col-md-8 estadisticasNur">
+    <a data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Corresponde a la totalidad de evaluaciones que fueron asignadas a pares evaluadores">Total Evaluaciones Asignadas<span class="badge"><%= @total %></span></a>
+    <a class="terminadas" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Corresponde a la totalidad de evaluaciones realizadas por pares evaluadores">Evaluaciones Finalizadas<span class="badge"><%= @terminadas %></span></a>
+  </div>
+
+<div class="row">
+  <div class="col-lg-4">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Buscar</button>
+              </span>
+              <input id="filtrar2" type="text" class="form-control" placeholder="Ingrese el Número de Documento">
+            </div><!-- /input-group -->
+         
+        </div>
+<div class="row evaluadoresTabla">
+  <div class="col-xs-12">
+  <div class="table-responsive" style="margin-top: 10px; margin-bottom: 20px;">
+  <table class="table table-bordered table-hover"> 
+    <thead>
+      <tr>
+        <th colspan="5" class="text-center">Información Pares Evaluadores</th>
+        </tr>                  
+        </thead>           
+        <thead>
+        <tr>
+          <th>Numero Documento</th>
+          <th>Total de Evaluaciones Asignadas</th>
+          <th>Evaluaciones Finalizadas</th>
+          <th>Evaluaciones en proceso</th>
+        </tr>
+        </thead>
+        <tbody class="buscar">
+<% @evaluadores.each do |ev| %>
+  <%= render partial: "evaluador_data", object: ev %>
+<% end %>
+</tbody>
+</table>
+
+  <table class="table table-bordered table-hover"> 
+    <thead>
+      <tr>
+        <th colspan="5" class="text-center">Videos reportados</th>
+        </tr>                  
+        </thead>           
+        <thead>
+        <tr>
+          <th>Documento</th>
+          <th>Video id</th>
+          <th>Tipo de reporte</th>
+          <!--<th>Revisado</th>-->
+        </tr>
+        </thead>
+        <tbody>
+<% if @reportes %>
+  <% @reportes.each do |re| %>
+    <%= render partial: "reporte_data", object: re %>
+  <% end %>
+<% end %>
+</tbody>
+</table>
+</div>
+</div>
+</div> <!-- row evaluadoresTabla-->
+</div> <!-- row -->
+</div> <!-- row estadisticas -->
+</div> <!-- panel body -->
+</div> <!-- panel primary-->
+<script type="text/javascript">
+    $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})</script>
+<!-- BARRA BUSCAR -->
+
+<script type="text/javascript">
+$(document).ready(function () {
+ 
+            (function ($) {
+ 
+                $('#filtrar2').keyup(function () {
+ 
+                    var rex = new RegExp($(this).val(), 'i');
+                    $('.buscar tr').hide();
+                    $('.buscar tr').filter(function () {
+                        return rex.test($(this).text());
+                    }).show();
+ 
+                })
+ 
+            }(jQuery));
+ 
+        });
+</script>

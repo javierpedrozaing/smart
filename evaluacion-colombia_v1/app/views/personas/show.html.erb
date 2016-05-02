@@ -1,0 +1,93 @@
+<div class="row">
+ <div class="panel panel-primary">
+   <div class="panel-heading">
+      <h3 class="panel-title"></h3>
+    </div>
+     <div class="panel-body">
+       <ul class="list-group">
+		<p id="notice"><%= notice %></p>
+		
+		<li class="list-group-item" style="tetx">
+          <ul class="list-inline">
+             <li><strong>Nombre:</strong>		  
+		     </li>
+		     <li><%= @persona.nombre %></li>
+		   </ul>
+         </li>
+         
+         <li class="list-group-item" style="tetx">
+          <ul class="list-inline">
+             <li><strong>Apellido paterno:</strong>		  
+		     </li>
+		     <li> <%= @persona.apellido_paterno %></li>
+		   </ul>
+         </li>     
+         
+         <li class="list-group-item" style="tetx">
+          <ul class="list-inline">
+             <li><strong>Apellido materno:</strong>		  
+		     </li>
+		     <li> <%= @persona.apellido_materno %></li>
+		   </ul>
+         </li> 
+         <li class="list-group-item" style="tetx">
+          <ul class="list-inline">
+             <li><strong>Tipo documento:</strong>		  
+		     </li>
+		     <li> <%= @persona.tipo_documento.documento %></li>
+		   </ul>
+         </li> 
+          <li class="list-group-item" style="tetx">
+          <ul class="list-inline">
+             <li><strong>Documento:</strong>		  
+		     </li>
+		     <li> <%= @persona.documento %></li>
+		   </ul>
+         </li>  
+         <li class="list-group-item" style="tetx">
+          <ul class="list-inline">
+             <li><strong>Direccion:</strong>		  
+		     </li>
+		     <li>  <%= @persona.direccion %></li>
+		   </ul>
+         </li>  
+         <li class="list-group-item" style="tetx">
+          <ul class="list-inline">
+             <li><strong>Telefono:</strong>		  
+		     </li>
+		     <li><%= @persona.telefono %></li>
+		   </ul>
+         </li>
+          <li class="list-group-item" style="tetx">
+          <ul class="list-inline">
+             <li><strong>Celular:</strong>		  
+		     </li>
+		     <li><%= @persona.celular %></li>
+		   </ul>
+         </li>
+         <li class="list-group-item" style="tetx">
+          <ul class="list-inline">
+             <li><strong>Email:</strong>		  
+		     </li>
+		     <li><%= @persona.email %></li>
+		   </ul>
+         </li>
+
+		<% if @persona.estado %>
+		 <li class="list-group-item" style="tetx">
+          <ul class="list-inline">
+             <li><strong>Estado:</strong>		  
+		     </li>
+		     <li><%= @persona.estado.estado %></li>
+		   </ul>
+         </li>
+		
+		<% end %>
+ </div>   
+  <div class="row">
+   <div class="col-md-6 col-md-offset-3" style="text-align:center; padding: 0px 0px 15px;">
+	 <%= link_to 'Editar', edit_persona_path(@persona), :class=>"btn btn-success btn-sm" %> 
+	 <%= link_to 'Regresar', :back , :class=>"btn btn-primary btn-sm" %>
+   </div>
+  </div>                        
+</div>

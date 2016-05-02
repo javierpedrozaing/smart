@@ -1,0 +1,96 @@
+<!-- Implementar vista de modales de tutoriales -->
+<li><a href="#videotutorial" data-toggle="modal" ><i class="fa fa-play-circle-o fa-fw"></i>Video Tutorial</a></li>
+<% if defined?(current_persona) && !current_persona.blank?%>
+
+<% if current_persona.profesor %>
+<% tipo_usuario='evaluado' %>
+<% elsif current_persona.observador %>
+<% tipo_usuario='camarografo' %>
+<% elsif current_persona.evaluador %>
+<li><a href="#ObservacionPauta" data-toggle="modal"><i class="fa fa-book fa-fw "></i>Manual Pauta de Observación pares ECDF </a></li>
+ <%= render "layouts/tutoriales/modalpdfmanualpauta" %>
+<% tipo_usuario='evaluador' %>
+<% elsif current_persona.coordinador %>
+<li><a href="#ObservacionPauta" data-toggle="modal"><i class="fa fa-book fa-fw "></i>Manual Pauta de Observación pares ECDF </a></li>
+<%= render "layouts/tutoriales/modalpdfmanualpauta" %>
+<% tipo_usuario='coordinador' %>
+<% elsif current_persona.rol.id == 4 %>
+<%  tipo_usuario='jefe_camarografo'  %>
+<% elsif current_persona.rol.id == 10 %>
+<%  tipo_usuario='revisor_video'  %>
+<% elsif current_persona.rol.id == 11 %>
+<%  tipo_usuario='admin_evaluado'  %>
+<% elsif current_persona.rol.id == 12 %>
+<%  tipo_usuario='admin_evaluador'  %>
+<% elsif current_persona.rol.id == 2 %>
+<%  tipo_usuario='administrador'  %>
+<% end %>
+<!-- Cargar archivos -->
+<li><a href="#<%= tipo_usuario %>" data-toggle="modal"><i class="fa fa-book fa-fw "></i>Manual De Uso </a></li>
+<!--<li><a style="padding-top:17px; background-color: #FDCF00;" href="#">Tipo de usuario</a></li>-->
+
+
+
+<li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+    </a>
+    <ul class="dropdown-menu dropdown-alerts">
+        <li>
+                <div>
+                	<%= link_to(notificaciones_path) do %>
+                    <i class="fa fa-comment-o fa-fw"></i> Notificaciones
+                    <span class="pull-right text-muted small"><%= current_persona.notif_new_tooltip%> notificaciones</span>
+                    <% end %>
+                </div>
+        </li>
+        <li class="divider"></li>                 
+        <li>
+                <div>
+                	<%= link_to(posts_path) do %>
+                    <i class="fa fa-newspaper-o fa-fw"></i> Noticias 
+                    <span class="pull-right text-muted small"><%= current_persona.blog_new_tooltip%> noticias</span>
+                    <% end %>
+                </div>
+        </li>
+    </ul>
+</li>
+<% end %>
+
+<div id="<%= tipo_usuario %>" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+     <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Manual Docente</h4>
+      </div>
+      <div class="modal-body">
+      <% if tipo_usuario == 'evaluado' %>
+		<% manual_uso='Manua_de_uso_profesores.pdf' %>
+	  <% elsif tipo_usuario == 'camarografo' %>
+		<% manual_uso='manual_camarografo.compressed.pdf' %>
+	  <% elsif tipo_usuario == 'evaluador'  %>
+		<% manual_uso='par_evaluador.pdf' %>
+	  <% elsif tipo_usuario == 'coordinador'  %>
+		<% manual_uso='monitor.pdf' %>
+	  <% elsif tipo_usuario == 'jefe_camarografo'  %>
+		<% manual_uso='jefe_camarografos.pdf' %>
+	  <% elsif tipo_usuario == 'admin_evaluado'  %>
+		<% manual_uso='admin_evaluados.pdf' %>
+	  <% elsif tipo_usuario == 'admin_evaluador'  %>
+		<% manual_uso='admin_evaluadores.pdf' %>
+	  <% elsif tipo_usuario == 'revisor_video'  %>
+		<% manual_uso='revisor_video..pdf' %>
+	 <% elsif tipo_usuario == 'administrador'  %>
+		<% manual_uso='super_usuario.pdf' %>						
+	 <% end %>
+     
+     <iframe src="/static_files/<%= manual_uso %>" style="width:700px; height:505px;" frameborder="0"></iframe>
+      </div>
+     <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        
+      </div>
+    </div>
+  </div>  
+</div>

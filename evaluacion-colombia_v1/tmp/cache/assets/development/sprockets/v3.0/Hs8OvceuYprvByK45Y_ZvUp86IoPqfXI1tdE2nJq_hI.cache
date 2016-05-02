@@ -1,0 +1,18 @@
+I"­(function() {
+  $(document).ready(function() {
+    $("#filtro").hide();
+    $("#filtrar_ocultar").hide();
+    $("#filtrar_ocultar").click(function() {
+      $("#filtro").hide();
+      $("#filtrar").show();
+      return $("#filtrar_ocultar").hide();
+    });
+    return $("#filtrar").click(function() {
+      $("#filtro").show();
+      $("#filtrar").hide();
+      return $("#filtrar_ocultar").show();
+    });
+  });
+
+}).call(this);
+:ET

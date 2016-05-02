@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  estado_id: 
+  persona_id: 
+  secretarias_educacion_id: 
+  materia_id: 
+
+two:
+  estado_id: 
+  persona_id: 
+  secretarias_educacion_id: 
+  materia_id: 

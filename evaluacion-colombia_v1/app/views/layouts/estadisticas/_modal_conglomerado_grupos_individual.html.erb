@@ -1,0 +1,157 @@
+<div id="grupoindividual" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+     <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Rendimiento por grupos o individual</h4>
+      </div>
+      
+      <div class="modal-body">
+        <% @modulo="estadistica" %>
+        <%= render "layouts/evaluacion/filtraranking" %>
+        <div class="tabla_total">
+        <table>
+	          <tr>
+		          <th>
+		           Videos Evaluados
+		          </th>
+		          <th>
+		           100
+		          </th>
+		        </tr>
+		        <tr>  
+		          <th>
+		           Videos Por Evaluar
+		          </th>
+		           <th>
+		           80
+		          </th>
+		        </tr> 
+		        <tr> 
+		          <th>
+		           Videos Enviados a tercer Evaluador
+		          </th>
+		           <th>
+		           20
+		          </th>
+		        </tr> 
+		        <tr> 
+		           <th>
+		           Promedio de Evaluación
+		           </th>
+		           <th>
+		           80.10%
+		           </th>
+		        </tr> 
+		         <tr> 
+		           <th>
+		           Promedio de tiempo por evaluación
+		          </th>
+		           <th>
+		           70 min
+		          </th>
+		        </tr> 
+		                          
+	      </table>
+        
+        </div>
+        
+        <div class="spacio">
+        </div>
+        
+        <div class="tabla_lista">
+        
+        <table>
+	          <tr>
+		          <th>
+		          Tipo Documento
+		          </th>
+		          <th>
+		           Documento
+		          </th>
+		          <th>
+		            Nombres
+		          </th>
+		           <th>
+		           Apellidos
+		          </th>
+		           <th>
+		           Grupo
+		          </th>
+		          
+	          </tr>
+	          <tr>
+		          <td>
+		           Cedula ciudadania
+		          </td>
+		          <td>
+		            1234567
+		          </td>
+		          <td>
+		            Juan 
+		          </td>
+		           <td>
+		            Perez Espitia
+		          </td>
+		           <td>
+		            Evaluadores 1
+		          </td>
+		         
+	          </tr>
+	           <tr>
+		          <td>
+		           Cedula ciudadania
+		          </td>
+		          <td>
+		            2222222
+		          </td>
+		          <td>
+		            Carlos Eduardo
+		          </td>
+		           <td>
+		            Perez Carizo
+		          </td>
+		           <td>
+		            Evaluadores 2
+		          </td>
+		        
+	          </tr>
+	          <tr>
+				<td colspan=2 class="total"> </td>
+				<td colspan=3 align="rigth">
+					<nav>
+					  <ul class="pagination">
+					    <li>
+					      <a href="#" aria-label="Previous">
+					        <span aria-hidden="true">&laquo;</span>
+					      </a>
+					    </li>
+					    <li><a href="#">1</a></li>
+					    <li><a href="#">2</a></li>
+					    <li><a href="#">3</a></li>
+					    <li><a href="#">4</a></li>
+					    <li><a href="#">5</a></li>
+					    <li>
+					      <a href="#" aria-label="Next">
+					        <span aria-hidden="true">&raquo;</span>
+					      </a>
+					    </li>
+					  </ul>
+					</nav> 
+				</td>
+			</tr>		 
+	          
+	      </table>
+        </div>
+        
+        
+        
+      
+		</div>
+		<div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        
+      </div>
+    </div>
+  </div>  
+</div>

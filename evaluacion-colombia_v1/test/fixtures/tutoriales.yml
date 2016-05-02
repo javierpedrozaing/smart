@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tutorial: MyString
+  youtube_id: MyString
+  pagina_id: 1
+  perfil_id: 1
+
+two:
+  tutorial: MyString
+  youtube_id: MyString
+  pagina_id: 1
+  perfil_id: 1

@@ -1,0 +1,74 @@
+<div class="panel panel-primary">
+<div class="panel-heading">Evaluación Práctica Educativa</div>
+<!--<h4>Bienvenido "nombre evaluador" </h4>-->
+<div class="panel-body">
+  <ul style="text-align: -webkit-left;-webkit-padding-start: 40px;list-style-type: disc; margin-top: 0px; padding-bottom: 12px; padding-top: 2px;background: #FDEDA6;">
+    <h4 style="font-size: 16px; text-align: -webkit-center; margin-top: -8px; padding-bottom: 2px; padding-top: 14px;">Instrucciones para Evaluar</h4>   
+      <li>Una vez que entres a evaluar, no podrás evaluar otro video</li>
+      <li>Recuerda que tu desempeño será evaluado</li>
+  </ul>
+  <table class="table table-bordered  table-hover">
+    <thead>
+    <tr>
+    <th>Evaluaciones</th>
+    <th></th>
+    <th>Acciones</th>
+  	</tr>
+  	</thead>
+  	<tbody>
+    <tr>
+      <td>Pendientes</td>
+      <td><%= @pendientes %></td>
+      
+      <td>
+        <% if @pendientes > 0  && @en_proceso.count <= 0 %>
+      <!--<%= link_to "Comenzar a evaluar!", evaluador_evaluar_path, html_options = {class: "btn btn-warning btn-xs", role: "button"} %>-->
+      <!--<button type="button " class="btn btn-success btn-sm">Evaluar</button>-->
+      
+      <button data-toggle="modal" data-target="#myModalEvaluar" type="button " class="btn btn-success btn-sm">Evaluar</button>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>Terminadas</td>
+      <td><%= @terminadas %></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>En proceso</td>
+      <td><%= @en_proceso.count %></td>
+      <td>
+        <% if @en_proceso.count > 0 %>
+          <button data-toggle="modal" data-target="#myModalEvaluar" type="button " class="btn btn-success btn-sm">Evaluar</button>
+        <% end %>
+      </td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+<!--  MODAL CONFIRMAR EVALUACION -->
+      <div class="modal fade" id="myModalEvaluar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 style="color: #fff;" class="modal-title text-align:left;" id="myModalLabel">Confirmar ingreso a Evaluar</h4>
+            </div>
+            <div class="modal-body evaluacion">
+             <h4>¿Estás seguro de que quieres comenzar?</h4>
+             <p>Recuerda que tu desempeño será evaluado</p>
+            </div>
+           <div class="modal-footer">
+              <div class="row">
+        <div class="col-xs-12 ">
+          <%= link_to "Evaluar", evaluador_evaluar_path, html_options = {class: "btn btn-success btn-sm", role: "button", "data-target" => "#myModalEvaluar"}%>
+          <!-- <a href="evaluar_video.html"><button style="margin-top: 0px;" type="button" class="btn btn-success btn-sm">Evaluar</button></a> -->
+        </div>
+      </div>        
+      </div>
+    </div>
+  </div>
+</div>
+<!-- FINAL MODAL CONFIRMAR EVALUACION -->

@@ -1,0 +1,13 @@
+<!--Formulario de ingreso de contraseña y activacion de usuario -->
+<div class="panel panel-primary">
+  <div class="panel-heading">Registro de Usuario</div>
+  <div class="panel-body">
+    <%= form_for(@persona, url: session_path(resource_name), html: { role: "form" }) do |f| %>
+      <div class="form-group">
+        <%= label_tag :pin_icfes, "Ingrese su pin de registro de inscripción" %>
+        <%= text_field_tag :pin_icfes, nil, :autofocus => true, :class => "form-control", :placeholder => "PIN de ICFES" %>
+      </div>
+      <%= hidden_field_tag :tipo_persona, :value => "profesor" %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+ <div class="col-md-12">
+<h1>Noticias</h1>
+
+<% if check_perfiles ['editar_post']%>
+	<h4><%= button_to 'Crear nuevo post', new_post_path , :class =>"btn btn-success", method: :get %></h4>
+<% end %>
+<hr/>
+<div>
+
+    <% @posts.each do |post| %>
+      <div class="list-group" style="padding: 20px; background-color: #F4FBFD;">
+      	<div>
+      	 <p>Creado por <%= post.usuario_id %> el <%= post.created_at.strftime("%d/%m/%Y a las %k:%M") %></p>
+      	 <hr>
+      	 <h2>
+        	<%= content_tag(:h2, post) do %>
+        		<%= post.titulo %>
+        	<% end %>
+        </h2></div>
+       
+        <div><%= post.cuerpo.html_safe %></div>
+        <% if check_perfiles ['editar_post']%>
+	        <%= button_to 'Editar', edit_post_path(post), :class =>"btn btn-success btn-xs", method: :get %>
+	        <%= button_to 'Eliminar', post, :class =>"btn btn-success btn-xs", method: :delete, data: { confirm: '¿Estas seguro?' } %>
+        <% end %>
+      
+     </div>
+      
+    <% end %>
+</div>
+</div>

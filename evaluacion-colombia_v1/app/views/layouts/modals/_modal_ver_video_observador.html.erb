@@ -1,0 +1,53 @@
+ <!-- Ventana Modal ver video subido -->
+<div class="modal fade" id="myModalMap_<%= persona.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 style="color: #fff; text-align: -webkit-left; font-size: 12px;" class="modal-title" id="myModalLabel">Cedula: <%= persona.documento %></h4>
+        <h4 style="color: #fff;" class="modal-title text-align:left;" id="myModalLabel">VIDEO CARGADO</h4>
+      </div>
+      <div class="modal-body">
+        <div class="embed-responsive embed-responsive-16by9">
+          <!--<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/J7EBm3Ra-es"></iframe>-->
+          <% if persona.profesor.video.get_extension != ".flv" %>
+            <%= video_tag(download_video_path(persona.profesor.video), id:"ver_video_camarografo_src_"+persona.id.to_s, controls: true, preload: "auto", class: "embed-responsive-item") %>
+          <% else %>
+            <div id="myElement<%= persona.id.to_s %>" class="container" align="center">Loading the player...</div>
+              <script type="text/javascript">
+              var playerInstance = jwplayer("myElement<%= persona.id.to_s %>");
+              playerInstance.setup({
+                  playlist: [{
+                  sources: [{ 
+                  //file: "rtmp://s1qyt7ke7nzx83.cloudfront.net/cfx/st/flv:videos/attaches/000/022/227/original/video.flv"
+                  file: "<%= persona.profesor.video.cloudfront_path %>"
+                      }]
+                  }],
+              primary: "flash",
+              width: "100%"
+              }); 
+              </script>
+          <% end %>
+        </div>
+      </div>
+     <div class="modal-footer" style="background-color: #EAF785">
+        <div class="row">
+  <div class="col-xs-6 ">
+    <h5 style="font-weight: 800;">Antes de confirmar el envío, asegúrese de que el video grabado está completo y cuenta con las condiciones de imagen y sonido establecidas.</h5>
+  </div>
+  <div class="col-xs-6 ">
+    <button style="margin-top: 18px;" type="button" data-dismiss="modal" class="btn btn-success btn-sm">Aceptar</button>
+  </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div> <!-- FIN MODEL VER VIDEO -->
+<script>
+$('#myModalMap_<%= persona.id %>').on('hidden.bs.modal', function () {
+  //alert("cerrado");
+  var video = document.getElementById("ver_video_camarografo_src_<%= persona.id %>");
+  video.pause();
+  video.currentTime = 0;
+})
+</script>

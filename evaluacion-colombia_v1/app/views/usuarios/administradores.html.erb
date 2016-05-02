@@ -1,0 +1,45 @@
+<h1>
+  Administradores
+</h1>
+<!-- Acciones sobre la tabla en general -->
+<% if check_perfiles ["editar_coordinadores"] %>
+  <h3>Acciones a realizar</h3>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Subir Administradores <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a href="/system/csv/test_administracion.csv">Descargar plantilla</a></li>
+      <li><a href="#" data-toggle="modal" data-target="#modal-subida-administrador" >Subir archivo</a></li>
+    </ul>
+  </div>
+    <!-- Modal para subir profesores -->
+  <%= render :partial => "usuarios/modals/modal_carga_usuario", :locals => {:titulo => "Subida de Administrador por archivo", :tipo_usuario => "administrador", :modal_id => "modal-subida-administrador"} %>
+  <% end %>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered">
+      <tr>
+        <th>Nombre</th>
+        <th>Documento</th>
+        <!--th>Más campos</th>
+        <th>Acciones</th-->
+      </tr>
+      <!-- Listar evaluaciones que se estan realizando -->
+      <% if @administradores.any? %>
+        <% @administradores.each do |administrador| %>
+          <tr data-persona-id="<%= administrador.id %>">
+            <td><%= administrador.nombre_completo %></td>
+            <td><%= administrador.documento %></td>
+            <!--td>-</td>
+            <td>Todo bien!</td-->
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="4">No hay profesores asignados</td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

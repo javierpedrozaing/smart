@@ -1,0 +1,146 @@
+<% if persona_signed_in? && current_persona.coordinador.nil? %>
+<li class="dropdown" style="background-color: #fff;height: 50px;">
+	     <% if check_perfiles ['aprobar_video'] %>
+	      <a href="#" class="dropdown-toggle" style="background-color: #FFCF00;margin-right: 116px; margin-top: 11px; padding-top: 3px; padding-bottom: 3px; border-bottom: 3px solid #CA9B06;color:#333;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manual Docente <span class="caret"></span></a>
+         <% end %> 
+          <ul class="dropdown-menu" style="margin-right: 106px;">
+            <li><a href="#pdf" data-toggle="modal"><i class="fa fa-file-pdf-o fa-fw"></i>&nbsp;Manual para Autograbación</a></li>
+            <li><a href="#pdfgrabacion" data-toggle="modal"><i class="fa fa-file-pdf-o fa-fw"></i>&nbsp;Manual Grabación Docente </a></li>
+            <!--
+            <li><a href="#"><i class="fa fa-file-pdf-o fa-fw"></i>&nbsp;Pdf informativos</a></li>
+            <li><a href="#"><i class="fa fa-file-pdf-o fa-fw"></i>&nbsp;Pdf informativos</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#"><i class="fa fa-file-pdf-o fa-fw"></i>&nbsp;Pdf informativos</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#"><i class="fa fa-file-pdf-o fa-fw"></i>&nbsp;Pdf informativos</a></li>-->
+          </ul>
+        </li>
+  <!-- Inicio de menu para gestion de usuarios -->
+  <% if check_perfiles ['listar_profesores', 'listar_profesores_asignados', 'listar_evaluadores', 'listar_evaluadores_asignados', 'listar_observadores', 'listar_observadores_asignados', 'listar_jefes', 'listar_administradores'] %>
+    <li role="presentation" class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+        Usuarios <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <% if check_perfiles ['listar_profesores', 'listar_profesores_asignados'] %>
+          <li><%= link_to "Profesores", usuarios_profesores_path %></li>
+        <% end %>
+        <% if check_perfiles ['listar_evaluadores', 'listar_evaluadores_asignados'] %>
+          <li><%= link_to "Evaluadores", usuarios_evaluadores_path %></li>
+        <% end %>
+        <% if check_perfiles ['listar_observadores', 'listar_observadores_asignados'] %>
+          <li><%= link_to "Camarógrafos", usuarios_camarografos_path %></li>
+        <% end %>
+        <% if check_perfiles ['listar_jefes'] %>
+          <li role="separator" class="divider"></li>
+          <li><%= link_to "Coordinadores", usuarios_coordinadores_path %></li>
+          <li><%= link_to "Administrador de Evaluadores",usuarios_admin_evaluadores_path  %></li>
+          <li><%= link_to "Administrador de Evaluados", usuarios_admin_evaluados_path %></li>
+          <li><%= link_to "Jefes de Camarógrafos", usuarios_jefe_camarografos_path %></li>
+          <li><%= link_to "Revisores de video", usuarios_revisor_videos_path %></li>
+        <% end %>
+        <% if check_perfiles ['listar_administradores'] %>
+          <li role="separator" class="divider"></li>
+          <li><%= link_to "Administradores", usuarios_administradores_path %></li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+  <!-- Fin de menu de gestion de usuarios -->
+
+  <!-- Inicio de menu para gestion de grilla -->
+  <% if check_perfiles ['listar_grilla'] %>
+    <li role="presentation" class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+        Pauta <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <% if check_perfiles ['listar_grilla'] %>
+          <li><%= link_to "Pautas", grillas_path %></li>
+        <% end %>
+        <% if check_perfiles ['listar_grilla'] %>
+          <li><%= link_to "Items", grilla_itemes_path %></li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+  <!-- Fin de menu de gestion de grilla -->
+  
+    <!-- Inicio de menu para gestion de grilla -->
+  <% if check_perfiles ['listar_grilla'] %>
+    <li role="presentation" class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+       Tutorial <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <% if check_perfiles ['listar_grilla'] %>
+          <li><%= link_to "Vídeo tutoriales", tutoriales_path %></li>
+        <% end %>
+        
+      </ul>
+    </li>
+  <% end %>
+  <!-- Fin de menu de gestion de grilla -->
+
+
+<!-- Todo: Crear vista de videos reportados -->
+<!-- Inicio del menu de videos -->
+<!--
+  <% if permit_videos %>
+    <% if check_perfiles ['listar_videos'] %>
+      <li role="presentation" class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+          Vídeos <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <% if check_perfiles ['listar_videos', 'listar_videos_asignados'] %>
+            <li><%= link_to "Todos", videos_path %></li>
+          <% end %>
+          <% if check_perfiles ['resolver_reporte_video'] %>
+            
+            <li><%= link_to "Reportados", videos_path %></li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+    <% if current_persona.rol.rol == 'Profesor' 
+      vid = current_persona.profesor.video
+      %>
+      <% if !vid.blank? && vid.observador_id == 0 %>
+        <li><%= link_to "Subir Video", new_video_path(profesor_id: current_persona.profesor.id) %></li>
+      <% end %>
+    <% end %>
+
+    <% if check_perfiles ['ver_muestra_video'] %>
+      <li><%= link_to "Ver vídeo", profesor_video_path %></li>
+    <% end %>
+  <% end %>
+ -->
+  <!-- Fin de menu de videos -->
+
+  <!-- Inicio de menu de evaluaciones -->
+  <% if check_perfiles ['listar_evaluaciones', 'listar_evaluaciones_asignadas'] %>
+    <li role="presentation" class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+        Evaluaciones <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <% if check_perfiles ['listar_evaluaciones', 'listar_evaluaciones_asignadas', 'listar_evaluaciones_propias'] %>
+          <li><%= link_to "Todas", evaluaciones_path %></li>
+        <% end %>
+        <% if check_perfiles ['listar_evaluaciones', 'listar_evaluaciones_asignadas', 'listar_evaluaciones_propias'] %>
+          <li><%= link_to "Pendientes", evaluaciones_pendientes_path %></li>
+        <% end %>
+        <% if check_perfiles ['listar_evaluaciones', 'listar_evaluaciones_asignadas', 'listar_evaluaciones_propias'] %>
+          <li><%= link_to "Terminadas", evaluaciones_realizadas_path %></li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+  <!-- Fin de menu de evaluaciones --> 
+
+  <!-- Inicio de menu tareas de administracion -->
+  <% if check_perfiles [] %>
+  <% end %>
+  <!-- Fin de menu de tareas de administracion -->
+<% end %>

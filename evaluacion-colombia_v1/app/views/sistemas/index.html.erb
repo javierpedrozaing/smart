@@ -1,0 +1,117 @@
+	<p id="notice"><%= notice %></p>
+	
+	<h1>Bienvenido Módulo del Sistema</h1>
+	<HR width=100% align="left">
+	<div class="row">
+	   <%= link_to "Consultar Logs" ,sistemas_logs_path,class: "btn btn-success", title:"Dirigirse al módulo de consultar los logs del sistema"  %>
+	   <%= link_to "Gestión Registro Icfes" ,icfes_registros_path,class: "btn btn-success" , title:"Dirigirse al módulo de registros de profesores icfes" %>
+	   <%= link_to "Gestión Perfiles o roles" ,administracion_perfiles_path, id: "perfiles",class: "btn btn-success" , title:"Dirigirse al módulo de perfiles y roles" %>
+	   <%= link_to "Gestión Permisos" ,administracion_permisos_path, id: "permisos",class: "btn btn-success" , title:"Dirigirse al módulo de permisos de usuario en el sistema" %>
+	</div>
+	<HR width=100% align="left">	
+	<br />
+	<br />
+	<div class="btn-group">
+	  <button title="Cargar registros de estados al sistema"  type="button" class="btn btn-info" data-toggle="modal" href="#cargar_base">Cargar Base Estados</button>
+	  <button title="Crear un estado del sistema"  type="button" class="btn btn-info" data-toggle="modal" href="#crear">Crear Estado</button>
+	 </div>
+	<br />
+	<HR width=50% align="left">
+	
+	<div class="row">
+		 
+	 <div class="col-md-6">
+	    
+			<table cellspacing="0" cellpadding="0">
+				<tr>
+					<th>Id</th>
+					<th>Descripción</th>
+					<th>Fecha Creación</th>
+					<th>Acciones</th>							
+				</tr>
+				<tr>
+					<td>Data</td>
+					<td>Data</td>
+					<td>Data</td>
+					
+					<td><select class="asignacio_1"><option>Acciones</option><option>Ver</option><option>Editar</option> </select></td>							
+				</tr>			
+				<tr>
+					<td>Data</td>
+					<td>Data</td>
+					<td>Data</td>	
+					<td><select class="asignacio_1"><option>Acciones</option><option>Ver</option><option>Editar</option> </select></td>									
+				</tr>			
+				<tr>
+					<td>Data</td>
+					<td>Data</td>
+					<td>Data</td>
+						
+					<td><select><option>Acciones</option><option>Ver</option><option>Editar</option> </select></td>								
+				</tr>			
+				<tr>
+					<td>Data</td>
+					<td>Data</td>
+					<td>Data</td>
+						
+					<td><select><option>Acciones</option><option>Ver</option><option>Editar</option> </select></td>								
+				</tr>
+				<tr>
+					<td>Data</td>
+					<td>Data</td>
+				    <td>Data</td>
+					
+					<td><select><option>Acciones</option><option>Ver</option><option>Editar</option> </select></td>									
+				</tr>
+				<tr>
+					<td>Data</td>
+					<td>Data</td>
+					<td>Data</td>
+					<td><select><option>Acciones</option><option>Ver</option><option>Editar</option> </select></td>									
+				</tr>
+				<tr>
+					<td>Data</td>
+					<td>Data</td>
+			        <td>Data</td>
+				
+					<td><select><option>Acciones</option><option>Ver</option><option>Editar</option> </select></td>								
+				</tr>	
+				<tr>
+				<td colspan=1 class="total"> </td>
+				<td colspan=3 align="rigth">
+					<nav>
+					  <ul class="pagination">
+					    <li>
+					      <a href="#" aria-label="Previous">
+					        <span aria-hidden="true">&laquo;</span>
+					      </a>
+					    </li>
+					    <li><a href="#">1</a></li>
+					    <li><a href="#">2</a></li>
+					    <li><a href="#">3</a></li>
+					    <li><a href="#">4</a></li>
+					    <li><a href="#">5</a></li>
+					    <li>
+					      <a href="#" aria-label="Next">
+					        <span aria-hidden="true">&raquo;</span>
+					      </a>
+					    </li>
+					  </ul>
+					</nav> 
+				</td>
+				</tr>																												
+			</table>	
+	      </div>
+	 
+	</div>
+	 
+<% @titulo="Estados" %>
+
+
+<!-- Cargamos el parcial modal de cargar base-->
+<%= render "layouts/cargar_csv/modal_cargar_base" %>
+
+
+
+
+

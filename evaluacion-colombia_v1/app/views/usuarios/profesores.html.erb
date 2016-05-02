@@ -1,0 +1,81 @@
+<h1>
+  Profesores
+</h1>
+
+<!-- Acciones sobre la tabla en general -->
+<% if check_perfiles ["editar_profesores"] %>
+  <h3>Acciones a realizar</h3>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Subir profesores <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <!--li><a href="/system/csv/test_carga_profesor.csv">Descargar archivo para subida</a></li>
+      <li><a href="#" data-toggle="modal" data-target="#modal-subida-profesores" >Subir archivo</a></li -->
+      <li><a href="#" data-toggle="modal" data-target="#modal-subida-profesores-pines" >Subir archivo de pines</a></li>
+      <li><a href="#" data-toggle="modal" data-target="#modal-subida-profesores-men" >Subir archivo MEN documentos validos</a></li>
+      <li><a href="#" data-toggle="modal" data-target="#modal-subida-profesores-fecode" >Subir archivo error fecode</a></li>
+      <li><a href="#" data-toggle="modal" data-target="#modal-subida-profesores-pico-placa" >Subir archivo Pico y Placa</a></li>
+    </ul>
+  </div>
+  <!-- Modal para subir profesores -->
+  <%= #render :partial => "usuarios/modals/modal_carga_pines", :locals => {:titulo => "Subida de profesores por archivo de pines",  :modal_id => "modal-subida-profesores-pines"} 
+  %>
+  <%= render :partial => "usuarios/modals/modal_carga_usuario", :locals => {:titulo => "Subida de profesores por archivo", :tipo_usuario => "profesores", :modal_id => "modal-subida-profesores"} %>
+  <%= render :partial => "usuarios/modals/modal_carga_men", :locals => {:titulo => "Subida de documentos validos del MEN por archivo", :tipo_usuario => "profesores", :modal_id => "modal-subida-profesores-men"} %>
+  <%= render :partial => "usuarios/modals/modal_carga_fecode", :locals => {:titulo => "Subida de documentos validos reportados a fecode", :tipo_usuario => "profesores", :modal_id => "modal-subida-profesores-fecode"} %>
+  <%= render :partial => "usuarios/modals/modal_carga_pico_placa", :locals => {:titulo => "Subida de Usuarios habilitados para cargar video", :tipo_usuario => "profesores", :modal_id => "modal-subida-profesores-pico-placa"} %>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Asignar camarógrafos <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><%= link_to "Descargar plantilla",persona_export_csv_profesores_path(format: "csv",tipo_relacion: "profesorvscamarografo"), class: "btn btn-primary" ,title: "Reporte de profesores sin cita ni vídeo en el sistema " %></li>
+      <li><a href="#" data-toggle="modal" data-target="#modal-subida-camarografos-profesores" >Subir archivo</a></li>
+    </ul>
+  </div>
+  <!-- Modal para asignacion de coordinadores -->
+  <%= render :partial => "usuarios/modals/modal_carga_relacion", :locals => {:titulo => "Asignación de camárografos", :relacion_path => persona_camarografos_profesores_path, :modal_id => "modal-subida-camarografos-profesores" } %>
+<% end %>
+<!-- Fin de bloque de acciones -->
+  <div class="col-md-4">
+    <table class="table">
+      <tr>
+        <td>Registrados</td>
+        <td><%= @registrados %></td>
+      </tr>
+      <tr>
+        <td>No Registrados</td>
+        <td><%= @no_registrados %></td>
+      </tr>
+    </table>
+  </div>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered">
+      <tr>
+        <th>Nombre</th>
+        <th>Documento</th>
+        <!--th>Más campos</th>
+        <th>Acciones</th-->
+      </tr>
+      <!-- Listar evaluaciones que se estan realizando -->
+      <% if @profesores.any? %>
+        <% @profesores.each do |profesor| %>
+          <tr data-persona-id="<%= profesor.id %>">
+            <td><%= profesor.nombre_completo %></td>
+            <td><%= profesor.documento %></td>
+            <!--td>-</td>
+            <td>Todo bien!</td-->
+          </tr>
+        <% end %>
+        <%= paginate @profesores %>
+
+      <% else %>
+        <tr>
+          <td colspan="4">No hay profesores asignados</td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

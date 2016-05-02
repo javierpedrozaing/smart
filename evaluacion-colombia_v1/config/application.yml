@@ -1,0 +1,36 @@
+# Add configuration values here, as shown below.
+#
+# Add configuration values here, as shown below.
+#
+# pusher_app_id: "2954"
+# pusher_key: 7381a978
+# pusher_secret: abdc3b896a0
+# stripe_api_key: sk_test_2J0l0
+# stripe_publishable_key: pk_test_ro9j
+#
+# production:
+#   stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
+#   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
+  production:
+    AWS_ACCESS_KEY_ID:
+    AWS_SECRET_ACCESS_KEY: 
+    S3_BUCKET_NAME: 
+    VIDEO_NOTIFICATION_TOPIC_ARN: 
+    VIDEO_REGION:
+    AWS_QUEUE_URL:
+    VIDEO_PREVIEW_BUCKET:
+    VIDEO_PIPELINE_ID: 
+    VIDEO_OUTPUT_BUCKET: 
+    RTMP_DISTRO: 
+
+  development:
+    AWS_ACCESS_KEY_ID:
+    AWS_SECRET_ACCESS_KEY:
+    S3_BUCKET_NAME: 
+    VIDEO_NOTIFICATION_TOPIC_ARN: 
+    VIDEO_REGION:
+    AWS_QUEUE_URL:
+    VIDEO_PREVIEW_BUCKET:
+    VIDEO_PIPELINE_ID: 
+    VIDEO_OUTPUT_BUCKET:
+    RTMP_DISTRO:

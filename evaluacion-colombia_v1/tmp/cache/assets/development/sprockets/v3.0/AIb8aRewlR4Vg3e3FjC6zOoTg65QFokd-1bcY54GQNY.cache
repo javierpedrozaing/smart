@@ -1,0 +1,38 @@
+I"¦(function() {
+  $(document).on("ready page:load", function() {
+    return $(document).ready(function() {
+      var j, nextinput, nextinput_alt, x;
+      nextinput = 0;
+      nextinput_alt = 0;
+      j = $("#pregunta_campos ul").length;
+      x = 0;
+      $("#alternativas_insertar").click(function() {
+        var campo;
+        console.log("entro uno");
+        nextinput++;
+        campo = "<ul><li id=\"rut" + nextinput + "\">Alternativa:<input type=\"text\" name=\"alternativa[alternativa_" + nextinput + "]\" ><select name=\"valor[valor_" + nextinput + "]\" id=\"valor_" + nextinput + "\">\"<option value=\"\">Selecione-valor</option><option value=\"1\">Uno</option><option value=\"2\">Dos</option><option value=\"3\">Tres</option><option value=\"4\">Cuatro</option><option value=\"5\">Cinco</option><option value=\"6\">Seis</option><option value=\"7\">Siete</option><option value=\"8\">Ocho</option><option value=\"9\">Nueve</option><option value=\"10\">Diez</option></select></li><a href=\"#\" class=\"eliminar\">&times;</a></ul>";
+        $("#alternativas_campos").append(campo);
+        return x++;
+      });
+      $("body").on("click", ".eliminar", function(e) {
+        console.log("entro");
+        $(this).parent("ul").remove();
+        return false;
+      });
+      return $("#video_estadopp").change(function(e) {
+        var url, value;
+        value = "";
+        $("#video_estado option:selected").each(function() {
+          return value += $(this).attr("value");
+        });
+        url = "/admin/observacion/observaciones";
+        $.get(url, {
+          id: value
+        }, function(data) {});
+        return window.location.reload(true);
+      });
+    });
+  });
+
+}).call(this);
+:ET

@@ -1,0 +1,110 @@
+<div class="col-md-12">
+  <h3 style="text-align:center;" class="sub-header">Vídeos</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Estado de Subida</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Practica Pedagogica</td>
+          <td>
+            <div class="progress progress-success">
+              <div class="bar" style="float: left; width: 0%; " data-percentage="100"></div>
+            </div>
+          </td>
+          <td>
+            <% if current_persona.profesor.carga_video %>
+              <% if current_persona.profesor.video.attach_file_name == nil %>
+                <%= link_to new_video_path(profesor_id: current_persona.profesor.id), html_options = {class: "sprite sprite-one", rel: "tooltip", "data-original-title" => "Subir vídeo"}  do %>
+                  <%= image_tag("hover-sprite.png") %>
+                <% end %>
+              <% else %>
+                <%= link_to edit_video_path(current_persona.profesor.video), html_options = {class: "sprite sprite-one", role: "button", rel: "tooltip", "data-original-title" => "Subir vídeo"} do %>
+                  <%= image_tag("hover-sprite2.png") %>
+                <% end %>
+                <%= link_to video_path(current_persona.profesor.video), html_options = {class: "sprite sprite-two", role: "button", rel: "tooltip", "data-original-title" => "Ver vídeo"} do %>
+                  <%= image_tag("hover-sprite2.png") %>
+                <% end %>
+                <%= link_to "#", html_options = {class: "sprite sprite-three", role: "button", rel: "tooltip", "data-original-title" => "Enviar vídeo" } do %>
+                  <%= image_tag("hover-sprite.png") %>
+                <% end %>
+              <% end %>
+            <% else %>
+              <% if !current_persona.profesor.video.nil? && current_persona.profesor.video.attach_file_name != nil %>
+                <%= link_to edit_video_path(current_persona.profesor.video), html_options = {class: "sprite sprite-one", role: "button", rel: "tooltip", "data-original-title" => "Subir vídeo"} do %>
+                  <%= image_tag("hover-sprite2.png") %>
+                <% end %>
+                <%= link_to video_path(current_persona.profesor.video), html_options = {class: "sprite sprite-two", role: "button", rel: "tooltip", "data-original-title" => "Ver vídeo"} do %>
+                  <%= image_tag("hover-sprite2.png") %>
+                <% end %>
+                <%= link_to "#", html_options = {class: "sprite sprite-three", role: "button", rel: "tooltip", "data-original-title" => "Enviar vídeo" } do %>
+                  <%= image_tag("hover-sprite.png") %>
+                <% end %>
+              <% else %>
+                -
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div> 
+  
+  <h3 style="text-align:center;" class="sub-header">Portafolio</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Archivos</th>
+          <th>Estado de Subida</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Planificación de Clases</td>
+          <td>
+            <div class="progress progress-success">
+              <div class="bar" style="float: left; width: 0%; " data-percentage="100"></div>
+            </div>
+          </td>
+          <td>
+            <a rel="tooltip" data-original-title="Adjuntar Video" href="adjuntar_archivo_profesor.html" class="sprite sprite-one">
+              <%= image_tag("hover-sprite.png") %>
+            </a>
+            <a rel="tooltip" data-original-title="Ver archivo" href="#" class="sprite sprite-two">
+              <%= image_tag("hover-sprite.png", :data => { toggle: "modal", target: "#myModal"}, alt: "Icon One" ) %>
+            </a>
+            <a rel="tooltip" data-original-title="Enviar Archivo" href="#" class="sprite sprite-three">
+              <%= image_tag("hover-sprite.png") %>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td>Evaluación Estudiante</td>
+          <td>
+            <div class="progress progress-success">
+              <div class="bar" style="float: left; width: 0%; " data-percentage="100"></div>
+            </div>
+          </td>
+          <td>
+            <a rel="tooltip" data-original-title="Adjuntar Archivo" href="#" class="sprite sprite-one">
+              <%= image_tag("hover-sprite.png") %>
+            </a>
+            <a rel="tooltip" data-original-title="Ver Archivo" href="#" class="sprite sprite-two">
+              <%= image_tag("hover-sprite.png", :data => { toggle: "modal", target: "#myModal"}, alt: "Icon One" ) %>
+            </a>
+            <a rel="tooltip" data-original-title="Enviar Archivo" href="#" class="sprite sprite-three">
+              <%= image_tag("hover-sprite.png") %>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div> 
+</div>

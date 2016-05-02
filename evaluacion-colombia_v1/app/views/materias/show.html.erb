@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Secciones educativas:</strong>
+  <%= @materia.secciones_educativas %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @materia.descripcion %>
+</p>
+
+<%= link_to 'Edit', edit_materia_path(@materia) %> |
+<%= link_to 'Back', materias_path %>

@@ -1,0 +1,10 @@
+<h1>Estadisticas#admin_evaluador</h1>
+<p>Find me in app/views/estadisticas/admin_evaluador.html.erb</p>
+
+Total: <%= @total %>
+<br />
+Terminadas: <%= @terminadas %>
+
+<% @evaluadores.each do |ev| %>
+  <%= render partial: "evaluador_data", object: ev %>
+<% end %>

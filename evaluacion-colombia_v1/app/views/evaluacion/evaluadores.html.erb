@@ -1,0 +1,124 @@
+<p id="notice"><%= notice %></p>
+
+<% @Titulo="Evaluadores" %>
+	<h1>Bienvenido Módulo Evaluadores</h1>	
+	<br />
+	<HR width=100% align="left">	
+	<br />
+	<div class="btn-group" style='background-color:#1E7DB7;'>	
+	  <div class="btn-group">	
+		  <button title="Subir evaluadores al sistema" type="button" class="btn btn-info">Subir evaluadores</button>
+		  <button title="" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    <span class="caret"></span>
+		    <span class="sr-only">Toggle Dropdown</span>
+		  </button>
+		  <ul class="dropdown-menu">
+		    <li role="separator" class="divider"></li>
+		    <li><a title="Cargar registros de evaluadores al sistema"  type="button" class="btn btn-info" data-toggle="modal" href="#cargar_base">Cargar Base Evaluadores</a></li>	    
+		  </ul>
+	  </div>	
+	  <button title="Reporte de videos en mal estado por fallas técnicas "  class="btn btn-info" data-toggle="modal" href="#reportados">Vídeos Reportados</button>	   
+	  <div class="btn-group">    
+	  	  <button title="Reportes estadísticos del sistema de evaluadores" type="button" class="btn btn-info">Estadísticas</button>
+		  <button title="" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    <span class="caret"></span>
+		    <span class="sr-only">Toggle Dropdown</span>
+		  </button>
+		  <ul class="dropdown-menu">
+		    <li role="separator" class="divider"></li>
+		    <li><a title="Reporte total del trabajo individual o por grupo con filtros y gráficas" class="btn btn-info" data-toggle="modal" href="#estadistica">Estadísticas</a></li>		
+		    <li role="separator" class="divider"></li>
+		    <li><a title="Reporte total del estado del trabajo" class="btn btn-info" data-toggle="modal" href="#revisados">Estadísticas Totales</a></li>		    
+		  </ul>
+	  </div>
+	</div>
+
+	<br />
+	<HR width=100% align="left">
+
+	<br />
+	<div class="row">
+		<div id="filtro">
+		 <%= render "layouts/evaluacion/filtro_evaluadores" %> 
+		</div>	 
+	 <div class="col-md-6">
+	       <div class="btn-group">
+			  <button title="Filtros de evaluadores"  type="button" id="filtrar" class="btn btn-default">Ver criterios de búsqueda</button>
+			  <button title="Ocultar el filtro de evaluadores"  type="button" id="filtrar_ocultar" class="btn btn-default">Ocultar criterios de búsqueda</button>
+			  
+			</div>
+			<table class="table table-bordered" data-pagination="true "  id="evaluadores">
+			  <tr>
+					<td colspan=15 style='text-align: left;'> <%=  image_tag("excel.png", size: "30") %>
+	                       <%=  image_tag("pdf.jpg", size: "30") %></td>
+					
+			  </tr>	
+				<tr>
+					<th>Id</th>
+					<th>Tipo documento</th>
+					<th>Número documento</th>
+					<th>Nombres</th>
+					<th>Apellido Paterno</th>
+					<th>Apellido Materno</th>
+					<th>Asignatura</th>
+					<th>Vídeos Asignados</th>
+					<th>Vídeos Evaluados</th>
+					<th>Vídeos Reasignados</th>
+					<th>Vídeos Reportados</th>						
+					<th>Estado</th>		
+					<th>Acciones</th>							
+				</tr>
+				
+	 <%  contador=0 %>
+	    <%  @consulta_general.each do |persona| %>
+	             <tr>
+	      	        <td><%= contador +=1 %></td>      
+			        <td><%= persona.tipo_documento.documento %></td>
+			        <td><%= persona.documento %></td>
+			        <td><%= persona.nombre %></td>
+			        <td><%= persona.apellido_paterno %></td>
+			        <td><%= persona.apellido_materno %></td> 
+			        <td>Español</td>  
+			        <td>0</td>         
+			        <td>0</td>
+			        <td>0</td>
+			        <td>0</td>      
+			        <td><%= persona.estado.estado %></td>
+			        <td><%= link_to 'Ver', evaluacion_show_path(id: persona.id) %>|<%= link_to 'Editar', edit_persona_path(persona) %></td>
+	
+	              </tr>
+	    <% end %>
+			<tr>
+				<td colspan=4> Total: <%= @consulta_general.count %> </td>
+				<td colspan=11 align="rigth">
+					<nav>
+					  <ul class="pagination">				   
+					        <%= will_paginate(@consulta_general) %>	     
+					  </ul>
+					</nav> 
+				</td>
+				</tr>																												
+			</table>	
+	      </div>
+	 
+	 
+	</div>
+
+
+
+<!-- Cargamos el parcial modal de grupo y individual -->
+<%= render "layouts/estadisticas/modal_conglomerado_grupos_individual" %>
+<!-- Cargamos el parcial modal de videos revisados-->
+<%= render "layouts/estadisticas/modal_estadisticas_totales_evaluador" %>
+<!-- Cargamos el parcial modal de cargar base-->
+<%= render "layouts/cargar_csv/modal_cargar_base" %>
+<!-- Cargamos el parcial modal de reportes-->
+<%= render "layouts/reportes/modalreportes" %>
+<!-- Cargamos el parcial modal de reportes videos reportados-->
+<%= render "layouts/reportes/modalvideosreportados" %>
+
+<!-- Cargamos el parcial modal de estadistica-->
+<%= render "layouts/estadisticas/modal_estadisticas" %>
+
+<!-- Cargamos el parcial modal de evaluadores-->
+<%= render "layouts/evaluacion/modal_proceso_evaluadores" %>

@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+
+<div class='titulos'>
+<p>
+  <strong>Grilla:</strong>
+  <%= @pregunta.grilla.grilla %>
+</p>	
+
+<p>
+  <strong>Pregunta:</strong>
+  <%= @pregunta.pregunta %>
+</p>
+
+
+</div>
+
+<table>
+  <thead>
+  	 <tr>
+  	 	<th colspan=3>Alternativa de pregunta</th>
+  	 </tr>
+    <tr>
+      <th>Alternativa</th>
+      <th>Valor</th>
+      <th colspan=2>Acciones</th>
+     </tr>
+  </thead>
+
+  <tbody>
+    <% @preguntas_alternativas.each do |alternativa| %>
+      <tr>
+        <td><%= alternativa.alternativa %></td>
+        <td><%= alternativa.valor_pregunta %></td>
+        <td><%= link_to"remove","remove_fields(this)" %></td>        
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+<%= link_to 'Editar', edit_pregunta_path(@pregunta) %> |
+<%= link_to 'Regresar', preguntas_path %>

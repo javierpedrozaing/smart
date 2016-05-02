@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  video_id: 1
+  revisor_id: 1
+  aprobado: false
+
+two:
+  video_id: 1
+  revisor_id: 1
+  aprobado: false

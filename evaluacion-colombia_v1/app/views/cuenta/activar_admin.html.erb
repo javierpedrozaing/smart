@@ -1,0 +1,10 @@
+<!--Formulario de ingreso de contraseña y activacion de usuario -->
+<div class="panel panel-primary">
+  <div class="panel-heading">
+   Registro
+  </div>
+
+  <div class="panel-body">
+    <%= render :partial => "cuenta/admin", :locals => { :url_form => cuenta_activar_admin_email_path , :persona => @persona} %>
+  </div>
+</div>

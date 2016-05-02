@@ -1,0 +1,4 @@
+<%= render "layouts/menu/admin" %>
+<% if permit_videos %>
+<li><%= link_to "Vídeos", admin_camarografos_path  %></li>
+<% end %>

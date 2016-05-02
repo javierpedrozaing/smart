@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  texto: MyString
+  visible: false
+  usuario_id: 1
+  tipo_notif_id: 1
+
+two:
+  texto: MyString
+  visible: false
+  usuario_id: 1
+  tipo_notif_id: 1

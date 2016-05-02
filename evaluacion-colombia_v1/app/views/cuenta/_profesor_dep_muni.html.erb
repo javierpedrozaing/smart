@@ -1,0 +1,445 @@
+<%= form_for(@persona.profesor, url: url_form, method: "post", html: { role: "form" }) do |f| %>
+  <%= f.hidden_field :id %>
+  <!--<h3>INFORMARCIÓN LABORAL DEP_MUNI</h3>-->
+  <legend></legend>
+ <h3>Datos de la Institución educativa donde enseña actualmente</h3>
+  <legend></legend>
+  <div id="departamento" class="form-group">
+    <label>DEPARTAMENTO</label>
+    <select id="departamento-select" name="profesor[departamento_id]" class="form-control">
+      <option disabled selected>Seleccione un departamento</option>
+      <%= options_from_collection_for_select(Departamento.all.order(:nombre), :id, :nombre) %>
+    </select>
+  </div>
+
+  <!-- DIV municipio-->
+  <div id="municipios" class="form-group">
+  <label>MUNICIPIO</label>
+      <select id="municipio-select" name="profesor[municipio_id]" class="form-control">
+      <option disabled selected>Seleccione un departamento para ver los municipios asociados</option>
+     
+    </select>
+  </div>
+
+  <div class="form-group">
+  	<% if defined?(editar) && editar == "1" %>
+      <%= f.submit "Guardar información laboral", class: "btn btn-success"%>
+    <% else %>
+      <%= f.submit "Siguiente", class: "btn btn-success"%>
+    <%end %>
+<% end %>
+<!-- <a href="javascript:history.back()">Refine Search</a> -->
+<!-- <%= button_to "SALIR", authenticated_root_path, :class => "btn btn-success", :method => :get  %>-->
+  </div>
+
+
+
+
+<script type="text/javascript">
+/*
+$("#cargo_select").change(function(){
+  if ( $(this).val() != 1) {
+
+  }
+
+});
+*/
+
+$("#materias").change(function(){
+  if( $(this).val() == 22){
+    $("#profesor_otra_container").show(500);
+  }
+  else{
+    $("#profesor_otra_container").hide(500, function(){
+      $("#profesor_otra").val("");
+    });
+  }
+});
+
+/*
+$(".radio-tipo-grabacion").change(function(){
+  $("#disclaimer-tipo-grabacion").show(500);
+});
+*/
+$("#departamento-select").change(function() {
+  //alert( "Handler for .change() called." );
+  $.ajax({
+  url: "/cuenta/ajmunicipios",
+  type: 'GET',
+  data: { departamento_id: $("#departamento-select").val()},
+  cache: false
+})
+  .done(function( response ) {
+    //$( "#results" ).append( html );
+    //alert( "AJAX called." );
+    console.log(response);
+    var muni= '';
+    muni+="<option disabled selected>Seleccione un municipio</option>"
+    for (var key in response) {
+      muni+="<option value="+response[key]["id"]+">"+response[key]["nombre"]+"</option>";
+    }
+    console.log(muni);
+    $("#municipios").html('<label>MUNICIPIO</label><select id="municipio-select" name="profesor[municipio_id]" class="form-control">'+muni+'</select>')
+    
+    $("#municipio-select").change(function() {
+  //alert( "Handler for .change() called." );
+  $.ajax({
+  url: "/cuenta/ajinstituciones",
+  type: 'GET',
+  data: { municipio_id: $("#municipio-select").val()},
+  cache: false
+})
+  .done(function( response ) {
+    //$( "#results" ).append( html );
+    //alert( "AJAX called." );
+    console.log(response);
+    var institu= '';
+    institu+="<option disabled selected>Seleccione un Establecimiento Educativo</option>"
+    for (var key in response) {
+      institu+="<option value="+response[key]["id"]+">"+response[key]["nombre"]+"</option>";
+    }
+    console.log(institu);
+    $("#instituciones").html('<label>INSTITUCIÓN</label><p>Nombre del establecimiento Educativo</p><select id="institucion-select" name="profesor[institucion_id]" class="form-control">'+institu+'</select>')
+    //SEDES
+    $("#institucion-select").change(function() {
+    $.ajax({
+    url: "/cuenta/ajsedes",
+    type: 'GET',
+    data: { institucion_id: $("#institucion-select").val()},
+    cache: false
+  })
+    .done(function( response ) {
+      if($('#cargo-select').val() == 1 && permit) {
+        console.log(response);
+        var sedes= '';
+        sedes+="<option disabled selected>Seleccione una sede</option>"
+        for (var key in response) {
+          sedes+="<option value="+response[key]["id"]+">"+response[key]["nombre"]+"</option>";
+        }
+        $("#sedes").html('<label>SEDE</label><p>Seleccione la sede educativa donde enseña</p><select id="sedes-select" class="form-control" name="profesor[sede_id]">'+sedes+'</select>')
+      } else {
+        var sedes= '';
+        sedes+="<option disabled selected>No aplica</option>"
+        $("#sedes").html('<label>SEDE</label><p>Seleccione la sede educativa donde enseña</p><select id="sedes-select" class="form-control" name="profesor[sede_id]" disabled>'+sedes+'</select>')
+      }
+    })
+    .complete(function(){
+    	<% if defined?(editar) && editar == "1" %>
+        if($("#sedes-select option[value='<%= @profesor.sede_id %>']").length > 0){
+          $("#sedes-select").val(<%= @profesor.sede_id %>).trigger('change');
+        }
+        else{
+          $("#sedes-select")[0].selectedIndex = 0;
+        }
+    	<% end %>
+    });
+  });//cierre_change
+  })//cierre .done ajinstituciones
+  .complete(function(){
+  <% if defined?(editar) && editar == "1" && defined?(@institucion)%>
+  if($("#institucion-select option[value='<%= @institucion %>']").length > 0){
+    $("#institucion-select").val(<%= @institucion %>).trigger('change');
+  }
+  else{
+    $("#institucion-select")[0].selectedIndex = 0;
+  }
+  	<% end %>
+  });
+});
+
+    //$("#municipios").html(response.toString)
+  })//ciere .done ajmunicipios
+.complete(function(){
+  <% if defined?(editar) && editar == "1" && defined?(@municipio)%>
+  if($("#municipio-select option[value='<%= @municipio %>']").length > 0){
+    $("#municipio-select").val(<%= @municipio %>).trigger('change');
+  }
+  else{
+    $("#municipio-select")[0].selectedIndex = 0;
+  }
+  <% end %>
+});
+});
+
+var nivel_options = null;
+var grado_options = null;
+var cargo_change = false;
+var sub_cargo_change = false;
+var permit = false;
+var niveles_data = $("#nivel-select").find('option');
+var sub_niveles_data = $("#sub-niveles-select").find('option');
+var sedes_data = $("#sedes-select").find('option');
+var materias_data = $("#materias").find('option');
+
+
+$("#cargo-select").change(function() {
+  //alert( "Handler for .change() called." );
+  $.ajax({
+  url: "/cuenta/ajcargos",
+  type: 'GET',
+  data: { cargo_id: $("#cargo-select").val()},
+  cache: false
+})
+  .done(function( response ) {
+    console.log(response);
+    var subc= '';
+    subc+="<option disabled selected>Seleccione un sub-cargo</option>"
+    for (var key in response) {
+      subc+="<option value="+response[key]["id"]+">"+response[key]["nombre"]+"</option>";
+    }
+    console.log(subc);
+    $("#sub-cargos").html('<label>SUB-CARGO</label><select id="sub-cargos-select" name="profesor[cargo_id]" class="form-control">'+subc+'</select>')
+    //$("#sub-cargos-select").trigger('change');
+    <!--
+    -->
+    $("#sub-cargos-select").change(function() {
+      if ($('#sub-cargos-select').val() != "4") {
+        permit = false;
+        deny_niveles(true);
+        deny_sub_niveles(true);
+        deny_sedes(true);
+        deny_area(true); //para el caso de docente-orientador y de docente tuto del PTA
+        //$("#nivel-select").trigger('change');
+
+      } else {
+        permit = true;
+        deny_niveles(false);
+        deny_sub_niveles(false);
+        //alert("sub-cargo 4");
+        deny_area(false);
+        deny_sedes(false);
+        <% if @profesor.nivel %>
+        $("#nivel-select").val(<%= @nivel %>).trigger('change');
+        <% else %>
+          $("#nivel-select")[0].selectedIndex = 0;
+        <% end %>
+        //deny_area(false);
+        //$("#nivel-select").trigger('change');
+        //$("#departamento-select").trigger('change');
+        //$("#municipio-select").trigger('change');
+        //$("#institucion-select").trigger('change');
+      }
+
+    });
+    
+    <% if defined?(@subcargo) && @subcargo %>
+      //$("#sub-cargos-select").val(<%= @subcargo %>).trigger('change');
+    <% end %>
+    //$("#sub-cargos-select").val(4).trigger('change');
+    //deny_niveles(true);
+
+    if(!cargo_change) {
+      nivel_options = $("#nivel-select").find('option');
+      grado_options = $("#sub-niveles").children();
+      cargo_change = true;
+    }
+    
+    if($('#cargo-select').val() != "1" ) {
+      
+      var subc_aux = '';
+      subc+="<option disabled selected>No aplica</option>";
+      $("#nivel-select").find('option').remove().end().append("<option disabled selected>No aplica</option>").prop('disabled',true)
+
+      $("#sub-niveles").html('<select id="sub-niveles-select" name="profesor[nivel_id]" class="form-control" disabled><option disabled selected>No aplica</option></select>')
+      //$("#sub-niveles").html("");
+
+      $("#sedes").html('<label>SEDE</label><p>Seleccione la sede educativa donde enseña</p><select id="sedes-select" class="form-control" name="profesor[sede_id]" disabled><option disabled selected>No aplica</option></select>')
+      deny_sedes(false);
+       if($('#cargo-select').val() == "2" || $('#cargo-select').val() == "3") {
+       	//deny_area(true);
+       	if ($('#cargo-select').val() == "3"){
+       		deny_sub_cargos(true);
+       	}
+       }else{
+       	//deny_area(false);
+       	//deny_sub_cargos(false);
+       }
+    } else {
+      permit = true;
+      <% if defined?(editar) && editar == "1" %>
+       //deny_area(false);
+       deny_niveles(true);
+       //deny_niveles(false);
+       deny_sub_niveles(false);
+       
+      <% else %>
+      deny_niveles(true);
+      deny_sub_niveles(true);
+      <% end %>
+
+    }
+  })
+  .complete(function(){
+  	<% if defined?(editar) && editar == "1" %>
+  	//alert("h0la");
+  	<% if defined?(@subcargo) && @subcargo %>
+  	if($("#sub-cargos-select option[value='<%= @subcargo %>']").length > 0){
+      $("#sub-cargos-select").val(<%= @subcargo %>).trigger('change');
+    }
+    else{
+    $("#sub-cargos-select")[0].selectedIndex = 0;
+    }
+
+  	<% end %>
+  	 if ($('#cargo-select').val() == "1") {
+  	    <% if @profesor.nivel %>
+        $("#nivel-select").val(<%= @nivel %>).trigger('change');
+        <% else %>
+          $("#nivel-select")[0].selectedIndex = 0;
+        <% end %>
+  	//$("#sub-cargos-select").val(<%= @profesor.cargo_id %>).trigger('change');
+  	<% end %>
+  	  //deny_area(false);
+  	}
+  	else{
+  	  //deny_area(true); //para el caso de docente-orientador y de docente tuto del PTA
+  	}
+  	if ($('#sub-cargos-select').val() != "4") {
+  	deny_area(true); //para el caso de docente-orientador y de docente tuto del PTA
+  	}
+  });
+  
+});
+
+function deny_sub_cargos(flag) {
+  if (flag) {
+    $("#sub-cargos-select").find('option').remove().end().append('<option disabled selected>No aplica</option>').prop('disabled',true);
+  } else {
+    $('#sub-cargos-select').empty();
+    $("#cargo-select").trigger('change');
+  }
+}
+
+function deny_area(flag) {
+  if (flag) {
+    $("#materias").find('option').remove().end().append('<option disabled selected>No aplica</option>').prop('disabled',true);
+  } else {
+    $("#materias").find('option').remove().end().append(materias_data).prop('disabled',false);
+    <% if @profesor.materia %>
+    $("#materias").val(<%= @profesor.materia_id %>).trigger('change');
+    <% end %>
+  }
+}
+
+function deny_niveles(flag) {
+  if (flag) {
+    $("#nivel-select").find('option').remove().end().append('<option disabled selected>No aplica</option>').prop('disabled',true);
+  } else {
+    $("#nivel-select").find('option').remove().end().append(niveles_data).prop('disabled',false);
+  }
+}
+
+function deny_sub_niveles(flag) {
+  if (flag) {
+    $("#sub-niveles-select").find('option').remove().end().append('<option disabled selected>No aplica</option>').prop('disabled',true);
+  } else {
+    //$("#sub-niveles-select").find('option').remove().end().append(sub_niveles_data).prop('disabled',false);
+    $('#sub-niveles').empty();
+    $("#nivel-select").trigger('change');
+  }
+}
+
+function deny_sedes(flag) {
+  if (flag) {
+    $("#sedes-select").find('option').remove().end().append('<option disabled selected>No aplica</option>').prop('disabled',true);
+  } else {
+    //$("#sedes-select").find('option').remove().end().append(sedes_data).prop('disabled',false);
+    $('#sedes').empty();
+    $('#institucion-select').trigger('change');
+  }
+}
+
+
+$("#nivel-select").change(function() {
+  $.ajax({
+  url: "/cuenta/ajniveles",
+  type: 'GET',
+  data: { nivel_id: $("#nivel-select").val()},
+  cache: false
+})
+  .done(function( response ) {
+    if ($('#cargo-select').val() == 1 && permit) {
+      console.log("val 1 y  permit");
+      console.log(response);
+      var subn= '';
+      //subn+= "<label>GRADO</label><p>Seleccione el grado en el que enseña, durante la mayor parte del tiempo, en la Institución Educativa.</p>";
+      subn+="<option disabled selected>Seleccione un grado</option>";
+      for (var key in response) {
+        subn+="<option value="+response[key]["id"]+">"+response[key]["nombre"]+"</option>";
+      }
+      console.log(subn);
+      $("#sub-niveles").html('<label>GRADO</label><p>Seleccione el grado en el que enseña, durante la mayor parte del tiempo, en la Institución Educativa.</p><select id="sub-niveles-select" name="profesor[nivel_id]" class="form-control">'+subn+'</select>')
+    } else if($('#cargo-select').val() == 1 && !permit){
+      console.log("val 1 y NO permit");
+      var subn= '';
+      subn+="<option disabled selected>No aplica</option>"
+      $("#sub-niveles").html('<select id="sub-niveles-select" name="profesor[nivel_id]" class="form-control" disabled>'+subn+'</select>')
+    }
+    if($("#nivel-select").val()== "1" || $("#nivel-select").val()== "4"){
+    	deny_sub_niveles(true);
+    }
+  })
+  .complete(function(){
+    <% if defined?(editar) && editar == "1" %>
+      <% if defined?(@subnivel) && @subnivel %>
+        
+        if($("#sub-niveles-select option[value='<%= @subnivel %>']").length > 0){
+        	$("#sub-niveles-select").val(<%= @subnivel %>).trigger('change');
+        }
+        else{
+        	$("#sub-niveles-select")[0].selectedIndex = 0;
+        }
+      <% end %>
+    <% end %>
+  });
+});//cierre_change
+
+<% if defined?(editar) && editar == "1" %>
+<% if @profesor.tipo_grabacion_id %>
+  $('input:radio[name="profesor[tipo_grabacion_id]"][value=<%= @profesor.tipo_grabacion_id %>]').prop('checked', true);
+<% end %>
+<% if @profesor.cargo %>
+  $("#cargo-select").val(<%= @cargo %>).trigger('change');
+<% end %>
+<% if @profesor.materia %>
+//alert("materia_id: "+<%= @profesor.materia_id %>);
+  $("#materias").val(<%= @profesor.materia_id %>).trigger('change');
+<% end %>
+<% if defined?(@sede) %>
+  $("#departamento-select").val(<%= Municipio.find(@profesor.sede.municipio_id).departamento_id %>).trigger('change');
+<% elsif  @profesor.departamento%>
+ $("#departamento-select").val(<%= @profesor.departamento_id %>).trigger('change');
+<% end %>
+
+
+
+var check = function(){
+	var d = document.getElementById("#nivel-select"); 
+	//$( "#myDiv" ).length
+    if(!d.hasAttribute("disabled")){
+        // run when condition is met
+        alert("hola");
+        $("#nivel-select").val(<%= @nivel %>).trigger('change');
+        
+    }
+    else {
+        setTimeout(check, 2000); // check again in a second
+    }
+}
+
+var check2 = function(){
+	var d = document.getElementById("nivel-select"); 
+	//$( "#myDiv" ).length
+    if(d !== null && !d.hasAttribute("disabled")){
+        // run when condition is met
+        alert("hola");
+    }
+    else {
+        setTimeout(check, 1000); // check again in a second
+    }
+}
+
+//check();
+//check2();
+<% end %>
+</script>

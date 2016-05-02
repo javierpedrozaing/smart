@@ -1,0 +1,17 @@
+<tr>
+<td><%= reporte_data.persona.documento %></td>
+
+<td><%= reporte_data.video_id %></td>
+
+<td>
+<% if reporte_data.tipos_reporte %>
+  <%= reporte_data.tipos_reporte.nombre %>
+<% else %>
+--
+<% end %>
+</td>
+
+<!--
+<td><%= reporte_data.revisado %></td>
+-->
+</tr>

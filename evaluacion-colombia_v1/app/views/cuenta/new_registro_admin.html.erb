@@ -1,0 +1,22 @@
+<!-- Ingreso de ICFES -->
+<div class="panel panel-primary">
+  <div class="panel-heading">      
+    Ingresar pin suministrado por canal.  
+    PIN ADMINISTRADOR
+  </div>
+
+  <div class="panel-body">
+  	   <p style=" text-align:-webkit-center;">Si usted no cuenta con  PIN de ingreso, debe solicitarlo directamente con la entidad que lo contrató </p>
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_tag cuenta_activar_camarografo_path, method: "post" do %>
+        <div class="form-group">
+          <%= label_tag :pin_icfes, "PIN" %>
+          <%= text_field_tag :pin, nil, :autofocus => true, :class => "form-control", :placeholder=>"Ingresar PIN"%>
+        </div>
+        <%= hidden_field_tag :tipo_persona, :value => "profesor" %>
+
+        <%= submit_tag "Siguiente", :class => "btn btn-success" %>
+      <% end %>
+    </div>
+  </div>
+</div>

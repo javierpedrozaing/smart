@@ -1,0 +1,39 @@
+<div id="cargar_base" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+     <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Cargar base <%= @Titulo %></h4>
+      </div>
+      <div class="modal-body">
+       
+	          
+	           <label for="recipient-name" class="control-label">subir base en csv:</label>
+	           <%= form_for :post , :url => { :controller => "/personas", :action => "carga_csv", :tipo_usuario => @Titulo},:html => { :multipart => true } do |f| %>
+	            <div class="form-group">
+				  <p>
+				    <%= f.label :Archivo, "Cargar Archivo" %><br>
+				    <%= f.file_field :Archivo, :style=>"color:black;" %>
+				  </p>
+				
+				
+				
+				  <p>
+				    <%= f.submit "Importar" , id: "carga_base_csv"%>
+				  </p>
+				  </div>
+				<% end %>
+	          
+	         
+	        
+	          
+   
+      </div>
+     <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="btm_carga_base">Cerrar</button>
+        
+      </div>
+    </div>
+  </div>  
+</div>
+

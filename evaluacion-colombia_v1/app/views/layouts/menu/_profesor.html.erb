@@ -1,0 +1,12 @@
+<%
+vid = current_persona.profesor.video
+if permit_videos
+if !vid.blank?
+  if vid.observador_id == 0 %>
+<li><%= link_to "Subir Video", new_video_path(profesor_id: current_persona.profesor.id) %></li>
+<% end %>
+<% end %>
+<% end %>
+<% if permit_videos %>
+<li><%= link_to "Ver vídeo", profesor_video_path %></li>
+<%  end %>

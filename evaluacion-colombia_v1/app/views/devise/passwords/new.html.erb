@@ -1,0 +1,23 @@
+<script type="text/javascript">
+    //window.location.href="/cuenta/redirect"  // put your correct path in a string here
+  </script>
+<%= bootstrap_devise_error_messages! %>
+<div class="panel panel-default">
+  <div class="panel-heading" style="background-color:#347AB8">
+    <h4 style="color:#fff">RECUPERAR CONTRASEÑA</h4>
+  </div>
+  <div class="panel-body" style="padding-top: 0px;">
+    <%# form_for(resource, :as => resource_name, :url => cuenta_reset_password_email_path(resource_name), :html => { :method => :post, role: "form" }) do |f| %>
+
+    <%= form_for(resource, :as => resource_name, :url => persona_password_path, :html => { :method => :post, role: "form" }) do |f| %>
+       <p style="text-align:center;">Para recuperar contraseña,ingrese su número <br /> de documento</p>
+      <div class="form-group">
+        <%= f.label :documento, "Ingrese su Número de Documento" , :style=>"text-align:center;" %>
+        <%= f.text_field  :documento, autofocus: true, class: "form-control" %>
+      </div>
+    <div style="text-align: -webkit-center;" >
+      <%= f.submit 'Enviar', class: "btn btn-success"%>
+    </div>  
+    <% end %>
+  </div>
+</div>

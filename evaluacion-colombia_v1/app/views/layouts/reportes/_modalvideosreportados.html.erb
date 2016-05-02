@@ -1,0 +1,100 @@
+<div id="reportados" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Videos Reportados</h4>
+      </div>
+      <div class="modal-body">
+
+         <%  if @Titulo=="camarógrafos" %>
+             <% @Titulo="camarografosno" %>
+               <%=    render "layouts/observacion/filtrar_camarografos"   %>
+              
+            <%   elsif @Titulo!="camarografos"   %>
+            
+            <%=   render "layouts/evaluacion/filtraranking"   %>
+            <%  end  %>
+
+        <table>
+          <tr>
+            <td colspan=10><input type="checkbox" name="checktodos">Selecionar todos </td>
+          </tr>
+          <tr>
+            <%  if  @Usuario=="evaluador" %>
+            <th>Selecione</th>
+            <th>Evaluadores</th>      
+            <% else %>
+            <th>Id</th>
+            <%  end %>
+
+            <th>Tipo documento Profesor</th>
+            <th>Número documento Profesor</th>
+
+            <th>Descripción Reporte</th>
+            <th>Estados</th>
+            <th>Ver vídeo</th>    
+            <th>Acciones</th>              
+          </tr>
+          <% 7.times do %>
+
+          <tr>
+            <%  if  @Usuario=="evaluador" %>
+            <th><input type="checkbox" name="" ></th>
+            <td><a class="btn btn-info" data-toggle="modal" href="#proceso_evaluadores">Ver</a></td>
+            <% else %>
+            <td>Data</td>
+            <%  end %>
+
+
+            <td>Data</td>
+            <td>Data</td>
+            <td>Data</td>
+            <td>Reportado por audio</td>
+            <td>
+            <%= link_to "vídeo" ,administracion_previsualizacion_video_path(:profesor_id => "1"),class: "btn btn-info", target:"_blank" %>
+            </td>  
+            <%  if  @Usuario=="evaluador" %>
+            <th><input type="checkbox" name="" ></th>
+            <td><select class="asignacio_1"><option>Acciones</option><%  if @Usuario!="evaluador" %> <option>Asignar</option> <% end %><option>Ver</option><option>otra acción</option> </select></td>
+
+            <% else %>
+            <td>Asignar Canal<input type="checkbox"></td>
+            <%  end %>            
+          </tr>
+          <% end %>
+        </tr>
+        <tr>
+          <td colspan=2 class="total"> </td>
+          <td colspan=7 align="rigth">
+            <nav>
+              <ul class="pagination">
+                <li>
+                  <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                  <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav> 
+          </td>
+        </tr>                                                          
+      </table>  
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+
+    </div>
+  </div>
+</div>  
+
+</div>

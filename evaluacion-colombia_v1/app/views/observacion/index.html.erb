@@ -1,0 +1,139 @@
+<p id="notice"><%= notice %></p>
+
+<% @Titulo="camarógrafos" %>
+	<h1>Bienvenido Módulo de Jefes Camarógrafos</h1>
+	<HR width=100% align="left">
+	
+	<br />
+	<div class="btn-group">
+	
+	<%= link_to "Base profesores para Canales",persona_export_csv_profesores_path(format: "csv"), class: "btn btn-primary" ,title: "Reporte de profesores sin cita ni vídeo en el sistema " %>
+	<% if check_perfiles ["subir_camarógrafos"] %>	
+	  <%= link_to "Cargar Base camarógrafos", "#cargar_base", class: "btn btn-primary"  ,title: "Cargar registros de camarógrafos al sistema","data-toggle" => "modal" %>
+	<%end%>	
+	<% if check_perfiles ["ver_reportes_camarógrafos"] %>	  
+	 <div class="btn-group">
+		  <button title="Reportes especificos gestión de camarógrafos" type="button" class="btn btn-primary">Reportes</button>
+			  <button title="" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			    <span class="caret"></span>
+			    <span class="sr-only">Toggle Dropdown</span>
+			  </button>
+		  <ul class="dropdown-menu">
+		    <li role="separator" class="divider"></li>
+		    <li><a title="vídeos reportados por fallas técnicas" class="btn btn-info" data-toggle="modal" href="#reportados">Vídeos Reportados</a></li>
+		    <li role="separator" class="divider"></li>
+		    <li><a title="Reporte del estado actual de los vídeos" class="btn btn-info" data-toggle="modal" href="#reporte_trabajo_asignado_camarografo">Estado del vídeo</a></li>
+		  </ul>
+	</div>
+	<%end%>	
+	
+   <div class="btn-group">
+	  <button title="Reportes estadísticos del sistema de camarógrafos" type="button" class="btn btn-primary">Estadística</button>
+		  <button title="" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    <span class="caret"></span>
+		    <span class="sr-only">Toggle Dropdown</span>
+		  </button>
+	  <ul class="dropdown-menu">
+	    <li role="separator" class="divider"></li>
+	    <li><a title="Reporte total del trabajo individual o por grupo con filtros y gráficas" class="btn btn-info" data-toggle="modal" href="#estadistica">Estadísticas</a></li>
+	    <li role="separator" class="divider"></li>
+	    <li><a title="Reporte total del estado del trabajo" class="btn btn-info" data-toggle="modal" href="#revisados">Estadísticas Totales</a></li>
+	  </ul>
+	</div>	
+  </div>	
+	
+	<br />
+	<HR width=50% align="left">
+	
+	<div class="row">
+		<div id="filtro">
+		 <%= render "layouts/observacion/filtrar_camarografos" %> 
+		</div>	 
+	 <div class="col-md-6">
+	       <div class="btn-group">
+			  <button title="Filtros de camarógrafos"  type="button" id="filtrar" class="btn btn-default">Ver criterios de búsqueda</button>
+			  <button title="Ocultar el filtro de camarógrafos"  type="button" id="filtrar_ocultar" class="btn btn-default">Ocultar criterios de búsqueda</button>
+			  
+			</div>
+			
+			<table class="table table-bordered" data-pagination="true " >
+			   <tr>
+					<td colspan=17 style='text-align: left;'> <%=  image_tag("excel.png", size: "30") %>
+	                       <%=  image_tag("pdf.jpg", size: "30") %></td>
+					
+			  </tr>	
+				<tr>
+					<th>Id</th>
+					<th>Canal</th>
+					<th>Tipo documento</th>
+					<th>Número documento</th>
+					<th>Nombres</th>
+					<th>Apellido Paterno</th>
+					<th>Apellido Materno</th>
+					<th>Proceso de Grabación</th>				
+					<th>Grabaciones Incumplidas</th>
+					<th>Vídeos Reportados</th>
+					<th>Procesos Finalizados Correctamente</th>				
+					<th>Teléfono</th>
+					<th>Celular</th>
+					<th>Email</th>				
+					<th>Estado</th>		
+					<!--th>Profesores Asignados</th-->	
+					<th>Acciones</th>											
+				</tr>
+			
+	    <%  contador=0 %>
+	    <%  @consulta_general.each do |persona| %>
+	      <tr>
+	      	<% observador_id= Observador.find_by_persona_id(persona.id) %>
+	        <td><%= contador +=1 %></td>
+	        <td><%= persona.canal %></td>
+	        <td><%= persona.tipo_documento.documento %></td>
+	        <td><%= persona.documento %></td>
+	        <td><%= persona.nombre %></td>
+	        <td><%= persona.apellido_paterno %></td>
+	        <td><%= persona.apellido_materno %></td> 
+	        <td><%= ObservadoresProfesor.where(:observador_id=>observador_id).count %></td>  
+	        <td><%= ObservadoresProfesor.where("observadores_profesores.fecha_grabacion < date('now','-3 day') ").where(:observador_id=>observador_id).count%></td>  
+	        <td>0</td>         
+	        <td><%= Persona.observadores.joins(:videos).where(:id=>persona.id).count %></td>
+	        <td><%= persona.telefono %></td>
+	        <td><%= persona.celular %></td>
+	        <td><%= persona.email %></td>	      
+	        <td><%= persona.estado.estado %></td>	      
+	        <!--td> <a title="Ver agendamiento de citas del camarografo"  type="button" class="btn btn-primary trabajo_camarografo" data-toggle="modal" data-id="<%= persona.id %>" href="#reporte_trabajo_asignado_camarografo">Ver</a></td -->	
+	        <td>
+	          <% if check_perfiles ["editar_observadores"] %>	
+	        	<%= link_to 'Ver', observacion_show_path(id: persona.id) %>|<%= link_to 'Editar', edit_persona_path(persona) %>
+	          <% end %>
+	        </td>	
+	      </tr>
+	    <% end %>
+	 
+				<tr>
+				<td colspan=4> Total: <%= @consulta_general.count %> </td>
+				<td colspan=13 align="rigth">
+				     <nav>
+					  <ul class="pagination">				   
+					        <%= will_paginate(@consulta_general) %>	     
+					  </ul>
+					</nav> 
+				</td>
+				</tr>																												
+			</table>	
+	      </div> 
+	</div>
+
+
+<!-- Cargamos el parcial modal de cargar base-->
+<%= render "layouts/cargar_csv/modal_cargar_base" %>
+<!-- Cargamos el parcial modal de reportes-->
+<%= render "layouts/reportes/modalreportes" %>
+<!-- Cargamos el parcial modal de estadistica-->
+<%= render "layouts/estadisticas/modal_estadisticas" %>
+<!-- Cargamos el parcial modal de reportes videos reportados-->
+<%= render "layouts/reportes/modalvideosreportados" %>
+<!-- Cargamos el parcial modal de videos revisados-->
+<%= render "layouts/observacion/modal_tabla_trabajo_asignado_camarografo"%>
+<!-- Cargamos el parcial modal de videos revisados-->
+<%= render "layouts/estadisticas/modal_estadisticas_totales_camarografo" %>

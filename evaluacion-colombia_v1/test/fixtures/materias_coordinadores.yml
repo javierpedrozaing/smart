@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  coordinador_id: 1
+  materia_id: 1
+
+two:
+  coordinador_id: 1
+  materia_id: 1

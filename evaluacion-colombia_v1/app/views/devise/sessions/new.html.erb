@@ -1,0 +1,106 @@
+<% usuarios = [
+    {documento: "111111", usuario: "Profesor", tipo_documento: "Tarjeta Identidad"},
+    {documento: "222222", usuario: "Evaluador", tipo_documento: "Tarjeta Identidad"},
+    {documento: "999999", usuario: "Coordinador", tipo_documento: "Tarjeta Identidad"},
+    {documento: "444444", usuario: "Jefe Evaluadores", tipo_documento: "Tarjeta Identidad"},
+    {documento: "333333", usuario: "Observador", tipo_documento: "Tarjeta Identidad"},
+    {documento: "555555", usuario: "Jefe de Camarografos", tipo_documento: "Tarjeta Identidad"},
+    {documento: "666666", usuario: "Jefe de Evaluaciones", tipo_documento: "Tarjeta Identidad"},
+    {documento: "777777", usuario: "Administrador", tipo_documento: "Tarjeta Identidad"},
+    {documento: "888888", usuario: "Super Usuario", tipo_documento: "Tarjeta Identidad"},
+  ]%>
+<% if Rails.env.development? %>
+  <!--<h1 style="background-color:red;">sitio de desarrollo Jeyson Correa, OGR Colombia</h1>-->
+<% end %>
+<!--  Inicio de session camarografo -->
+	<% if !params[:hidden_access].blank? %>	
+	  <div class="">
+	    <h1>Bienvenido</h1>
+	      <h1>Plataforma de la Evaluación de Carácter Diagnóstico Formativa</h1>
+	       <h2 style="font-size: 16px;" class="subtitle">Si es la primera vez que ingresa a la plataforma, por favor haga clic en “Registro” </h2>
+	        <%= link_to "Registro", cuenta_registro_path, class: "btn btn-success btn-xs", style: "margin:3px; font-weight: 900;", type: "button" %>
+	        <!--a href="registro_camarografo.html"><button style="float:left; font-size:13px;" type="button" class="btn btn-success btn-xs">Registro</button></a-->        
+	          <h2 style="font-size: 19 px; margin-top: 45px;" class="subtitle">De lo contrario, ingrese a la plataforma diligenciando la información que se solicita a continuación.</h2>
+	   </div>	
+	   
+	    <% else %>	
+
+	    <div class="">
+		  <h1>Plataforma para la Evaluación Docente de Carácter Diagnóstico Formativa (ECDF).</h1>
+		  <h2 class="subtitle">
+		  	 Para ingresar a la plataforma digite su
+		  	número de documento y contraseña. 	
+		  	<br /><br />
+		  	Si no recuerda o no conoce su contraseña,
+		  	
+		  	por favor, haga clic en "Recuperar Contraseña"
+		    <!--a href="registro.html">
+			  <%= link_to "Inscribirme", cuenta_registro_path, class: "btn btn-success btn-xs", style: "margin:3px; font-weight: 900;", type: "button" %>
+		    </a-->
+		      
+		  </h2>
+	   </div>
+	  <% end %>  
+   
+<div class="panel-body" style="padding-left: 0px;">
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" , style: "margin-top: -9px;"}) do |f| %>
+  <div class="form-group">
+    <%= f.label :tipo_documento_id, :style => "color: white;" %>
+    <%= f.select :tipo_documento_id, TipoDocumento.where('id NOT IN (?)', [1,4]).collect {|a| [a.documento, a.id]}, {class: "form-control", selected: 2} %>
+  </div>
+  <div class="form-group">
+    <%= f.label 'Número de Documento', :style => "color: white;" %>
+    <%= f.text_field :documento, autofocus: true, class: "form-control", placeholder: "Ej. 80186850" %>
+  </div>
+  <div class="form-group">
+    <%= f.label 'Ingresar Contraseña' , :style => "color: white;"%>
+    <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+  </div>
+
+  
+      <% if devise_mapping.rememberable? %>
+        <div class="checkbox">
+          <label>
+            <%= f.check_box :remember_me %>
+            <%= f.label "Recordarme", :style => "color: white;"  %>
+          </label>
+        </div>
+      <% end %>
+
+   
+
+       <%= link_to "Recuperar Contraseña", new_password_path(resource_name), :class => "btn btn-success btn-xs", :style => "float:right;color: #fff; font-weight: 600;" %>
+
+
+  <%= f.submit  "Ingresar",  class: "btn btn-success" %>
+
+</div>
+
+<% end %>
+
+
+<%# if Rails.env.development? %>
+<!--
+  <div>
+    <h4>Usuarios de prueba:
+    <table class="table table-bordered">
+      <tr>
+        <th>Usuario</th>
+        <th>Tipo de documento</th>
+        <th>Número de documento</th>
+      </tr>
+      <%# usuarios.each do |usuario|%>
+        <tr>
+          <td><%# usuario[:usuario] %></td>
+          <td><%# usuario[:tipo_documento] %></td>
+          <td><%# usuario[:documento] %></td>
+        </tr>
+      <%# end %>
+    </table>
+    <div>
+      <h5>La contraseña de todos los usuarios es "lalala1234"</h5>
+    </div>
+  </div>
+  -->
+<%# end %>
+

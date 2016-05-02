@@ -1,0 +1,8 @@
+<% evaluaciones.each do |evaluacion|  %>
+  <tr>
+    <td><%= evaluacion.evaluador.nombre_completo %></td>
+    <td><%= evaluacion.evaluado.nombre_completo %></td>
+    <td><%= evaluacion.created_at %></td>
+    <td><%= evaluacion.estado_evaluacion.estado %></td>
+  </tr>
+<% end %>

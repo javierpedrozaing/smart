@@ -1,0 +1,113 @@
+es:
+  activerecord:
+    errors:
+      models:
+        grilla_item:
+          attributes:
+            grilla:
+              blank: "Debe seleccionar una grilla"
+            categoria:
+              blank: "Debe seleccionar una categoría"
+            escala:
+              blank: "Debe seleccionar una escala"
+            cod_evidencia:
+              blank: "Debe ingresar un cod_evidencia"
+            cod_dimension:
+              blank:  "Dede ingresar un cod_dimension"
+            cod_sub_dimension:
+              blank: "Debe ingresar un cod_sub_dimension"
+            cod_afirmacion:
+              blank: "Debe ingresar un cod_afirmacion"
+            item:
+              blank: "Debe ingresar un item"
+            orden_item:
+              blank: "Debe ingresar un orden para el item"
+              # less_than_or_equal_to: "no puede ser superior a 100"
+              less_than: "no puede ser superior a 100"
+            ejemplos:
+              blank: "Debe ingresar un ejemplo"
+
+        video:
+          attributes:
+            attach:
+              name: ""
+              blank: "Debe seleccionar un archivo para subir."
+        evidencia_form:
+          attributes:
+            cargo:
+              blank: "Debe seleccionar un Cargo"
+            area:
+              blank: "Debe seleccionar un Área de enseñanza"
+            grado:
+              blank: "Debe seleccionar un Grado"
+            modelo_educativo:
+              blank: "Debe seleccionar un Modelo educativo"
+            numero_estudiantes:
+              blank: "Debe ingresar el número de estudiantes de la clase grabada"
+            numero_estudiantes_consentimiento:
+              blank: "Debe ingresar el número de estudiantes con consentimiento informado"
+            fecha_clase_grabada:
+              blank: "Debe ingresar una fecha de grabación valida"
+            departamento:
+              blank: "Debe seleccionar un Departamento"
+            municipio:
+              blank: "Debe seleccionar un Municipio"
+        persona:
+          attributes:
+            nombre:
+              blank: "Debe ingresar un nombre."
+            apellido_paterno:
+              blank: "Debe ingresar su apellido."
+            documento:
+              blank: "Debe ingresar un número de documento."
+            tipo_documento_id:
+              blank: "Debe seleccionar un tipo de documento."
+            direccion:
+              blank: "Debe ingresar una dirección."
+            telefono:
+              blank: "Debe ingresar un numero de telefono."
+            celular:
+              blank: "Debe ingresar un numero de celular."
+            email:
+              blank: "Debe ingresar un correo electrónico."
+              invalid: "Debe ingresar un correo electrónico válido."
+              taken: "El correo electrónico ingresado ya está asociado a otro usuario en el sistema."
+            password_confirmation:
+              confirmation: "Su contraseña y confirmación de contraseña no coinciden."
+            current_password: 
+              invalid: "La contraseña actual ingresada no es correcta."
+              blank: "Debe ingresar su contraseña actual."
+            password:
+              too_short: "Su contraseña debe contener al menos 8 caracteres."
+    attributes:
+      video:
+        attach: ""
+      persona:
+        current_password: "Contraseña actual:"
+        password: "Contraseña:"
+      evidencia_form:
+        cargo: ""
+        area: ""
+        grado: ""
+        modelo_educativo: ""
+        numero_estudiantes: ""
+        numero_estudiantes_consentimiento: ""
+        fecha_clase_grabada: ""
+        departamento: ""
+        municipio: ""
+  helpers:
+    page_entries_info:
+      more_pages:
+        display_entries: Mostrando <b>%{first}&nbsp;-&nbsp;%{last}</b> %{entry_name} de <b>%{total}</b> en total
+      one_page:
+        display_entries:
+          one: Mostrando <b>%{count}</b> %{entry_name}
+          other: Mostrando <b>un total de %{count}</b> %{entry_name}
+          zero: No se han encontrado %{entry_name}
+  views:
+    pagination:
+      first: "&laquo; Primera"
+      last: "Última &raquo;"
+      next: Siguiente &rsaquo;
+      previous: "&lsaquo; Anterior"
+      truncate: "&hellip;"

@@ -1,0 +1,49 @@
+<div class="list-group">
+<a href="#" class="list-group-item active" style="text-align:center;padding-bottom: 5px;padding-top: 5px;"><i class="fa fa-bell-o fa-lg "></i>
+Notificaciones
+</a>
+
+<% if check_perfiles ['editar_post']%>
+	<h4><%= button_to 'Crear nueva notificación', notificaciones_enviar_path , :class =>"btn btn-success", method: :get %></h4>
+<% end %>
+</div>
+<!-- <p>Find me in app/views/notificaciones/index.html.erb</p>-->
+<%  if @Notifs_rol.present?   %> 
+  <%  @Notifs_rol.each do |notif_rol| %>
+     <div class="list-group">
+      	<a class="list-group-item <%= notif_rol.clase_css %>" href="#">
+        <div class="row">    
+         <h5 class="list-group-item-heading" style="text-align:right; margin-right:9px;">
+		  <%= notif_rol.id %></h5>
+        <div class="col-xs-12">
+        <%= image_tag(notif_rol.clase, :alt => "Responsive image", :class=>"img-responsive notificaciones" ) %>
+        <h5 class="textNoti"><%= notif_rol.titulo_noti %></h5></div>
+		   <p class="list-group-item-text" style="margin-left:56px"><%= notif_rol.titulo_tipo %></p>
+        </div>
+         </a>
+      </div> 
+   <% end %> 
+  <% end %>
+<% if @Notifs.present? %>
+<% @Notifs.each do |notif| %>
+
+      <div class="list-group">
+      	<a class="list-group-item <%= notif.clase_css %>" href="#">
+        <div class="row">    
+         <h5 class="list-group-item-heading" style="text-align:right; margin-right:9px;">
+		  <%= notif.id %></h5>		     
+        <div class="col-xs-12">
+        <%= image_tag(notif.clase, :alt => "Responsive image", :class=>"img-responsive notificaciones" ) %>
+        <h5 class="textNoti"><%= notif.titulo_noti %></h5></div>
+        <% if notif.present? %>
+		   <p class="list-group-item-text" style="margin-left:56px"><%= notif.titulo_tipo %></p>
+        <% end %>
+        </div>
+         </a>
+      </div> 
+      <br>
+
+  <% end %> 
+<% else %>
+No hay ninguna notificación en este momento
+<% end %>

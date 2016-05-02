@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Icfes Registros</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pin</th>
+      <th>Persona</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @icfes_registros.each do |icfes_registro| %>
+      <tr>
+        <td><%= icfes_registro.pin %></td>
+        <td><%= icfes_registro.persona_id %></td>
+        <td><%= link_to 'Show', icfes_registro %></td>
+        <td><%= link_to 'Edit', edit_icfes_registro_path(icfes_registro) %></td>
+        <td><%= link_to 'Destroy', icfes_registro, method: :delete, class:"btn btn-primary", data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Icfes registro', new_icfes_registro_path %>

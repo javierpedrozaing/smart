@@ -1,0 +1,99 @@
+<p id="notice"><%= notice %></p>
+
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @persona.nombre %>
+</p>
+
+<p>
+  <strong>Apellido paterno:</strong>
+  <%= @persona.apellido_paterno %>
+</p>
+
+<p>
+  <strong>Apellido materno:</strong>
+  <%= @persona.apellido_materno %>
+</p>
+
+<p>
+  <strong>Tipo documento:</strong>
+  <%= @persona.tipo_documento_id %>
+</p>
+
+<p>
+  <strong>Documento:</strong>
+  <%= @persona.documento %>
+</p>
+
+<p>
+  <strong>Direccion:</strong>
+  <%= @persona.direccion %>
+</p>
+
+<p>
+  <strong>Telefono:</strong>
+  <%= @persona.telefono %>
+</p>
+
+<p>
+  <strong>Celular:</strong>
+  <%= @persona.celular %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @persona.email %>
+</p>
+<p>
+  <strong>Estado:</strong>
+  <%= @persona.estado.estado %>
+</p>
+
+<%= link_to 'Editar', edit_admin_persona_path(@persona) %> |
+<%= link_to 'Regresar', admin_observacion_path %>
+
+<h1>Lista de profesores</h1>
+	
+	<table cellspacing="0" cellpadding="0" class="table" id="table">
+						<thead>	
+							<tr>
+								
+								<th>Tipo documento</th>
+								<th>Numero documento</th>
+								<th>Nombres</th>
+								<th>Apellido Paterno</th>
+								<th>Apellido Materno</th>
+								<th>Telefono</th>
+								<th>Celular</th>
+								<th>Email</th>								
+								<th>Estado</th>														
+							</tr>
+	                     </thead>		
+	                     <tbody>
+			    <%  @profesor.each do |profesor| %>
+				      <tr>
+				        
+				       
+				        <td><%= profesor.tipo_documento.documento %></td>
+				        <td><%= profesor.documento %></td>
+				        <td><%= profesor.nombre %></td>
+				        <td><%= profesor.apellido_paterno %></td>
+				        <td><%= profesor.apellido_materno %></td> 			        
+				        <td><%= profesor.telefono %></td>
+				        <td><%= profesor.celular %></td>
+				        <td><%= profesor.email %></td>			      
+				        <td><%= profesor.estado.estado %></td>	
+				        <!--td><%= profesor.rol %></td -->
+				        		      
+				        
+				      </tr>
+			    <% end %>	
+	                     	
+	                     	
+	                     </tbody>
+		                  <tfoot>
+		                  	
+							
+						 </tfoot>																													
+	</table>	

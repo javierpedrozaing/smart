@@ -1,0 +1,220 @@
+<div id="sf_admin_bar">
+    
+<div class="sf_admin_filter">
+
+  <form action="/path" method="post">
+    <table cellspacing="0">
+      <tfoot>
+        <tr>
+          <td colspan="2">
+           <button type="submit"   class="btn btn-default">Reset</button>
+           <button type="submit"   class="btn btn-default">Filtro</button>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+  
+   <tr>
+    <td>
+      <label>Canales Regionales</label></td>
+    <td>
+		<PRE>
+		Canal 1<input type="checkbox">
+		Canal 2<input type="checkbox">		
+		Canal 3<input type="checkbox">
+		</PRE>
+	
+    </td>
+  </tr>
+  <%  if  @Titulo=="camarografostotal"  %>
+  <tr>
+    <td>
+      <label>Secretarias de educación</label></td>
+    <td>
+      
+      <select name="usuario_filters[estado]" id="usuario_filters_estado">
+		<option value="">Cualquiera</option>
+		<option value="0">Secetaría 1</option>
+		<option value="1" selected="selected">Secretaría 2</option>
+		<option value="2">Secretaría 3</option>
+	</select>
+    </td>
+  </tr>
+  <% end %>
+   <%  if  @Titulo!="camarografostotal"  %>
+   <%  if @Titulo!="camarografosno" %>
+
+  <tr>
+    <td>
+      <label>Estados del Sistema</label>
+    </td>
+    <td>
+    <PRE>
+	    Proceso de Grabación<input type="checkbox" >
+	    Grabaciones Incumplidas<input type="checkbox" > 
+	    Procesos Finalizados Correctamente<input type="checkbox" > 
+	    Videos Reportados<input type="checkbox" > 
+     </PRE>
+     
+    </td>
+  </tr>
+   
+   <tr>
+    <td>
+      <label>Estado</label></td>
+    <td>
+      
+      <select name="usuario_filters[estado]" id="usuario_filters_estado">
+		<option value="">Cualquiera</option>
+		<option value="0">Esperando confirmación</option>
+		<option value="1" selected="selected">Activo</option>
+		<option value="2">Inactivo</option>
+	</select>
+    </td>
+  </tr>
+    <% end %>
+    <% end %>
+
+   <% if  @Titulo!="camarografosno" %>
+   <tr>
+    <td>
+      <label>Filtro por rango de fechas</label></td>
+    <td>
+      
+      from <select name="usuario_filters[created_at][from][month]" id="usuario_filters_created_at_from_month">
+			<option value="" selected="selected"></option>
+			<option value="1">01</option>
+			<option value="2">02</option>
+			<option value="3">03</option>
+			<option value="4">04</option>
+			<option value="5">05</option>
+			<option value="6">06</option>
+			<option value="7">07</option>
+			<option value="8">08</option>
+			<option value="9">09</option>
+			<option value="10">10</option>
+			<option value="11">11</option>
+			<option value="12">12</option>
+	</select>/
+    <select name="usuario_filters[created_at][from][day]" id="usuario_filters_created_at_from_day">
+			<option value="" selected="selected"></option>
+			<option value="1">01</option>
+			<option value="2">02</option>
+			<option value="3">03</option>
+			<option value="4">04</option>
+			<option value="5">05</option>
+			<option value="6">06</option>
+			<option value="7">07</option>
+			<option value="8">08</option>
+			<option value="9">09</option>
+			<option value="10">10</option>
+			<option value="11">11</option>
+			<option value="12">12</option>
+			<option value="13">13</option>
+			<option value="14">14</option>
+			<option value="15">15</option>
+			<option value="16">16</option>
+			<option value="17">17</option>
+			<option value="18">18</option>
+			<option value="19">19</option>
+			<option value="20">20</option>
+			<option value="21">21</option>
+			<option value="22">22</option>
+			<option value="23">23</option>
+			<option value="24">24</option>
+			<option value="25">25</option>
+			<option value="26">26</option>
+			<option value="27">27</option>
+			<option value="28">28</option>
+			<option value="29">29</option>
+			<option value="30">30</option>
+			<option value="31">31</option>
+	</select>/
+	<select name="usuario_filters[created_at][from][year]" id="usuario_filters_created_at_from_year">
+		<option value="" selected="selected"></option>
+		<option value="2010">2010</option>
+		<option value="2011">2011</option>
+		<option value="2012">2012</option>
+		<option value="2013">2013</option>
+		<option value="2014">2014</option>
+		<option value="2015">2015</option>
+		<option value="2016">2016</option>
+		<option value="2017">2017</option>
+		<option value="2018">2018</option>
+		<option value="2019">2019</option>
+		<option value="2020">2020</option>
+	</select><br>to 
+  <select name="usuario_filters[created_at][to][month]" id="usuario_filters_created_at_to_month">
+		<option value="" selected="selected"></option>
+		<option value="1">01</option>
+		<option value="2">02</option>
+		<option value="3">03</option>
+		<option value="4">04</option>
+		<option value="5">05</option>
+		<option value="6">06</option>
+		<option value="7">07</option>
+		<option value="8">08</option>
+		<option value="9">09</option>
+		<option value="10">10</option>
+		<option value="11">11</option>
+		<option value="12">12</option>
+	</select>/
+  <select name="usuario_filters[created_at][to][day]" id="usuario_filters_created_at_to_day">
+		<option value="" selected="selected"></option>
+		<option value="1">01</option>
+		<option value="2">02</option>
+		<option value="3">03</option>
+		<option value="4">04</option>
+		<option value="5">05</option>
+		<option value="6">06</option>
+		<option value="7">07</option>
+		<option value="8">08</option>
+		<option value="9">09</option>
+		<option value="10">10</option>
+		<option value="11">11</option>
+		<option value="12">12</option>
+		<option value="13">13</option>
+		<option value="14">14</option>
+		<option value="15">15</option>
+		<option value="16">16</option>
+		<option value="17">17</option>
+		<option value="18">18</option>
+		<option value="19">19</option>
+		<option value="20">20</option>
+		<option value="21">21</option>
+		<option value="22">22</option>
+		<option value="23">23</option>
+		<option value="24">24</option>
+		<option value="25">25</option>
+		<option value="26">26</option>
+		<option value="27">27</option>
+		<option value="28">28</option>
+		<option value="29">29</option>
+		<option value="30">30</option>
+		<option value="31">31</option>
+	</select>/
+  <select name="usuario_filters[created_at][to][year]" id="usuario_filters_created_at_to_year">
+		<option value="" selected="selected"></option>
+		<option value="2010">2010</option>
+		<option value="2011">2011</option>
+		<option value="2012">2012</option>
+		<option value="2013">2013</option>
+		<option value="2014">2014</option>
+		<option value="2015">2015</option>
+		<option value="2016">2016</option>
+		<option value="2017">2017</option>
+		<option value="2018">2018</option>
+		<option value="2019">2019</option>
+		<option value="2020">2020</option>
+	</select><br>
+    <input type="checkbox" name="usuario_filters[created_at][is_empty]" id="usuario_filters_created_at_is_empty">
+     <label>is empty</label>
+
+          </td>
+     </tr>
+      <% end %>
+        </tbody>
+    </table>
+  </form>
+   </div>
+ </div>

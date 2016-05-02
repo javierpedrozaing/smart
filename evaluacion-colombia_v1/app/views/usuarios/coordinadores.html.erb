@@ -1,0 +1,58 @@
+<h1>
+  Coordinadores
+</h1>
+<!-- Acciones sobre la tabla en general -->
+<% if check_perfiles ["editar_coordinadores"] %>
+  <h3>Acciones a realizar</h3>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Subir Coordinadores <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a href="/system/csv/test_coordinadores.csv">Descargar plantilla</a></li>
+      <li><a href="#" data-toggle="modal" data-target="#modal-subida-coordinador" >Subir archivo</a></li>
+    </ul>
+  </div>
+  
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Subir Relacion Evaluadores-Coordinadores <span class="caret"></span>
+    </button>
+    
+    <ul class="dropdown-menu">
+      <li><a href="/system/csv/test_coordinadores_evaluadores.csv">Descargar plantilla</a></li>
+      <li><a href="#" data-toggle="modal" data-target="#modal-subida-coordinadores-evaluadores" >Subir archivo</a></li>
+    </ul>
+  </div>
+    <!-- Modal para subir profesores -->
+  <%= render :partial => "usuarios/modals/modal_carga_usuario", :locals => {:titulo => "Subida de Coordinadores por archivo", :tipo_usuario => "coordinadores", :modal_id => "modal-subida-coordinador"} %>
+  <%= render :partial => "usuarios/modals/modal_carga_coordinadores_evaluadores", :locals => {:titulo => "Subida de Evaluadores de Coordinadores por archivo", :modal_id => "modal-subida-coordinadores-evaluadores"} %>
+
+<% end %>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered">
+      <tr>
+        <th>Nombre</th>
+        <th>Documento</th>
+        <!--th>Más campos</th>
+        <th>Acciones</th-->
+      </tr>
+      <!-- Listar evaluaciones que se estan realizando -->
+      <% if @coordinadores.any? %>
+        <% @coordinadores.each do |coordinador| %>
+          <tr data-persona-id="<%= coordinador.id %>">
+            <td><%= coordinador.nombre_completo %></td>
+            <td><%= coordinador.documento %></td>
+            <!--td>-</td>
+            <td>Todo bien!</td-->
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="4">No hay coordinador asignados</td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

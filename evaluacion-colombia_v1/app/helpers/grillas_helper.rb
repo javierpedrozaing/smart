@@ -1,0 +1,2 @@
+module GrillasHelper
+end

@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listar Tutoriales</h1>
+<br>
+
+<%= link_to 'Nuevo Tutorial', new_tutorial_path %>
+<br />
+<table  class="table table-bordered" data-pagination="true  ">
+  <thead>
+    <tr>
+      <th>Tutorial</th>
+      <th>Youtube</th>
+      <th>Pagina</th>
+      <th>Perfil</th>
+      <th>Quitar</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tutoriales.each do |tutorial| %>
+      <tr>
+        <td><%= tutorial.tutorial %></td>
+        <td><%= tutorial.youtube_id %></td>
+        <td><%= tutorial.pagina.pagina_completa %></td>
+        <td><%= tutorial.perfil.perfil %></td>
+        <!--td><%= link_to 'Ver', tutorial_path(tutorial) %></td>
+        <td><%= link_to 'Editar', edit_tutorial_path(tutorial) %></td-->
+        <td><%= link_to 'Borrar', tutorial_path(tutorial), method: :delete, data: { confirm: 'Esta seguro?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="col-md-12 text-center">
+    <ul class="pagination pagination-sm pager" id="myPager"></ul>
+  </div>
+

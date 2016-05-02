@@ -1,0 +1,96 @@
+<!--<h1><%= url_form %></h1>-->
+<%= form_for(@persona, url: url_form, id:'persona_form', method: "post", html: { role: "form" }) do |f| %>
+  <% if @persona.errors.any? %>
+    <div id="error_explanation" class="bg-danger">
+      <h3><%= pluralize(@persona.errors.count, "error") %> han impedido guardar la inscripción</h3>
+      <ul>
+      <% @persona.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.hidden_field :id %>
+  <% if !defined?(editar) %>
+  <legend></legend>
+
+  <div class="form-group">
+    <%= f.label :password, "Generar Contraseña" %>
+    <%= f.password_field :password, class: "form-control", placeholder: "Genere su Contraseña"%>
+  </div>
+  <div class="form-group">
+    <%= f.label :password_confirmation, "Confirme su Contraseña" %>
+    <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirme su Contraseña"  %>
+  </div>  
+  <% end %>
+  <div class="actions">
+    <%= f.submit "Generar contraseña", class: "btn btn-success"%>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  var formPersonaController = (function(){
+
+    var valid_passwords = function(password, password_confirmation){
+    	
+    	return  ($("#persona_password").val().length >= 8) && ($("#persona_password_confirmation").val().length >= 8);
+    }
+    
+    var valid_paired_fields = function(triggered, elem_a, elem_b, valid_function){
+      if(valid_function(elem_a.val(), elem_b.val())){
+        triggered.parent().removeClass("has-error").addClass("has-success");
+      }
+      else{
+        triggered.parent().removeClass("has-success").addClass("has-error");
+      }
+    }
+
+    var check_password = function(elem){
+      if (elem.val().length >= 8){
+        elem.parent().removeClass("has-error").addClass("has-success");
+      }
+      else{
+        elem.parent().removeClass("has-success").addClass("has-error");
+      }
+    }
+
+    return{
+      init: function(){
+        // Validacion de check de email
+   
+        $("#persona_password").keyup(function(){
+           check_password($(this));
+          valid_paired_fields($(this), $("#persona_password"),$("#persona_password_confirmation"), valid_passwords);
+        });
+        
+        $("#persona_password_confirmation").keyup(function(){
+          valid_paired_fields($("#persona_password_confirmation"), $("#persona_password"),$("#persona_password_confirmation"), valid_passwords);
+        });
+        $("#edit_persona_<%= @persona.id %>").submit(function(e){
+          var result;
+          console.log("password: "+valid_passwords());
+         
+          if (valid_passwords()== true && ($("#persona_password_confirmation").val()===$("#persona_password").val()) ){
+          	//alert("El formulario no  está completo o existen errores en la información ingresada, por favor validar.");
+            return true;
+           }
+          else{
+           alert("Contraseña de 8 digitos o mayor o las contraseñas no concuerdan, por favor validar.");
+
+            <% if !defined?(editar) %>
+            check_password($("#persona_password"));
+            valid_paired_fields($("#persona_password_confirmation"), $("#persona_password"),$("#persona_password_confirmation"), valid_passwords);
+            <% end %>
+           return false;
+          }
+        });
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
+      }
+    }
+  })();
+
+  $(document).ready(function(){ formPersonaController.init(); });
+
+</script>

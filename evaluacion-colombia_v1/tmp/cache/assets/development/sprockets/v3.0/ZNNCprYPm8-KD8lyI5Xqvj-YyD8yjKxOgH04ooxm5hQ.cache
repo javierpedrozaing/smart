@@ -1,0 +1,42 @@
+I"Z(function() {
+  window.EvaluacionController = {};
+
+  EvaluacionController.evaluaciones = (function() {
+    var metodo_privado, procesar_asignacion;
+    metodo_privado = function(var_x) {
+      return console.log(var_x);
+    };
+    procesar_asignacion = function(data, textStatus, jqXHR) {
+      console.log(data);
+      console.log(textStatus);
+      console.log(jqXHR);
+      return $("#modal-asignacion-evaluacion").modal("hide");
+    };
+    return {
+      init: function() {
+        console.log("Holiwera!");
+        return $(".asignar-evaluacion-modal").click(function() {
+          var trigger;
+          trigger = $(this);
+          $("#modal-asignacion-evaluacion").find("#evaluacion-id").val(trigger.attr("data-evaluacion-id"));
+          $("#modal-asignacion-evaluacion").modal();
+          return $("#modal-asignacion-evaluacion #guardar-guardar-evaluacion").click(function() {
+            var data;
+            data = {
+              evaluador_id: $("#modal-asignacion-evaluacion #select-evaluador-id").val()
+            };
+            return $.post(trigger.attr("data-url"), data, function(data, textStatus, jqXHR) {
+              return procesar_asignacion(data, textStatus, jqXHR);
+            });
+          });
+        });
+      }
+    };
+  })();
+
+  $(document).ready(function() {
+    return EvaluacionController.evaluaciones.init();
+  });
+
+}).call(this);
+:ET

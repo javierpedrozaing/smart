@@ -1,0 +1,18 @@
+<% if persona_signed_in? %>
+  <li class="dropdown" style="background-color: #FFCF00;">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_persona.nombre %><i class="fa fa-user fa-lg fa-fw"></i><span class="caret"></span></a>
+    <ul class="dropdown-menu">
+      <!--<li><%= link_to "Perfil", cuenta_editar_cuenta_path %></li>-->
+      <li role="separator" class="divider"></li>
+      <li><%= link_to "Cambiar contraseña", edit_persona_registration_path%></li>
+      <li role="separator" class="divider"></li>
+      <li>
+        <%= link_to destroy_persona_session_path, :method => :delete do %>
+          <i class="fa fa-times-circle-o fa-fw" style="color:#0077A8;"></i> Cerrar
+        <% end %>
+      </li>
+    </ul>
+  </li>
+<% else %>
+  <li><%= link_to "Iniciar sesión", new_persona_session_path %></li>
+<% end %>

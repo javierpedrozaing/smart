@@ -1,0 +1,38 @@
+<%= form_for(@pregunta) do |f| %>
+  <% if @pregunta.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@pregunta.errors.count, "error") %> prohibido que esta pregunta se guarden:</h2>
+
+      <ul>
+      <% @pregunta.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+   <div class="field">
+    <%= f.label :grilla_id %><br>
+    <%= select_tag 'pregunta[grilla_id]', options_for_select(@grilla.collect{ |u| [u.grilla, u.id] }) %>
+  </div>
+   <!--div class="field">
+    <%= f.label :grilla_id %><br>
+    <%= f.text_field :grilla_id %>
+  </div -->
+
+  <div class="field">
+    <%= f.label :pregunta %><br>
+    <%= f.text_area :pregunta %>
+  </div>
+  
+   <div class="field">
+    <%= f.label 'alternativa' %><br>
+    <a href="#" id='alternativas_insertar'>Agregar Alternativas</a>
+     <div id="alternativas_campos"> </div>
+    
+  </div>
+  
+  <div class="actions">
+    <%= f.submit "Generar acción" %>
+  </div>
+<% end %>
+

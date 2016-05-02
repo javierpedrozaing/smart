@@ -1,0 +1,44 @@
+<!--<h1>Estadisticas#admin_evaluador_videos</h1>
+<p>Find me in app/views/estadisticas/admin_evaluador_videos.html.erb</p>
+Videos en cola por corregir<br />
+Videos revisados-->
+<div class="panel panel-primary">
+            <div class="panel-heading">
+            <h3 class="panel-title">Estadísticas Admin Evaluador Videos</h3>
+          </div>
+          <div class="panel-body">            
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="table-responsive" style="margin-top: 20px; margin-bottom: 20px;">
+                <table class="table table-bordered table-hover ">         
+                  <thead>                    
+                      <tr><th>Videos Cargados</th>
+                      <th>Videos Evaluados</th>
+                      <th>Evaluaciones Finalizadas</th>
+                      <th>Videos Reportados</th>
+                      <th>Decargar</th>                  
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="evaluados1">
+                      <td><%= @videos_cargados %></td>
+                      <td>1212</td>
+                      <td><%= @evaluaciones_finalizadas %></td>
+                      <td><%= @videos_reportados[0].total %></td>
+                      <td>
+                        <div class="row ">
+                        <div class="col-md-12 ">
+                          <button type="button" class="btn btn-success btn-xs" style="font-size:14px;"> <i class="fa fa-file-pdf-o"></i><%= link_to 'Excel', estadisticas_admin_evaluados_csv_path(format: :csv), :class => "button_download" %></button>
+                        </div>    
+                        </div>
+                      </td>     
+                    </tr>                
+                     
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+          
+        </div>

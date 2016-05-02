@@ -1,0 +1,219 @@
+<!--<h1><%= url_form %></h1>-->
+<%= form_for(@persona, url: url_form, id:'persona_form', method: "post", html: { role: "form" }) do |f| %>
+  <% if @persona.errors.any? %>
+    <div id="error_explanation" class="bg-danger">
+      <h3><%= pluralize(@persona.errors.count, "error") %> han impedido guardar la inscripción</h3>
+      <ul>
+      <% @persona.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.hidden_field :id %>
+  <div class="form-group">
+    <%= f.label :nombre, "NOMBRE" %>
+    <%= f.text_field :nombre, class: "form-control", readonly: true, title: "Este campo no es editable" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :apellido_paterno, "APELLIDOS" %>
+    <%= f.text_field :apellido_paterno, class: "form-control", readonly: true, title: "Este campo no es editable" %>
+  </div>
+  <!--div class="form-group">
+    <%= f.label :apellido_materno, "SEGUNDO APELLIDO" %>
+    <%= f.text_field :apellido_materno, class: "form-control", readonly: true %>
+  </div-->
+  <div class="form-group">
+    <%= f.label :tipo_documento_id, "TIPO DE DOCUMENTO" %>
+    <%= f.select :tipo_documento_id, TipoDocumento.all.collect {|a| [a.documento, a.id]}, {}, { class: "form-control", disabled: "disabled", title: "Este campo no es editable"} %>
+  </div>
+  <div class="form-group">
+    <%= f.label :documento, "NÚMERO DE DOCUMENTO" %>
+    <%= f.text_field :documento, class: "form-control", readonly: true, title: "Este campo no es editable" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :direccion, "INGRESE SU DIRECCIÓN *"%>
+    <%= f.text_field :direccion, class: "form-control" , title: "Este campo es obligatorio" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :telefono, "TELÉFONO *"%>
+    <%= f.text_field :telefono, class: "form-control" , title: "Este campo es obligatorio"%>
+  </div>
+  <div class="form-group">
+    <%= f.label :celular, "CELULAR *"%>
+    <%= f.text_field :celular, class: "form-control" , title: "Este campo es obligatorio"%>
+  </div>
+  <div class="form-group" >
+    <%= f.label :email, "CORREO ELECTRÓNICO" %>
+    <div class="input-group">
+      <%= f.text_field :email, class: "form-control" %>
+      <div class="input-group-addon" data-toggle="tooltip" data-placement="top" title="Éste será el correo que usaremos para contactarte durante todo el proceso" type="button">
+        <span class="glyphicon glyphicon-alert"></span>
+      </div>
+    </div>
+  </div>
+  <div id="confirma-email" class="form-group">
+    <label>CONFIRME SU CORREO ELECTRÓNICO</label>
+    <input class="form-control" type="email" />
+  </div>
+    <%= f.hidden_field :consentimiento%>
+  
+  <% if !defined?(editar) %>
+  <legend></legend>
+  <h4>Datos para el inicio de sesión:</h4>
+  <div class="form-group">
+    <%= f.label :password, "CONTRASEÑA" %>
+    <%= f.password_field :password, class: "form-control", placeholder: "Contraseña de 8 caracteres mínimo"%>
+  </div>
+  <div class="form-group">
+    <%= f.label :password_confirmation, "CONFIRMAR CONTRASEÑA" %>
+    <%= f.password_field :password_confirmation, class: "form-control" %>
+  </div>  
+  <% end %>
+  <div class="actions">
+    <%= f.submit "Guardar información personal", class: "btn btn-success"%>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  var formPersonaController = (function(){
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    
+    var valid_confirma_email = function(email_user, email_confirmacion){
+      return re.test(email_user) && (email_user === email_confirmacion);
+    }
+
+    var valid_email = function(email){
+      if(re.test(email.val())){
+        email.parent().removeClass("has-error").addClass("has-success");
+      }
+      else{
+        email.parent().removeClass("has-error").addClass("has-success");
+      }
+    }
+
+    var valid_passwords = function(password, password_confirmation){
+      return password_confirmation === password && ($("#persona_password").val().length >= 8);
+    }
+    var valid_telefono = function(){
+      return $("#persona_telefono").val().length >= 1;
+    }
+    var valid_celular = function(){
+      return $("#persona_celular").val().length >= 1;
+    }
+    var valid_direccion = function(){
+      return $("#persona_direccion").val().length >= 1;
+    }
+    var valid_paired_fields = function(triggered, elem_a, elem_b, valid_function){
+      if(valid_function(elem_a.val(), elem_b.val())){
+        triggered.parent().removeClass("has-error").addClass("has-success");
+      }
+      else{
+        triggered.parent().removeClass("has-success").addClass("has-error");
+      }
+    }
+
+    var check_password = function(elem){
+      if (elem.val().length >= 8){
+        elem.parent().removeClass("has-error").addClass("has-success");
+      }
+      else{
+        elem.parent().removeClass("has-success").addClass("has-error");
+      }
+    }
+    var check_telefono = function(elem){
+      if (elem.val().length >= 1){
+        elem.parent().removeClass("has-error").addClass("has-success");
+      }
+      else{
+        elem.parent().removeClass("has-success").addClass("has-error");
+      }
+    }
+    var check_celular = function(elem){
+      if (elem.val().length >= 1){
+        elem.parent().removeClass("has-error").addClass("has-success");
+      }
+      else{
+        elem.parent().removeClass("has-success").addClass("has-error");
+      }
+    }
+    var check_direccion = function(elem){
+      if (elem.val().length >= 1){
+        elem.parent().removeClass("has-error").addClass("has-success");
+      }
+      else{
+        elem.parent().removeClass("has-success").addClass("has-error");
+      }
+    }
+    return{
+      init: function(){
+        // Validacion de check de email
+        $("#confirma-email input").keyup(function(){ 
+          valid_paired_fields($(this), $("#persona_email"),$("#confirma-email input"), valid_confirma_email);
+        });
+        $("#persona_email").keyup(function(){
+          valid_email($("#persona_email"));
+          valid_paired_fields($("#confirma-email input"), $("#persona_email"),$("#confirma-email input"), valid_confirma_email);
+        })
+        $("#persona_password").keyup(function(){
+          check_password($(this));
+          valid_paired_fields($(this), $("#persona_password"),$("#persona_password_confirmation"), valid_passwords);
+        });
+        $("#persona_telefono").keyup(function(){
+          check_telefono($(this));
+          //valid_paired_fields($(this), $("#persona_password"),$("#persona_password_confirmation"), valid_passwords);
+        });
+        $("#persona_celular").keyup(function(){
+          check_celular($(this));
+          //valid_paired_fields($(this), $("#persona_password"),$("#persona_password_confirmation"), valid_passwords);
+        });
+        $("#persona_direccion").keyup(function(){
+          check_direccion($(this));
+        });
+        $("#persona_password_confirmation").keyup(function(){
+          valid_paired_fields($("#persona_password_confirmation"), $("#persona_password"),$("#persona_password_confirmation"), valid_passwords);
+        });
+        $("#edit_persona_<%= @persona.id %>").submit(function(e){
+          var result;
+          console.log("Valid_telefono: "+valid_telefono());
+          //return false;
+          if (valid_confirma_email($("#persona_email").val() ,$("#confirma-email input").val()) && valid_telefono() && valid_celular() && valid_direccion() ){
+            return true;
+          }
+          else{
+            alert("El formulario no  está completo o existen errores en la información ingresada, por favor validar.");
+            valid_email($("#persona_email"));
+            valid_paired_fields($("#confirma-email input"), $("#persona_email"),$("#confirma-email input"), valid_confirma_email);
+            check_telefono($("#persona_telefono"));
+            check_celular($("#persona_celular"));
+            check_direccion($("#persona_direccion"));
+            <% if !defined?(editar) %>
+            check_password($("#persona_password"));
+            valid_paired_fields($("#persona_password_confirmation"), $("#persona_password"),$("#persona_password_confirmation"), valid_passwords);
+            <% end %>
+            return false;
+          }
+        });
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
+      }
+    }
+  })();
+/*  
+jQuery.validator.setDefaults({
+  debug: true,
+  success: "valid"
+});
+$( "#edit_persona_23" ).validate({
+  rules: {
+    "persona_telefono": {
+      required: true,
+      minlength: 3
+    }
+  }
+});
+*/
+  $(document).ready(function(){ formPersonaController.init(); });
+
+</script>
